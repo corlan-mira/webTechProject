@@ -1,31 +1,31 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create attendance table
-     * 
-     * Records participant check-ins at events
-     * Supports both registered users and anonymous participants
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - event_id: FK to Event
-     * - participant_id: FK to User (optional, NULL for anonymous check-ins)
-     * - timestamp: Exact check-in timestamp
-     * - created_at: Record creation timestamp
-     * - updated_at: Record update timestamp
-     */
+    /
+      Migration: Create attendance table
+      
+      Records participant check-ins at events
+      Supports both registered users and anonymous participants
+      
+      Columns:
+      - id: UUID primary key
+      - event_id: FK to Event
+      - participant_id: FK to User (optional, NULL for anonymous check-ins)
+      - timestamp: Exact check-in timestamp
+      - created_at: Record creation timestamp
+      - updated_at: Record update timestamp
+     /
     await queryInterface.createTable(
       'attendance',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique attendance record identifier (UUID v4)',
+          comment: 'Unique attendance record identifier (UUID v)',
         },
         event_id: {
           type: Sequelize.UUID,
@@ -68,8 +68,8 @@ module.exports = {
       },
       {
         comment: 'Records of participant check-ins at events',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -96,9 +96,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop attendance table
-     */
+    /
+      Rollback: Drop attendance table
+     /
     await queryInterface.dropTable('attendance');
   },
 };

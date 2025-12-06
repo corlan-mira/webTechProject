@@ -1,276 +1,276 @@
-# 📅 Project Plan - Event Attendance Monitoring System
+  Project Plan - Event Attendance Monitoring System
 
-## Gantt-Style Project Schedule
+ Gantt-Style Project Schedule
 
-**Project Duration:** November 2, 2025 - December 6, 2025 (5 weeks)  
-**Total Project Days:** 35 working days  
-**Phases:** Phase 1 (2 weeks), Phase 2 (3 weeks), Final Demo (Last tutorial)
+Project Duration: November ,  - December ,  ( weeks)  
+Total Project Days:  working days  
+Phases: Phase  ( weeks), Phase  ( weeks), Final Demo (Last tutorial)
 
 ---
 
-## Task Breakdown & Timeline
+ Task Breakdown & Timeline
 
-### Phase 1: Foundation & Core Features (November 2-16, 2025)
+ Phase : Foundation & Core Features (November -, )
 
-| # | Task | Description | Duration | Start Date | End Date | Deadline | Status |
+|  | Task | Description | Duration | Start Date | End Date | Deadline | Status |
 |---|------|-------------|----------|-----------|----------|----------|--------|
-| **1.1** | **Project Analysis & Setup** | Review requirements, setup repositories, initialize projects | 1 day | Nov 2 | Nov 2 | Nov 2 | ✅ |
-| 1.1.1 | Requirements Review | Analyze Phase 1 specification requirements | 0.5 day | Nov 2 | Nov 2 | Nov 2 | ✅ |
-| 1.1.2 | Repository Setup | Create git repository, initialize folders | 0.5 day | Nov 2 | Nov 2 | Nov 2 | ✅ |
-| **1.2** | **System Architecture Design** | Design three-tier architecture, data flows, component structure | 2 days | Nov 3 | Nov 4 | Nov 4 | ✅ |
-| 1.2.1 | Architecture Diagram | Create three-tier architecture visualization | 1 day | Nov 3 | Nov 3 | Nov 3 | ✅ |
-| 1.2.2 | Data Flow Design | Document system data flows (3 scenarios) | 1 day | Nov 4 | Nov 4 | Nov 4 | ✅ |
-| **1.3** | **Database Schema Design** | Design 4 normalized tables, relationships, indices | 2 days | Nov 5 | Nov 6 | Nov 6 | ✅ |
-| 1.3.1 | Entity Design | Define users, event_groups, events, check_ins tables | 1 day | Nov 5 | Nov 5 | Nov 5 | ✅ |
-| 1.3.2 | ER Diagram & Indices | Create ER diagram, plan 8 indices | 1 day | Nov 6 | Nov 6 | Nov 6 | ✅ |
-| **1.4** | **API Specification** | Design 18 REST endpoints with documentation | 2 days | Nov 7 | Nov 8 | Nov 8 | ✅ |
-| 1.4.1 | Endpoint Design | Design 18 endpoints (auth, groups, events, check-in, export) | 1 day | Nov 7 | Nov 7 | Nov 7 | ✅ |
-| 1.4.2 | Request/Response Specs | Document all requests, responses, validation | 1 day | Nov 8 | Nov 8 | Nov 8 | ✅ |
-| **1.5** | **External Service Integration Planning** | Plan QRServer API integration, fallback strategy | 1 day | Nov 9 | Nov 9 | Nov 9 | ✅ |
-| 1.5.1 | QRServer Integration | Document QRServer API endpoints, rate limiting | 1 day | Nov 9 | Nov 9 | Nov 9 | ✅ |
-| **1.6** | **Backend Development** | Implement Node.js/Express API | 5 days | Nov 10 | Nov 14 | Nov 14 | ✅ |
-| 1.6.1 | Project Setup | Initialize Express, configure dependencies | 0.5 day | Nov 10 | Nov 10 | Nov 10 | ✅ |
-| 1.6.2 | Database Models | Create Sequelize models (4 tables) | 1 day | Nov 10 | Nov 10 | Nov 10 | ✅ |
-| 1.6.3 | Authentication API | Implement register/login endpoints | 1 day | Nov 11 | Nov 11 | Nov 11 | ✅ |
-| 1.6.4 | Event Management API | Implement event group & event CRUD | 1 day | Nov 12 | Nov 12 | Nov 12 | ✅ |
-| 1.6.5 | Check-In API | Implement text check-in & attendance endpoints | 1 day | Nov 13 | Nov 13 | Nov 13 | ✅ |
-| 1.6.6 | Export API | Implement CSV export endpoint | 0.5 day | Nov 14 | Nov 14 | Nov 14 | ✅ |
-| **1.7** | **Frontend Development** | Implement React SPA | 4 days | Nov 10 | Nov 13 | Nov 13 | ✅ |
-| 1.7.1 | Project Setup | Initialize React, setup routing | 0.5 day | Nov 10 | Nov 10 | Nov 10 | ✅ |
-| 1.7.2 | Auth Components | Create login, register forms | 1 day | Nov 11 | Nov 11 | Nov 11 | ✅ |
-| 1.7.3 | EO Dashboard | Create event group & event management UI | 1.5 days | Nov 12 | Nov 12 | Nov 12 | ✅ |
-| 1.7.4 | Check-In Portal | Create participant check-in interface | 1 day | Nov 13 | Nov 13 | Nov 13 | ✅ |
-| **1.8** | **Integration Testing** | Test backend-frontend integration | 2 days | Nov 14 | Nov 15 | Nov 15 | ✅ |
-| 1.8.1 | API Testing | Test all 18 endpoints with Postman | 1 day | Nov 14 | Nov 14 | Nov 14 | ✅ |
-| 1.8.2 | End-to-End Testing | Test full workflows (create event, check-in, export) | 1 day | Nov 15 | Nov 15 | Nov 15 | ✅ |
-| **1.9** | **Documentation** | Write setup, API, architecture, database docs | 1 day | Nov 16 | Nov 16 | Nov 16 | ✅ |
-| 1.9.1 | Technical Docs | Document API, architecture, database | 0.5 day | Nov 16 | Nov 16 | Nov 16 | ✅ |
-| 1.9.2 | Setup Guide | Write environment setup instructions | 0.5 day | Nov 16 | Nov 16 | Nov 16 | ✅ |
+| . | Project Analysis & Setup | Review requirements, setup repositories, initialize projects |  day | Nov  | Nov  | Nov  |  |
+| .. | Requirements Review | Analyze Phase  specification requirements | . day | Nov  | Nov  | Nov  |  |
+| .. | Repository Setup | Create git repository, initialize folders | . day | Nov  | Nov  | Nov  |  |
+| . | System Architecture Design | Design three-tier architecture, data flows, component structure |  days | Nov  | Nov  | Nov  |  |
+| .. | Architecture Diagram | Create three-tier architecture visualization |  day | Nov  | Nov  | Nov  |  |
+| .. | Data Flow Design | Document system data flows ( scenarios) |  day | Nov  | Nov  | Nov  |  |
+| . | Database Schema Design | Design  normalized tables, relationships, indices |  days | Nov  | Nov  | Nov  |  |
+| .. | Entity Design | Define users, event_groups, events, check_ins tables |  day | Nov  | Nov  | Nov  |  |
+| .. | ER Diagram & Indices | Create ER diagram, plan  indices |  day | Nov  | Nov  | Nov  |  |
+| . | API Specification | Design  REST endpoints with documentation |  days | Nov  | Nov  | Nov  |  |
+| .. | Endpoint Design | Design  endpoints (auth, groups, events, check-in, export) |  day | Nov  | Nov  | Nov  |  |
+| .. | Request/Response Specs | Document all requests, responses, validation |  day | Nov  | Nov  | Nov  |  |
+| . | External Service Integration Planning | Plan QRServer API integration, fallback strategy |  day | Nov  | Nov  | Nov  |  |
+| .. | QRServer Integration | Document QRServer API endpoints, rate limiting |  day | Nov  | Nov  | Nov  |  |
+| . | Backend Development | Implement Node.js/Express API |  days | Nov  | Nov  | Nov  |  |
+| .. | Project Setup | Initialize Express, configure dependencies | . day | Nov  | Nov  | Nov  |  |
+| .. | Database Models | Create Sequelize models ( tables) |  day | Nov  | Nov  | Nov  |  |
+| .. | Authentication API | Implement register/login endpoints |  day | Nov  | Nov  | Nov  |  |
+| .. | Event Management API | Implement event group & event CRUD |  day | Nov  | Nov  | Nov  |  |
+| .. | Check-In API | Implement text check-in & attendance endpoints |  day | Nov  | Nov  | Nov  |  |
+| .. | Export API | Implement CSV export endpoint | . day | Nov  | Nov  | Nov  |  |
+| . | Frontend Development | Implement React SPA |  days | Nov  | Nov  | Nov  |  |
+| .. | Project Setup | Initialize React, setup routing | . day | Nov  | Nov  | Nov  |  |
+| .. | Auth Components | Create login, register forms |  day | Nov  | Nov  | Nov  |  |
+| .. | EO Dashboard | Create event group & event management UI | . days | Nov  | Nov  | Nov  |  |
+| .. | Check-In Portal | Create participant check-in interface |  day | Nov  | Nov  | Nov  |  |
+| . | Integration Testing | Test backend-frontend integration |  days | Nov  | Nov  | Nov  |  |
+| .. | API Testing | Test all  endpoints with Postman |  day | Nov  | Nov  | Nov  |  |
+| .. | End-to-End Testing | Test full workflows (create event, check-in, export) |  day | Nov  | Nov  | Nov  |  |
+| . | Documentation | Write setup, API, architecture, database docs |  day | Nov  | Nov  | Nov  |  |
+| .. | Technical Docs | Document API, architecture, database | . day | Nov  | Nov  | Nov  |  |
+| .. | Setup Guide | Write environment setup instructions | . day | Nov  | Nov  | Nov  |  |
 
 ---
 
-### Phase 2: Advanced Features & Polish (November 17 - December 6, 2025)
+ Phase : Advanced Features & Polish (November  - December , )
 
-| # | Task | Description | Duration | Start Date | End Date | Deadline | Status |
+|  | Task | Description | Duration | Start Date | End Date | Deadline | Status |
 |---|------|-------------|----------|-----------|----------|----------|--------|
-| **2.1** | **QR Code Integration** | Implement QR code generation and scanning | 3 days | Nov 17 | Nov 19 | Nov 19 | 🔄 |
-| 2.1.1 | QR Generation Backend | Implement QRServer API integration | 1 day | Nov 17 | Nov 17 | Nov 17 | 🔄 |
-| 2.1.2 | QR Scanning Frontend | Implement html5-qrcode library | 1 day | Nov 18 | Nov 18 | Nov 18 | 🔄 |
-| 2.1.3 | QR Code Endpoint | Implement QR-based check-in API | 1 day | Nov 19 | Nov 19 | Nov 19 | 🔄 |
-| **2.2** | **Export Enhancement** | Add XLSX export, advanced filtering | 2 days | Nov 20 | Nov 21 | Nov 21 | ⏳ |
-| 2.2.1 | XLSX Export API | Implement Excel export with formatting | 1 day | Nov 20 | Nov 20 | Nov 20 | ⏳ |
-| 2.2.2 | Filtering & Search | Add attendance filtering, search functionality | 1 day | Nov 21 | Nov 21 | Nov 21 | ⏳ |
-| **2.3** | **UI/UX Refinement** | Polish design, improve responsiveness, accessibility | 3 days | Nov 22 | Nov 24 | Nov 24 | ⏳ |
-| 2.3.1 | Responsive Design | Ensure mobile-friendly, tablet support | 1 day | Nov 22 | Nov 22 | Nov 22 | ⏳ |
-| 2.3.2 | Dark Mode | Optional dark mode support | 1 day | Nov 23 | Nov 23 | Nov 23 | ⏳ |
-| 2.3.3 | Accessibility | WCAG 2.1 AA compliance | 1 day | Nov 24 | Nov 24 | Nov 24 | ⏳ |
-| **2.4** | **Testing & QA** | Unit tests, integration tests, performance testing | 4 days | Nov 25 | Nov 28 | Nov 28 | ⏳ |
-| 2.4.1 | Backend Unit Tests | Write Jest tests for services | 1 day | Nov 25 | Nov 25 | Nov 25 | ⏳ |
-| 2.4.2 | Frontend Unit Tests | Write React component tests | 1 day | Nov 26 | Nov 26 | Nov 26 | ⏳ |
-| 2.4.3 | Integration Tests | End-to-end API tests | 1 day | Nov 27 | Nov 27 | Nov 27 | ⏳ |
-| 2.4.4 | Performance Testing | Load testing, optimization | 1 day | Nov 28 | Nov 28 | Nov 28 | ⏳ |
-| **2.5** | **Deployment Preparation** | Setup CI/CD, environment configs, deployment guides | 3 days | Nov 29 | Dec 1 | Dec 1 | ⏳ |
-| 2.5.1 | Environment Config | Setup production, staging environments | 1 day | Nov 29 | Nov 29 | Nov 29 | ⏳ |
-| 2.5.2 | CI/CD Pipeline | Setup GitHub Actions or similar | 1 day | Nov 30 | Nov 30 | Nov 30 | ⏳ |
-| 2.5.3 | Deployment Guide | Document 4 deployment options | 1 day | Dec 1 | Dec 1 | Dec 1 | ⏳ |
-| **2.6** | **Code Review & Final QA** | Peer review, bug fixes, final verification | 2 days | Dec 2 | Dec 3 | Dec 3 | ⏳ |
-| 2.6.1 | Code Review | Team code review of all changes | 1 day | Dec 2 | Dec 2 | Dec 2 | ⏳ |
-| 2.6.2 | Bug Fixes | Address review feedback, fix issues | 1 day | Dec 3 | Dec 3 | Dec 3 | ⏳ |
-| **2.7** | **Demo Preparation** | Prepare slides, demo scripts, documentation | 2 days | Dec 4 | Dec 5 | Dec 5 | ⏳ |
-| 2.7.1 | Demo Materials | Create presentation slides | 1 day | Dec 4 | Dec 4 | Dec 4 | ⏳ |
-| 2.7.2 | Demo Script | Write walkthrough scenarios | 1 day | Dec 5 | Dec 5 | Dec 5 | ⏳ |
-| **2.8** | **Final Deployment** | Deploy to staging/production | 0.5 day | Dec 6 | Dec 6 | Dec 6 | ⏳ |
-| 2.8.1 | Staging Deploy | Deploy to staging environment | 0.25 day | Dec 6 | Dec 6 | Dec 6 | ⏳ |
-| 2.8.2 | Production Ready | Verify production deployment | 0.25 day | Dec 6 | Dec 6 | Dec 6 | ⏳ |
+| . | QR Code Integration | Implement QR code generation and scanning |  days | Nov  | Nov  | Nov  |  |
+| .. | QR Generation Backend | Implement QRServer API integration |  day | Nov  | Nov  | Nov  |  |
+| .. | QR Scanning Frontend | Implement html-qrcode library |  day | Nov  | Nov  | Nov  |  |
+| .. | QR Code Endpoint | Implement QR-based check-in API |  day | Nov  | Nov  | Nov  |  |
+| . | Export Enhancement | Add XLSX export, advanced filtering |  days | Nov  | Nov  | Nov  |  |
+| .. | XLSX Export API | Implement Excel export with formatting |  day | Nov  | Nov  | Nov  |  |
+| .. | Filtering & Search | Add attendance filtering, search functionality |  day | Nov  | Nov  | Nov  |  |
+| . | UI/UX Refinement | Polish design, improve responsiveness, accessibility |  days | Nov  | Nov  | Nov  |  |
+| .. | Responsive Design | Ensure mobile-friendly, tablet support |  day | Nov  | Nov  | Nov  |  |
+| .. | Dark Mode | Optional dark mode support |  day | Nov  | Nov  | Nov  |  |
+| .. | Accessibility | WCAG . AA compliance |  day | Nov  | Nov  | Nov  |  |
+| . | Testing & QA | Unit tests, integration tests, performance testing |  days | Nov  | Nov  | Nov  |  |
+| .. | Backend Unit Tests | Write Jest tests for services |  day | Nov  | Nov  | Nov  |  |
+| .. | Frontend Unit Tests | Write React component tests |  day | Nov  | Nov  | Nov  |  |
+| .. | Integration Tests | End-to-end API tests |  day | Nov  | Nov  | Nov  |  |
+| .. | Performance Testing | Load testing, optimization |  day | Nov  | Nov  | Nov  |  |
+| . | Deployment Preparation | Setup CI/CD, environment configs, deployment guides |  days | Nov  | Dec  | Dec  |  |
+| .. | Environment Config | Setup production, staging environments |  day | Nov  | Nov  | Nov  |  |
+| .. | CI/CD Pipeline | Setup GitHub Actions or similar |  day | Nov  | Nov  | Nov  |  |
+| .. | Deployment Guide | Document  deployment options |  day | Dec  | Dec  | Dec  |  |
+| . | Code Review & Final QA | Peer review, bug fixes, final verification |  days | Dec  | Dec  | Dec  |  |
+| .. | Code Review | Team code review of all changes |  day | Dec  | Dec  | Dec  |  |
+| .. | Bug Fixes | Address review feedback, fix issues |  day | Dec  | Dec  | Dec  |  |
+| . | Demo Preparation | Prepare slides, demo scripts, documentation |  days | Dec  | Dec  | Dec  |  |
+| .. | Demo Materials | Create presentation slides |  day | Dec  | Dec  | Dec  |  |
+| .. | Demo Script | Write walkthrough scenarios |  day | Dec  | Dec  | Dec  |  |
+| . | Final Deployment | Deploy to staging/production | . day | Dec  | Dec  | Dec  |  |
+| .. | Staging Deploy | Deploy to staging environment | . day | Dec  | Dec  | Dec  |  |
+| .. | Production Ready | Verify production deployment | . day | Dec  | Dec  | Dec  |  |
 
 ---
 
-### Final Demo & Presentation (Last Tutorial Session)
+ Final Demo & Presentation (Last Tutorial Session)
 
-| # | Task | Description | Duration | Scheduled | Deadline | Status |
+|  | Task | Description | Duration | Scheduled | Deadline | Status |
 |---|------|-------------|----------|-----------|----------|--------|
-| **3.1** | **Final Demo** | Live demonstration of all features | 1 day | TBD | Last Tutorial | 📅 |
-| 3.1.1 | Feature Walkthrough | Demonstrate all Phase 1 & 2 features | 0.5 day | TBD | TBD | 📅 |
-| 3.1.2 | Architecture Review | Present system design & decisions | 0.25 day | TBD | TBD | 📅 |
-| 3.1.3 | Q&A Session | Answer questions, discuss challenges | 0.25 day | TBD | TBD | 📅 |
+| . | Final Demo | Live demonstration of all features |  day | TBD | Last Tutorial |  |
+| .. | Feature Walkthrough | Demonstrate all Phase  &  features | . day | TBD | TBD |  |
+| .. | Architecture Review | Present system design & decisions | . day | TBD | TBD |  |
+| .. | Q&A Session | Answer questions, discuss challenges | . day | TBD | TBD |  |
 
 ---
 
-## Detailed Gantt Chart
+ Detailed Gantt Chart
 
 ```
-PHASE 1: FOUNDATION & CORE FEATURES (Nov 2-16)
+PHASE : FOUNDATION & CORE FEATURES (Nov -)
 ═════════════════════════════════════════════════════════
 
-Week 1 (Nov 2-6)
-├─ Nov 2: 1.1 Analysis & Setup          ███
-├─ Nov 3-4: 1.2 Architecture Design     ███████
-├─ Nov 5-6: 1.3 Database Schema         ███████
-└─ (Parallel work during week 1)
+Week  (Nov -)
+├─ Nov : . Analysis & Setup          ███
+├─ Nov -: . Architecture Design     ███████
+├─ Nov -: . Database Schema         ███████
+└─ (Parallel work during week )
 
-Week 2 (Nov 9-16)
-├─ Nov 7-8: 1.4 API Specification       ███████
-├─ Nov 9: 1.5 External Service Planning ███
-├─ Nov 10-14: 1.6 Backend Development   ███████████
-├─ Nov 10-13: 1.7 Frontend Development  ████████
-├─ Nov 14-15: 1.8 Integration Testing   ███████
-└─ Nov 16: 1.9 Documentation            ███
+Week  (Nov -)
+├─ Nov -: . API Specification       ███████
+├─ Nov : . External Service Planning ███
+├─ Nov -: . Backend Development   ███████████
+├─ Nov -: . Frontend Development  ████████
+├─ Nov -: . Integration Testing   ███████
+└─ Nov : . Documentation            ███
 
-PHASE 2: ADVANCED FEATURES & POLISH (Nov 17-Dec 6)
+PHASE : ADVANCED FEATURES & POLISH (Nov -Dec )
 ═════════════════════════════════════════════════════════
 
-Week 3 (Nov 17-23)
-├─ Nov 17-19: 2.1 QR Integration        ███████
-├─ Nov 20-21: 2.2 Export Enhancement    ███████
-└─ Nov 22-24: 2.3 UI/UX Refinement      ███████
+Week  (Nov -)
+├─ Nov -: . QR Integration        ███████
+├─ Nov -: . Export Enhancement    ███████
+└─ Nov -: . UI/UX Refinement      ███████
 
-Week 4 (Nov 24-30)
-├─ Nov 25-28: 2.4 Testing & QA          ████████████
-└─ Nov 29-Dec 1: 2.5 Deployment Prep    ███████
+Week  (Nov -)
+├─ Nov -: . Testing & QA          ████████████
+└─ Nov -Dec : . Deployment Prep    ███████
 
-Week 5 (Dec 2-6)
-├─ Dec 2-3: 2.6 Code Review & QA        ███████
-├─ Dec 4-5: 2.7 Demo Preparation       ███████
-└─ Dec 6: 2.8 Final Deployment          ███
+Week  (Dec -)
+├─ Dec -: . Code Review & QA        ███████
+├─ Dec -: . Demo Preparation       ███████
+└─ Dec : . Final Deployment          ███
 
 FINAL DEMO
 ═════════════════════════════════════════════════════════
-└─ Last Tutorial: 3.1 Final Demo         ███
+└─ Last Tutorial: . Final Demo         ███
 ```
 
 ---
 
-## Task Dependencies & Critical Path
+ Task Dependencies & Critical Path
 
-### Phase 1 Dependencies
+ Phase  Dependencies
 
 ```
-1.1 Setup
+. Setup
    ↓
-1.2 Architecture Design
+. Architecture Design
    ↓
-1.3 Database Schema ←─────→ 1.4 API Specification ←─────→ 1.5 External Service
+. Database Schema ←─────→ . API Specification ←─────→ . External Service
    ↓                              ↓                              ↓
-   └─→ 1.6 Backend Dev  ←────────┘                             ↓
+   └─→ . Backend Dev  ←────────┘                             ↓
         ↓                                                       ↓
-        └─→ 1.8 Integration Testing
+        └─→ . Integration Testing
             ↓
-            1.9 Documentation
+            . Documentation
                 ↓
-        [PHASE 1 COMPLETE]
+        [PHASE  COMPLETE]
 
-Parallel Paths (Nov 10-13):
-   1.6 Backend Development (in parallel with)
-   1.7 Frontend Development
+Parallel Paths (Nov -):
+   . Backend Development (in parallel with)
+   . Frontend Development
         ↓
-   Both converge at 1.8 Integration Testing
+   Both converge at . Integration Testing
 ```
 
-### Phase 2 Dependencies
+ Phase  Dependencies
 
 ```
-[Phase 1 Complete]
+[Phase  Complete]
    ↓
-   ├─→ 2.1 QR Integration      ↓
-   ├─→ 2.2 Export Enhancement  ├─→ 2.4 Testing & QA
-   ├─→ 2.3 UI/UX Refinement    ↓
+   ├─→ . QR Integration      ↓
+   ├─→ . Export Enhancement  ├─→ . Testing & QA
+   ├─→ . UI/UX Refinement    ↓
    ↓
-   2.5 Deployment Preparation
+   . Deployment Preparation
    ↓
-   2.6 Code Review & QA
+   . Code Review & QA
    ↓
-   2.7 Demo Preparation
+   . Demo Preparation
    ↓
-   2.8 Final Deployment
+   . Final Deployment
    ↓
-   [PHASE 2 COMPLETE - READY FOR DEMO]
+   [PHASE  COMPLETE - READY FOR DEMO]
 ```
 
-### Critical Path Analysis
+ Critical Path Analysis
 
-**Critical Path (Must Complete On Time):**
-1. 1.1 → 1.2 → 1.3 → 1.4 → 1.5 → 1.6 → 1.8 → 1.9 (Phase 1)
-2. 2.1 → 2.4 → 2.5 → 2.6 → 2.7 → 2.8 (Phase 2)
+Critical Path (Must Complete On Time):
+. . → . → . → . → . → . → . → . (Phase )
+. . → . → . → . → . → . (Phase )
 
-**Buffer Tasks (Flexibility):**
-- 1.7 Frontend Development (can be slightly delayed, parallel with backend)
-- 2.3 UI/UX Refinement (can be optimized if needed)
+Buffer Tasks (Flexibility):
+- . Frontend Development (can be slightly delayed, parallel with backend)
+- . UI/UX Refinement (can be optimized if needed)
 
 ---
 
-## Resource Allocation
+ Resource Allocation
 
-### Phase 1 (2 weeks)
-
-| Role | Task | Allocation | Days |
-|------|------|-----------|------|
-| **Tech Lead** | 1.1, 1.2, 1.3, 1.4, 1.5 | 100% | 10 days |
-| **Backend Dev** | 1.6, 1.8.1 | 100% | 6 days |
-| **Frontend Dev** | 1.7, 1.8.2 | 100% | 5 days |
-| **QA** | 1.8 | 100% | 2 days |
-| **Tech Writer** | 1.9 | 100% | 1 day |
-
-### Phase 2 (3 weeks)
+ Phase  ( weeks)
 
 | Role | Task | Allocation | Days |
 |------|------|-----------|------|
-| **Backend Dev** | 2.1.1, 2.2.1, 2.4.1, 2.4.3 | 80% | 8 days |
-| **Frontend Dev** | 2.1.2, 2.2.2, 2.3, 2.4.2 | 80% | 8 days |
-| **DevOps** | 2.5.2, 2.8 | 100% | 3 days |
-| **Tech Lead** | 2.5.1, 2.5.3, 2.6.1 | 50% | 3 days |
-| **QA** | 2.4.4, 2.6.2 | 100% | 4 days |
-| **Tech Writer** | 2.7 | 100% | 2 days |
+| Tech Lead | ., ., ., ., . | % |  days |
+| Backend Dev | ., .. | % |  days |
+| Frontend Dev | ., .. | % |  days |
+| QA | . | % |  days |
+| Tech Writer | . | % |  day |
+
+ Phase  ( weeks)
+
+| Role | Task | Allocation | Days |
+|------|------|-----------|------|
+| Backend Dev | .., .., .., .. | % |  days |
+| Frontend Dev | .., .., ., .. | % |  days |
+| DevOps | .., . | % |  days |
+| Tech Lead | .., .., .. | % |  days |
+| QA | .., .. | % |  days |
+| Tech Writer | . | % |  days |
 
 ---
 
-## Key Milestones
+ Key Milestones
 
 | Milestone | Date | Deliverable |
 |-----------|------|-------------|
-| **M0: Project Kickoff** | Nov 2 | Repository setup, requirements confirmed |
-| **M1: Architecture Review** | Nov 4 | Architecture diagrams, design approved |
-| **M2: Database Finalized** | Nov 6 | Schema designed, migrations ready |
-| **M3: API Specified** | Nov 8 | 18 endpoints documented, endpoints approved |
-| **M4: Backend Complete** | Nov 14 | All API endpoints functional, tests passing |
-| **M5: Frontend Complete** | Nov 13 | All UI components ready, connected to API |
-| **M6: Phase 1 Complete** | Nov 16 | Core features working, docs complete ✅ |
-| **M7: QR Integrated** | Nov 19 | QR generation & scanning working |
-| **M8: Phase 2 Testing** | Nov 28 | 60%+ test coverage, all tests passing |
-| **M9: Deployment Ready** | Dec 3 | Staging environment verified |
-| **M10: Phase 2 Complete** | Dec 6 | All features complete, production ready |
-| **M11: Final Demo** | Last Tutorial | Live demonstration to instructors |
+| M: Project Kickoff | Nov  | Repository setup, requirements confirmed |
+| M: Architecture Review | Nov  | Architecture diagrams, design approved |
+| M: Database Finalized | Nov  | Schema designed, migrations ready |
+| M: API Specified | Nov  |  endpoints documented, endpoints approved |
+| M: Backend Complete | Nov  | All API endpoints functional, tests passing |
+| M: Frontend Complete | Nov  | All UI components ready, connected to API |
+| M: Phase  Complete | Nov  | Core features working, docs complete  |
+| M: QR Integrated | Nov  | QR generation & scanning working |
+| M: Phase  Testing | Nov  | %+ test coverage, all tests passing |
+| M: Deployment Ready | Dec  | Staging environment verified |
+| M: Phase  Complete | Dec  | All features complete, production ready |
+| M: Final Demo | Last Tutorial | Live demonstration to instructors |
 
 ---
 
-## Timeline Summary
+ Timeline Summary
 
-### Phase 1: November 2-16, 2025 ✅ COMPLETED
-- **Duration:** 15 calendar days (10 working days)
-- **Major Deliverables:**
-  - ✅ Complete specification (120+ pages)
-  - ✅ Architecture documented
-  - ✅ API specification (18 endpoints)
-  - ✅ Database schema designed
-  - ✅ Backend API implemented
-  - ✅ Frontend dashboard implemented
-  - ✅ Text-based check-in working
-  - ✅ CSV export functional
-  - ✅ Comprehensive documentation
+ Phase : November -,   COMPLETED
+- Duration:  calendar days ( working days)
+- Major Deliverables:
+  -  Complete specification (+ pages)
+  -  Architecture documented
+  -  API specification ( endpoints)
+  -  Database schema designed
+  -  Backend API implemented
+  -  Frontend dashboard implemented
+  -  Text-based check-in working
+  -  CSV export functional
+  -  Comprehensive documentation
 
-### Phase 2: November 17 - December 6, 2025 🔄 IN PROGRESS
-- **Duration:** 20 calendar days (15 working days)
-- **Major Deliverables:**
-  - 🔄 QR code generation & scanning
-  - 🔄 XLSX export format
-  - 🔄 Advanced filtering & search
-  - 🔄 UI/UX polish & responsive design
-  - ⏳ Comprehensive test suite (60%→80%)
-  - ⏳ Deployment automation & guides
-  - ⏳ Production-ready application
+ Phase : November  - December ,   IN PROGRESS
+- Duration:  calendar days ( working days)
+- Major Deliverables:
+  -  QR code generation & scanning
+  -  XLSX export format
+  -  Advanced filtering & search
+  -  UI/UX polish & responsive design
+  -  Comprehensive test suite (%→%)
+  -  Deployment automation & guides
+  -  Production-ready application
 
-### Final Demo: Last Tutorial Session 📅
-- **Duration:** 1 session
-- **Activities:**
+ Final Demo: Last Tutorial Session 
+- Duration:  session
+- Activities:
   - Live demonstration of all features
   - Architecture & design review
   - Q&A session
@@ -278,7 +278,7 @@ Parallel Paths (Nov 10-13):
 
 ---
 
-## Risk Management & Contingencies
+ Risk Management & Contingencies
 
 | Risk | Probability | Impact | Mitigation |
 |------|-------------|--------|-----------|
@@ -290,57 +290,57 @@ Parallel Paths (Nov 10-13):
 | Testing bottleneck | Medium | Medium | Early test development, parallel testing |
 | Documentation lag | Low | Low | Continuous documentation, templates ready |
 
-### Contingency Time
-- **Buffer within Phase 2:** 2-3 days for unforeseen issues
-- **Backup plan:** Prioritize Phase 1 features if Phase 2 at risk
-- **Demo backup:** Pre-recorded demo as fallback
+ Contingency Time
+- Buffer within Phase : - days for unforeseen issues
+- Backup plan: Prioritize Phase  features if Phase  at risk
+- Demo backup: Pre-recorded demo as fallback
 
 ---
 
-## Success Criteria per Phase
+ Success Criteria per Phase
 
-### Phase 1 Success (November 16)
-- ✅ All 18 API endpoints implemented
-- ✅ Backend tests passing (minimum 60% coverage)
-- ✅ Frontend basic functionality working
-- ✅ Text check-in functional
-- ✅ CSV export working
-- ✅ Comprehensive documentation complete
-- ✅ Code review approved
+ Phase  Success (November )
+-  All  API endpoints implemented
+-  Backend tests passing (minimum % coverage)
+-  Frontend basic functionality working
+-  Text check-in functional
+-  CSV export working
+-  Comprehensive documentation complete
+-  Code review approved
 
-### Phase 2 Success (December 6)
-- ⏳ QR code integration complete
-- ⏳ XLSX export functional
-- ⏳ Advanced filtering working
-- ⏳ 80%+ test coverage
-- ⏳ Responsive design tested
-- ⏳ Deployment guide verified
-- ⏳ Production deployment successful
+ Phase  Success (December )
+-  QR code integration complete
+-  XLSX export functional
+-  Advanced filtering working
+-  %+ test coverage
+-  Responsive design tested
+-  Deployment guide verified
+-  Production deployment successful
 
-### Demo Success (Last Tutorial)
-- 📅 All Phase 1 & 2 features demonstrated
-- 📅 Live Q&A responses
-- 📅 Positive instructor feedback
-- 📅 Code quality validation
-- 📅 Deployment verification
+ Demo Success (Last Tutorial)
+-  All Phase  &  features demonstrated
+-  Live Q&A responses
+-  Positive instructor feedback
+-  Code quality validation
+-  Deployment verification
 
 ---
 
-## Weekly Status Template
+ Weekly Status Template
 
-### Week Template
+ Week Template
 ```
 WEEK X (Dates)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 Completed Tasks:
-  ✅ Task 1.X - Description
-  ✅ Task 2.Y - Description
+   Task .X - Description
+   Task .Y - Description
 
 In Progress:
-  🔄 Task 3.Z - Description (70% complete)
+   Task .Z - Description (% complete)
 
 Blockers/Issues:
-  ⚠️ Issue: Description, Impact: High, Resolution: Plan
+  ️ Issue: Description, Impact: High, Resolution: Plan
 
 Next Week Goals:
   → Task completion targets
@@ -350,62 +350,62 @@ Next Week Goals:
 
 ---
 
-## Tracking & Reporting
+ Tracking & Reporting
 
-### Daily Standup
-- **Time:** 9:30 AM
-- **Duration:** 15 minutes
-- **Attendees:** Dev team, tech lead
-- **Format:** What did you do? What's next? Any blockers?
+ Daily Standup
+- Time: : AM
+- Duration:  minutes
+- Attendees: Dev team, tech lead
+- Format: What did you do? What's next? Any blockers?
 
-### Weekly Status Report
-- **Day:** Friday
-- **Format:** Email summary with:
+ Weekly Status Report
+- Day: Friday
+- Format: Email summary with:
   - Completed tasks
   - Progress percentage
   - Blockers and resolutions
   - Next week goals
 
-### Milestone Review
-- **Frequency:** Every 2-3 days
-- **Format:** Verification meeting
-- **Attendees:** Tech lead, relevant developers
+ Milestone Review
+- Frequency: Every - days
+- Format: Verification meeting
+- Attendees: Tech lead, relevant developers
 
 ---
 
-## Tools & Systems
+ Tools & Systems
 
 | Tool | Purpose | Phase |
 |------|---------|-------|
-| **GitHub** | Version control, issue tracking | All |
-| **Jira/GitHub Projects** | Task management, sprint planning | All |
-| **Postman** | API testing | 1.8, 2.4 |
-| **Jest** | Unit testing | 2.4 |
-| **GitHub Actions** | CI/CD pipeline | 2.5 |
-| **Slack** | Team communication | All |
-| **Google Drive** | Documentation sharing | All |
+| GitHub | Version control, issue tracking | All |
+| Jira/GitHub Projects | Task management, sprint planning | All |
+| Postman | API testing | ., . |
+| Jest | Unit testing | . |
+| GitHub Actions | CI/CD pipeline | . |
+| Slack | Team communication | All |
+| Google Drive | Documentation sharing | All |
 
 ---
 
-## Document References
+ Document References
 
-- **Phase 1 Specification:** [PHASE_1_SPECIFICATION.md](./PHASE_1_SPECIFICATION.md)
-- **Architecture Guide:** [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
-- **API Documentation:** [docs/API.md](./docs/API.md)
-- **Database Schema:** [docs/DATABASE_SCHEMA.md](./docs/DATABASE_SCHEMA.md)
-- **Setup Guide:** [docs/SETUP.md](./docs/SETUP.md)
-- **Deployment Guide:** [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
-
----
-
-## Notes & Updates
-
-**Project Status:** Phase 1 Complete ✅ | Phase 2 In Progress 🔄
-
-**Last Updated:** December 6, 2025  
-**Next Review:** End of Phase 2 (December 6, 2025)  
-**Demo Date:** Last Tutorial Session (TBD)
+- Phase  Specification: [PHASE__SPECIFICATION.md](./PHASE__SPECIFICATION.md)
+- Architecture Guide: [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md)
+- API Documentation: [docs/API.md](./docs/API.md)
+- Database Schema: [docs/DATABASE_SCHEMA.md](./docs/DATABASE_SCHEMA.md)
+- Setup Guide: [docs/SETUP.md](./docs/SETUP.md)
+- Deployment Guide: [docs/DEPLOYMENT.md](./docs/DEPLOYMENT.md)
 
 ---
 
-**For questions about the project plan, refer to Project Summary or contact the tech lead.**
+ Notes & Updates
+
+Project Status: Phase  Complete  | Phase  In Progress 
+
+Last Updated: December ,   
+Next Review: End of Phase  (December , )  
+Demo Date: Last Tutorial Session (TBD)
+
+---
+
+For questions about the project plan, refer to Project Summary or contact the tech lead.

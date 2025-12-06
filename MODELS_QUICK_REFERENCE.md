@@ -1,28 +1,28 @@
-# Quick Reference: Models and Migrations
+ Quick Reference: Models and Migrations
 
-## File Structure
+ File Structure
 
 ```
 backend/
 ├── models/
-│   ├── User.js              ✅ Organizers & Participants
-│   ├── EventGroup.js        ✅ Event Collections
-│   ├── Event.js             ✅ Individual Events
-│   ├── Attendance.js        ✅ Check-in Records
-│   └── index.js             ✅ Model Initialization & Associations
+│   ├── User.js               Organizers & Participants
+│   ├── EventGroup.js         Event Collections
+│   ├── Event.js              Individual Events
+│   ├── Attendance.js         Check-in Records
+│   └── index.js              Model Initialization & Associations
 │
 └── migrations/
-    ├── 001-create-users.js
-    ├── 002-create-event-groups.js
-    ├── 003-create-events.js
-    └── 004-create-attendance.js
+    ├── -create-users.js
+    ├── -create-event-groups.js
+    ├── -create-events.js
+    └── -create-attendance.js
 ```
 
 ---
 
-## Model Summary
+ Model Summary
 
-### User Model
+ User Model
 ```javascript
 // Create
 const user = await User.create({
@@ -44,17 +44,17 @@ const eventGroups = await user.getEvent_groups();
 const attendances = await user.getAttendances();
 ```
 
-**Roles:**
+Roles:
 - `EO` - Event Organizer (creates events)
 - `PARTICIPANT` - Regular participant (checks in)
 
 ---
 
-### EventGroup Model
+ EventGroup Model
 ```javascript
 // Create
 const group = await EventGroup.create({
-  name: 'Fall 2025 Training',
+  name: 'Fall  Training',
   description: 'Training sessions...',
   created_by: userId
 });
@@ -76,22 +76,22 @@ const events = await group.getEvents();
 
 ---
 
-### Event Model
+ Event Model
 ```javascript
 // Create
 const event = await Event.create({
   group_id: groupId,
   title: 'NodeJS Workshop',
-  start_time: new Date('2025-12-10 09:00:00'),
-  duration_minutes: 120,
-  code_text: 'NODE2025',
+  start_time: new Date('-- ::'),
+  duration_minutes: ,
+  code_text: 'NODE',
   state: 'OPEN',  // or 'CLOSED'
   created_by: userId
 });
 
 // Find by Code (used for check-in)
 const event = await Event.findOne({
-  where: { code_text: 'NODE2025' }
+  where: { code_text: 'NODE' }
 });
 
 // Find by ID
@@ -112,13 +112,13 @@ const attendees = await event.getAttendances({
 });
 ```
 
-**States:**
+States:
 - `OPEN` - Accepting check-ins
 - `CLOSED` - No longer accepting check-ins
 
 ---
 
-### Attendance Model
+ Attendance Model
 ```javascript
 // Create Check-in
 const checkin = await Attendance.create({
@@ -151,69 +151,69 @@ const existing = await Attendance.findOne({
 
 ---
 
-## Migration Commands
+ Migration Commands
 
 ```bash
-# Run all pending migrations
+ Run all pending migrations
 npm run migrate
 
-# OR use Sequelize CLI directly
+ OR use Sequelize CLI directly
 npx sequelize-cli db:migrate
 
-# Undo last migration
+ Undo last migration
 npx sequelize-cli db:migrate:undo
 
-# Check status
+ Check status
 npx sequelize-cli db:migrate:status
 ```
 
 ---
 
-## Relationships Overview
+ Relationships Overview
 
-### One-to-Many (1:N)
+ One-to-Many (:N)
 
 ```
-User (1) ──hasMany──> EventGroup (N)
+User () ──hasMany──> EventGroup (N)
   └─ One organizer creates many event groups
 
-User (1) ──hasMany──> Event (N)
+User () ──hasMany──> Event (N)
   └─ One organizer creates many events
 
-User (1) ──hasMany──> Attendance (N)
+User () ──hasMany──> Attendance (N)
   └─ One participant checks in many times
 
-EventGroup (1) ──hasMany──> Event (N)
+EventGroup () ──hasMany──> Event (N)
   └─ One group contains many events
 
-Event (1) ──hasMany──> Attendance (N)
+Event () ──hasMany──> Attendance (N)
   └─ One event has many check-ins
 ```
 
-### Many-to-One (N:1)
+ Many-to-One (N:)
 
 ```
-EventGroup (N) ──belongsTo──> User (1)
+EventGroup (N) ──belongsTo──> User ()
   └─ Group belongs to organizer
 
-Event (N) ──belongsTo──> EventGroup (1)
+Event (N) ──belongsTo──> EventGroup ()
   └─ Event belongs to group
 
-Event (N) ──belongsTo──> User (1)
+Event (N) ──belongsTo──> User ()
   └─ Event created by organizer
 
-Attendance (N) ──belongsTo──> Event (1)
+Attendance (N) ──belongsTo──> Event ()
   └─ Check-in belongs to event
 
-Attendance (N) ──belongsTo──> User (1)
+Attendance (N) ──belongsTo──> User ()
   └─ Check-in by participant (optional)
 ```
 
 ---
 
-## Loading Related Data
+ Loading Related Data
 
-### Eager Loading (Include)
+ Eager Loading (Include)
 
 ```javascript
 // Get event with group and creator
@@ -244,7 +244,7 @@ const event = await Event.findByPk(eventId, {
 });
 ```
 
-### Lazy Loading (Get Methods)
+ Lazy Loading (Get Methods)
 
 ```javascript
 const group = await EventGroup.findByPk(groupId);
@@ -254,9 +254,9 @@ const events = await group.getEvents();
 
 ---
 
-## Common Queries
+ Common Queries
 
-### Get Organizer Dashboard
+ Get Organizer Dashboard
 ```javascript
 const organizer = await User.findByPk(userId, {
   where: { role: 'EO' },
@@ -274,7 +274,7 @@ const organizer = await User.findByPk(userId, {
 });
 ```
 
-### Get Event with Statistics
+ Get Event with Statistics
 ```javascript
 const event = await Event.findByPk(eventId, {
   include: [
@@ -300,7 +300,7 @@ const stats = {
 };
 ```
 
-### Get User's Recent Check-ins
+ Get User's Recent Check-ins
 ```javascript
 const recentCheckIns = await Attendance.findAll({
   where: { participant_id: userId },
@@ -309,11 +309,11 @@ const recentCheckIns = await Attendance.findAll({
     attributes: ['id', 'title', 'start_time']
   },
   order: [['timestamp', 'DESC']],
-  limit: 10
+  limit: 
 });
 ```
 
-### Find Open Events for Check-in
+ Find Open Events for Check-in
 ```javascript
 const openEvents = await Event.findAll({
   where: { state: 'OPEN' },
@@ -324,9 +324,9 @@ const openEvents = await Event.findAll({
 
 ---
 
-## Data Types Reference
+ Data Types Reference
 
-### PostgreSQL Types Used
+ PostgreSQL Types Used
 
 | Type | Description | Used In |
 |------|-------------|---------|
@@ -337,14 +337,14 @@ const openEvents = await Event.findAll({
 | `INTEGER` | Whole number | duration_minutes |
 | `ENUM` | Fixed set of values | role, state |
 
-### Sequelize DataTypes
+ Sequelize DataTypes
 
 ```javascript
 const { DataTypes } = require('sequelize');
 
-DataTypes.UUID            // UUID v4
-DataTypes.UUIDV4          // UUID version 4
-DataTypes.STRING(255)     // VARCHAR(255)
+DataTypes.UUID            // UUID v
+DataTypes.UUIDV          // UUID version 
+DataTypes.STRING()     // VARCHAR()
 DataTypes.TEXT            // TEXT
 DataTypes.DATE            // TIMESTAMP
 DataTypes.INTEGER         // INTEGER
@@ -353,9 +353,9 @@ DataTypes.ENUM('A', 'B')  // ENUM type
 
 ---
 
-## Indexes Overview
+ Indexes Overview
 
-### Primary Keys (Auto-indexed)
+ Primary Keys (Auto-indexed)
 ```
 users.id
 event_groups.id
@@ -363,13 +363,13 @@ events.id
 attendance.id
 ```
 
-### Unique Indexes
+ Unique Indexes
 ```
 users.email             -- UNIQUE (login lookup)
 events.code_text        -- UNIQUE (access code lookup)
 ```
 
-### Foreign Key Indexes
+ Foreign Key Indexes
 ```
 event_groups.created_by
 events.group_id
@@ -378,7 +378,7 @@ attendance.event_id
 attendance.participant_id
 ```
 
-### Performance Indexes
+ Performance Indexes
 ```
 users.role
 users.created_at
@@ -394,77 +394,77 @@ attendance.(event_id, participant_id) -- Composite
 
 ---
 
-## Cascading Delete Behavior
+ Cascading Delete Behavior
 
-### Delete User (EO)
+ Delete User (EO)
 ```
 User → EventGroups deleted (CASCADE)
      → Events deleted (CASCADE)
         → Attendance deleted (CASCADE)
 ```
 
-### Delete User (PARTICIPANT)
+ Delete User (PARTICIPANT)
 ```
 User → Attendance.participant_id = NULL (SET NULL)
        Records preserved for history
 ```
 
-### Delete EventGroup
+ Delete EventGroup
 ```
 EventGroup → Events deleted (CASCADE)
            → Attendance deleted (CASCADE)
 ```
 
-### Delete Event
+ Delete Event
 ```
 Event → Attendance deleted (CASCADE)
 ```
 
 ---
 
-## Validation Rules
+ Validation Rules
 
-### User Model
-- `name`: Required, max 255 chars
+ User Model
+- `name`: Required, max  chars
 - `email`: Required, unique, valid email format
-- `password_hash`: Required, max 255 chars
+- `password_hash`: Required, max  chars
 - `role`: Required, must be 'EO' or 'PARTICIPANT'
 
-### EventGroup Model
-- `name`: Required, max 255 chars
+ EventGroup Model
+- `name`: Required, max  chars
 - `description`: Optional, unlimited
 - `created_by`: Required, valid user FK
 
-### Event Model
-- `title`: Required, max 255 chars
+ Event Model
+- `title`: Required, max  chars
 - `start_time`: Required, valid date
-- `duration_minutes`: Required, 1-1440
-- `code_text`: Required, unique, max 50 chars
+- `duration_minutes`: Required, -
+- `code_text`: Required, unique, max  chars
 - `code_qr`: Optional, unlimited
 - `state`: Required, 'OPEN' or 'CLOSED'
 - `group_id`: Required, valid group FK
 - `created_by`: Required, valid user FK
 
-### Attendance Model
+ Attendance Model
 - `event_id`: Required, valid event FK
 - `participant_id`: Optional, valid user FK
 - `timestamp`: Required, valid date
 
 ---
 
-## Environment Variables Needed
+ Environment Variables Needed
 
 ```env
-# Database Connection
+ Database Connection
 DB_HOST=localhost
-DB_PORT=5432
+DB_PORT=
 DB_NAME=attendance_dev
 DB_USER=postgres
 DB_PASSWORD=password
 
-# Test Database
+ Test Database
 DB_HOST_TEST=localhost
-DB_PORT_TEST=5432
+DB_PORT_TEST=
 DB_NAME_TEST=attendance_test
 DB_USER_TEST=postgres
 DB_PASSWORD_TEST=password
@@ -472,38 +472,38 @@ DB_PASSWORD_TEST=password
 
 ---
 
-## Next Steps
+ Next Steps
 
-1. ✅ **Models Created** - All 4 models with associations
-2. ✅ **Migrations Created** - All 4 migrations ready
-3. ⏳ **Run Migrations** - Execute `npm run migrate`
-4. ⏳ **Create Seeders** - Add demo data (optional)
-5. ⏳ **Implement Services** - Wire models to business logic
-6. ⏳ **Write Tests** - Unit & integration tests
+.  Models Created - All  models with associations
+.  Migrations Created - All  migrations ready
+.  Run Migrations - Execute `npm run migrate`
+.  Create Seeders - Add demo data (optional)
+.  Implement Services - Wire models to business logic
+.  Write Tests - Unit & integration tests
 
 ---
 
-## Helpful Commands
+ Helpful Commands
 
 ```bash
-# Install dependencies
+ Install dependencies
 npm install
 
-# Run migrations
+ Run migrations
 npm run migrate
 
-# Check migration status
+ Check migration status
 npx sequelize-cli db:migrate:status
 
-# Undo last migration
+ Undo last migration
 npx sequelize-cli db:migrate:undo
 
-# Create new migration
+ Create new migration
 npx sequelize-cli migration:generate --name migration-name
 
-# Access database
+ Access database
 psql -U postgres -h localhost -d attendance_dev
 
-# Create fresh database and run migrations
+ Create fresh database and run migrations
 npm run migrate -- --env development
 ```

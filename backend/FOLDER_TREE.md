@@ -1,149 +1,149 @@
-# Backend Folder Tree - Complete Reference
+ Backend Folder Tree - Complete Reference
 
-## Visual Tree Structure
+ Visual Tree Structure
 
 ```
 event-attendance-system/backend/
 │
-├── 📄 server.js                                    [Express app entry point - 100+ lines]
-├── 📄 package.json                                 [NPM dependencies & scripts]
-├── 📄 README.md                                    [Backend setup guide]
-├── 📄 STRUCTURE.md                                 [Architecture documentation]
-├── 📄 .env.example                                 [Environment template - 30+ vars]
+├──  server.js                                    [Express app entry point - + lines]
+├──  package.json                                 [NPM dependencies & scripts]
+├──  README.md                                    [Backend setup guide]
+├──  STRUCTURE.md                                 [Architecture documentation]
+├──  .env.example                                 [Environment template - + vars]
 │
-├── 📁 config/                                      [Configuration Management]
-│   ├── 📄 index.js                                 [Exports: database, environment, sequelize]
-│   ├── 📄 database.js                              [PostgreSQL connection (3 envs: dev/test/prod)]
-│   ├── 📄 environment.js                           [App variables: JWT, CORS, QR, etc]
-│   └── 📄 sequelize.js                             [Sequelize ORM initialization]
+├──  config/                                      [Configuration Management]
+│   ├──  index.js                                 [Exports: database, environment, sequelize]
+│   ├──  database.js                              [PostgreSQL connection ( envs: dev/test/prod)]
+│   ├──  environment.js                           [App variables: JWT, CORS, QR, etc]
+│   └──  sequelize.js                             [Sequelize ORM initialization]
 │
-├── 📁 models/                                      [Sequelize ORM Models]
-│   ├── 📄 index.js                                 [Initializes models & associations]
-│   ├── 📄 User.js                                  [Event Organizer - 6 fields, 1:N EventGroup]
-│   ├── 📄 EventGroup.js                            [Event Collection - 6 fields, 1:N Event]
-│   ├── 📄 Event.js                                 [Individual Event - 12 fields, 1:N Attendance]
-│   └── 📄 Attendance.js                            [Check-in Record - 7 fields, N:1 Event]
+├──  models/                                      [Sequelize ORM Models]
+│   ├──  index.js                                 [Initializes models & associations]
+│   ├──  User.js                                  [Event Organizer -  fields, :N EventGroup]
+│   ├──  EventGroup.js                            [Event Collection -  fields, :N Event]
+│   ├──  Event.js                                 [Individual Event -  fields, :N Attendance]
+│   └──  Attendance.js                            [Check-in Record -  fields, N: Event]
 │
-├── 📁 controllers/                                 [Request Handlers - 21 methods total]
-│   ├── 📄 index.js                                 [Exports all controllers]
-│   ├── 📄 authController.js                        [Auth: register, login, logout, refreshToken]
-│   ├── 📄 eventGroupController.js                  [Group CRUD: list, create, get, update, delete]
-│   ├── 📄 eventController.js                       [Event CRUD + changeState - 6 methods]
-│   └── 📄 attendanceController.js                  [Check-in & export - 6 methods]
+├──  controllers/                                 [Request Handlers -  methods total]
+│   ├──  index.js                                 [Exports all controllers]
+│   ├──  authController.js                        [Auth: register, login, logout, refreshToken]
+│   ├──  eventGroupController.js                  [Group CRUD: list, create, get, update, delete]
+│   ├──  eventController.js                       [Event CRUD + changeState -  methods]
+│   └──  attendanceController.js                  [Check-in & export -  methods]
 │
-├── 📁 routes/                                      [API Route Definitions - 26 routes]
-│   ├── 📄 index.js                                 [Route aggregator & mounter]
-│   ├── 📄 auth.js                                  [POST /auth/register, login, logout, refresh]
-│   ├── 📄 eventGroups.js                           [GET/POST/PUT/DELETE /event-groups/*]
-│   ├── 📄 events.js                                [Event CRUD & check-in routes]
-│   └── 📄 attendance.js                            [Attendance check-in & export routes]
+├──  routes/                                      [API Route Definitions -  routes]
+│   ├──  index.js                                 [Route aggregator & mounter]
+│   ├──  auth.js                                  [POST /auth/register, login, logout, refresh]
+│   ├──  eventGroups.js                           [GET/POST/PUT/DELETE /event-groups/]
+│   ├──  events.js                                [Event CRUD & check-in routes]
+│   └──  attendance.js                            [Attendance check-in & export routes]
 │
-├── 📁 services/                                    [Business Logic - 28 functions total]
-│   ├── 📄 index.js                                 [Exports all services]
-│   ├── 📄 authService.js                           [Auth logic: register, authenticate, token]
-│   ├── 📄 eventGroupService.js                     [Group operations - 5 functions]
-│   ├── 📄 eventService.js                          [Event operations - 7 functions]
-│   ├── 📄 attendanceService.js                     [Check-in logic - 6 functions]
-│   ├── 📄 qrCodeService.js                         [QRServer API integration - 3 functions]
-│   └── 📄 exportService.js                         [CSV/XLSX export - 3 functions]
+├──  services/                                    [Business Logic -  functions total]
+│   ├──  index.js                                 [Exports all services]
+│   ├──  authService.js                           [Auth logic: register, authenticate, token]
+│   ├──  eventGroupService.js                     [Group operations -  functions]
+│   ├──  eventService.js                          [Event operations -  functions]
+│   ├──  attendanceService.js                     [Check-in logic -  functions]
+│   ├──  qrCodeService.js                         [QRServer API integration -  functions]
+│   └──  exportService.js                         [CSV/XLSX export -  functions]
 │
-├── 📁 middleware/                                  [Express Middleware - 2-5 per file]
-│   ├── 📄 index.js                                 [Middleware exports]
-│   ├── 📄 authMiddleware.js                        [JWT: verifyToken, verifyOwnership]
-│   ├── 📄 errorHandler.js                          [Centralized error handling]
-│   ├── 📄 validation.js                            [Input validation - 5 functions]
-│   ├── 📄 cors.js                                  [CORS configuration]
-│   └── 📄 logging.js                               [HTTP request logging]
+├──  middleware/                                  [Express Middleware - - per file]
+│   ├──  index.js                                 [Middleware exports]
+│   ├──  authMiddleware.js                        [JWT: verifyToken, verifyOwnership]
+│   ├──  errorHandler.js                          [Centralized error handling]
+│   ├──  validation.js                            [Input validation -  functions]
+│   ├──  cors.js                                  [CORS configuration]
+│   └──  logging.js                               [HTTP request logging]
 │
-├── 📁 utils/                                       [Utility Functions - 22 total]
-│   ├── 📄 index.js                                 [Utility exports]
-│   ├── 📄 validators.js                            [Input validation - 5 functions]
-│   ├── 📄 formatters.js                            [Data formatting - 4 functions]
-│   ├── 📄 generators.js                            [Generate codes/hashes - 4 functions]
-│   ├── 📄 errorHandler.js                          [Custom error classes - 5 classes]
-│   └── 📄 constants.js                             [Enums & limits - 5 constant objects]
+├──  utils/                                       [Utility Functions -  total]
+│   ├──  index.js                                 [Utility exports]
+│   ├──  validators.js                            [Input validation -  functions]
+│   ├──  formatters.js                            [Data formatting -  functions]
+│   ├──  generators.js                            [Generate codes/hashes -  functions]
+│   ├──  errorHandler.js                          [Custom error classes -  classes]
+│   └──  constants.js                             [Enums & limits -  constant objects]
 │
-├── 📁 jobs/                                        [Background Jobs - 2 jobs]
-│   ├── 📄 index.js                                 [Job exports]
-│   ├── 📄 cleanupJob.js                            [Daily cleanup - delete sessions, archive]
-│   └── 📄 syncJob.js                               [Every 6h sync - stats, status, reports]
+├──  jobs/                                        [Background Jobs -  jobs]
+│   ├──  index.js                                 [Job exports]
+│   ├──  cleanupJob.js                            [Daily cleanup - delete sessions, archive]
+│   └──  syncJob.js                               [Every h sync - stats, status, reports]
 │
-├── 📁 migrations/                                  [Database Migrations]
-│   ├── 📄 README.md                                [Migration instructions]
-│   └── (To be created: [timestamp]-init.js)        [Initialize 4 tables]
+├──  migrations/                                  [Database Migrations]
+│   ├──  README.md                                [Migration instructions]
+│   └── (To be created: [timestamp]-init.js)        [Initialize  tables]
 │
-└── 📁 seeders/                                     [Database Seeders]
-    ├── 📄 README.md                                [Seeder instructions]
-    └── (To be created: [timestamp]-demo-*.js)      [Demo users, events, attendance]
+└──  seeders/                                     [Database Seeders]
+    ├──  README.md                                [Seeder instructions]
+    └── (To be created: [timestamp]-demo-.js)      [Demo users, events, attendance]
 ```
 
 ---
 
-## 📊 Statistics
+  Statistics
 
-### File Count by Type
-- **JavaScript Files:** 37
-- **Documentation:** 4 (README.md, STRUCTURE.md, 2 x README in migrations/seeders)
-- **Configuration:** 2 (.env.example)
-- **Directories:** 10
-- **Total Items:** 53
+ File Count by Type
+- JavaScript Files: 
+- Documentation:  (README.md, STRUCTURE.md,  x README in migrations/seeders)
+- Configuration:  (.env.example)
+- Directories: 
+- Total Items: 
 
-### Lines of Code (Skeleton)
-- **Models:** 300+ lines
-- **Controllers:** 250+ lines
-- **Services:** 350+ lines
-- **Routes:** 200+ lines
-- **Middleware:** 150+ lines
-- **Utils:** 200+ lines
-- **Config:** 150+ lines
-- **Server:** 100+ lines
-- **Total:** ~1,700+ lines (ready for implementation)
+ Lines of Code (Skeleton)
+- Models: + lines
+- Controllers: + lines
+- Services: + lines
+- Routes: + lines
+- Middleware: + lines
+- Utils: + lines
+- Config: + lines
+- Server: + lines
+- Total: ~,+ lines (ready for implementation)
 
-### Function Count
-- **Controllers:** 21 methods
-- **Services:** 28 functions
-- **Middleware:** 12 functions
-- **Utilities:** 22 functions
-- **Total:** ~83 functions/methods
+ Function Count
+- Controllers:  methods
+- Services:  functions
+- Middleware:  functions
+- Utilities:  functions
+- Total: ~ functions/methods
 
-### API Routes
-- **Auth:** 4 routes (register, login, logout, refresh)
-- **Event Groups:** 5 routes (CRUD)
-- **Events:** 11 routes (CRUD + state + check-in + export)
-- **Attendance:** 6 routes (check-in + export)
-- **Total:** 26 routes (covering 18 spec endpoints)
+ API Routes
+- Auth:  routes (register, login, logout, refresh)
+- Event Groups:  routes (CRUD)
+- Events:  routes (CRUD + state + check-in + export)
+- Attendance:  routes (check-in + export)
+- Total:  routes (covering  spec endpoints)
 
 ---
 
-## 🎯 Folder Purposes Quick Reference
+  Folder Purposes Quick Reference
 
 | Folder | Purpose | Files | Key Concept |
 |--------|---------|-------|---|
-| **config/** | Configuration management | 4 | Centralized settings |
-| **models/** | Database entities | 5 | Sequelize ORM |
-| **controllers/** | HTTP request handlers | 5 | MVC Controller |
-| **routes/** | API endpoint definitions | 5 | RESTful routing |
-| **services/** | Business logic | 7 | Service layer |
-| **middleware/** | Request/response processing | 6 | Middleware chain |
-| **utils/** | Helper functions | 6 | Reusable utilities |
-| **jobs/** | Background tasks | 3 | Scheduled jobs |
-| **migrations/** | Schema versioning | - | Database evolution |
-| **seeders/** | Test data | - | Development data |
+| config/ | Configuration management |  | Centralized settings |
+| models/ | Database entities |  | Sequelize ORM |
+| controllers/ | HTTP request handlers |  | MVC Controller |
+| routes/ | API endpoint definitions |  | RESTful routing |
+| services/ | Business logic |  | Service layer |
+| middleware/ | Request/response processing |  | Middleware chain |
+| utils/ | Helper functions |  | Reusable utilities |
+| jobs/ | Background tasks |  | Scheduled jobs |
+| migrations/ | Schema versioning | - | Database evolution |
+| seeders/ | Test data | - | Development data |
 
 ---
 
-## 🔗 Key Relationships
+  Key Relationships
 
-### Model Associations
+ Model Associations
 ```
-User (1) ──┬─→ (N) EventGroup
+User () ──┬─→ (N) EventGroup
            │
-EventGroup (1) ──┬─→ (N) Event
+EventGroup () ──┬─→ (N) Event
                  │
-          Event (1) ──┬─→ (N) Attendance
+          Event () ──┬─→ (N) Attendance
 ```
 
-### Data Flow
+ Data Flow
 ```
 HTTP Request
     ↓
@@ -158,7 +158,7 @@ Model/Sequelize (models/)
 PostgreSQL Database
 ```
 
-### Middleware Chain
+ Middleware Chain
 ```
 Request
   ↓ [Logging Middleware]
@@ -173,20 +173,20 @@ Response
 
 ---
 
-## 🚀 Implementation Order Recommendation
+  Implementation Order Recommendation
 
-1. **Phase 1: Setup (Hours 1-2)**
+. Phase : Setup (Hours -)
    - [ ] npm install
    - [ ] Copy .env.example → .env
    - [ ] Create PostgreSQL database
    - [ ] Test database connection in config/
 
-2. **Phase 2: Database (Hours 3-4)**
-   - [ ] Create migrations for 4 tables
+. Phase : Database (Hours -)
+   - [ ] Create migrations for  tables
    - [ ] Run migrations
    - [ ] Verify schema in PostgreSQL
 
-3. **Phase 3: Services (Hours 5-12)**
+. Phase : Services (Hours -)
    - [ ] Implement authService (password hashing, JWT)
    - [ ] Implement eventGroupService (CRUD)
    - [ ] Implement eventService (CRUD + access code generation)
@@ -194,19 +194,19 @@ Response
    - [ ] Implement qrCodeService (QRServer API calls)
    - [ ] Implement exportService (CSV export)
 
-4. **Phase 4: Controllers (Hours 13-17)**
-   - [ ] Implement all 5 controllers
+. Phase : Controllers (Hours -)
+   - [ ] Implement all  controllers
    - [ ] Add request validation
    - [ ] Add error handling
    - [ ] Test endpoints with Postman
 
-5. **Phase 5: Testing (Hours 18-25)**
+. Phase : Testing (Hours -)
    - [ ] Write unit tests for services
    - [ ] Write integration tests for routes
    - [ ] Test database migrations
    - [ ] Test error scenarios
 
-6. **Phase 6: Polish (Hours 26-33)**
+. Phase : Polish (Hours -)
    - [ ] Add logging
    - [ ] Add documentation
    - [ ] Performance optimization
@@ -214,9 +214,9 @@ Response
 
 ---
 
-## ✨ Ready-to-Use Components
+  Ready-to-Use Components
 
-✅ **Immediately Usable:**
+ Immediately Usable:
 - Environment configuration system
 - Sequelize ORM setup
 - Express middleware pipeline
@@ -227,7 +227,7 @@ Response
 - Custom error classes
 - Database connection pool
 
-✅ **Templates Provided:**
+ Templates Provided:
 - Model definition template
 - Service function template
 - Controller method template
@@ -236,7 +236,7 @@ Response
 - Migration template
 - Seeder template
 
-✅ **Examples Included:**
+ Examples Included:
 - JSDoc comments on all functions
 - Error handling patterns
 - Service layer abstraction
@@ -244,7 +244,7 @@ Response
 
 ---
 
-## 📚 Documentation Hierarchy
+  Documentation Hierarchy
 
 ```
 backend/
@@ -259,49 +259,49 @@ See parent folder for:
 - `docs/API.md` - API endpoint specifications
 - `docs/DATABASE_SCHEMA.md` - Detailed schema design
 - `docs/ARCHITECTURE.md` - System architecture
-- `PHASE_1_SPECIFICATION.md` - Complete requirements
+- `PHASE__SPECIFICATION.md` - Complete requirements
 
 ---
 
-## 🎓 Learning Path for Implementation
+  Learning Path for Implementation
 
-1. **Understand the Architecture** (30 min)
+. Understand the Architecture ( min)
    - Read STRUCTURE.md (this file)
    - Read architecture diagram in ARCHITECTURE.md
 
-2. **Setup Environment** (30 min)
+. Setup Environment ( min)
    - Follow backend/README.md
    - Install dependencies
    - Configure .env
 
-3. **Explore Skeleton Code** (1 hour)
+. Explore Skeleton Code ( hour)
    - Review model definitions
    - Review controller signatures
    - Review service function stubs
 
-4. **Implement Services** (8 hours)
+. Implement Services ( hours)
    - Start with authService
    - Implement each service function
    - Test with database queries
 
-5. **Wire Controllers** (5 hours)
+. Wire Controllers ( hours)
    - Implement controller methods
    - Add validation
    - Add error handling
 
-6. **Test Everything** (8 hours)
+. Test Everything ( hours)
    - Unit tests for services
    - Integration tests for routes
    - End-to-end testing
 
-7. **Document & Polish** (3 hours)
+. Document & Polish ( hours)
    - Add JSDoc to implementations
    - Write API examples
    - Test with frontend
 
 ---
 
-**Backend Scaffolding Complete! Ready for Implementation.** ✅
+Backend Scaffolding Complete! Ready for Implementation. 
 
 For questions about the architecture, see [STRUCTURE.md](./STRUCTURE.md)  
 For setup instructions, see [README.md](./README.md)  

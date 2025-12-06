@@ -1,36 +1,36 @@
-/**
- * Environment Configuration
- * Application-wide environment settings
- */
+/
+  Environment Configuration
+  Application-wide environment settings
+ /
 
 module.exports = {
   NODE_ENV: process.env.NODE_ENV || 'development',
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.PORT || ,
   
   // API Configuration
-  API_VERSION: process.env.API_VERSION || 'v1',
+  API_VERSION: process.env.API_VERSION || 'v',
   API_PREFIX: process.env.API_PREFIX || '/api',
   
   // JWT Configuration
   JWT_SECRET: process.env.JWT_SECRET || 'your-secret-key-change-in-production',
-  JWT_EXPIRY: process.env.JWT_EXPIRY || '24h',
-  JWT_REFRESH_EXPIRY: process.env.JWT_REFRESH_EXPIRY || '7d',
+  JWT_EXPIRY: process.env.JWT_EXPIRY || 'h',
+  JWT_REFRESH_EXPIRY: process.env.JWT_REFRESH_EXPIRY || 'd',
   
   // CORS Configuration
-  CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:3000',
+  CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:',
   
   // External Services
-  QR_SERVER_URL: process.env.QR_SERVER_URL || 'https://api.qrserver.com/v1',
-  QR_CODE_SIZE: process.env.QR_CODE_SIZE || '200x200',
+  QR_SERVER_URL: process.env.QR_SERVER_URL || 'https://api.qrserver.com/v',
+  QR_CODE_SIZE: process.env.QR_CODE_SIZE || 'x',
   
   // File Upload
-  MAX_FILE_SIZE: process.env.MAX_FILE_SIZE || 10485760, // 10MB
+  MAX_FILE_SIZE: process.env.MAX_FILE_SIZE || , // MB
   UPLOAD_DIR: process.env.UPLOAD_DIR || './uploads',
   
   // Logging
   LOG_LEVEL: process.env.LOG_LEVEL || 'info',
   
-  // Email Configuration (for Phase 2)
+  // Email Configuration (for Phase )
   SMTP_HOST: process.env.SMTP_HOST,
   SMTP_PORT: process.env.SMTP_PORT,
   SMTP_USER: process.env.SMTP_USER,

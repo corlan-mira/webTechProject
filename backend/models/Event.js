@@ -2,26 +2,26 @@
 
 const { DataTypes } = require('sequelize');
 
-/**
- * Event Model - Individual events where participants check in
- * 
- * Stores event details with multiple check-in methods:
- * - Text-based access code
- * - QR code
- * 
- * State management:
- * - OPEN: Accepting check-ins
- * - CLOSED: No longer accepting check-ins
- */
+/
+  Event Model - Individual events where participants check in
+  
+  Stores event details with multiple check-in methods:
+  - Text-based access code
+  - QR code
+  
+  State management:
+  - OPEN: Accepting check-ins
+  - CLOSED: No longer accepting check-ins
+ /
 module.exports = (sequelize) => {
   const Event = sequelize.define(
     'Event',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique event identifier (UUID v4)',
+        comment: 'Unique event identifier (UUID v)',
       },
       group_id: {
         type: DataTypes.UUID,
@@ -35,7 +35,7 @@ module.exports = (sequelize) => {
         comment: 'FK to EventGroup that contains this event',
       },
       title: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Event title/name',
       },
@@ -48,13 +48,13 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 1,
-          max: 1440, // Max 24 hours
+          min: ,
+          max: , // Max  hours
         },
-        comment: 'Event duration in minutes (1-1440)',
+        comment: 'Event duration in minutes (-)',
       },
       code_text: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
         unique: {
           msg: 'Access code already in use',
@@ -91,8 +91,8 @@ module.exports = (sequelize) => {
       tableName: 'events',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_event_group_id',
@@ -120,12 +120,12 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to EventGroup (N:1)
-   * - Has many Attendances (1:N)
-   * - Belongs to User (creator) (N:1)
-   */
+  /
+    Associations
+    - Belongs to EventGroup (N:)
+    - Has many Attendances (:N)
+    - Belongs to User (creator) (N:)
+   /
   Event.associate = (models) => {
     Event.belongsTo(models.EventGroup, {
       foreignKey: 'group_id',

@@ -1,12 +1,12 @@
-/**
- * QR Code Service
- * Handles QR code generation via QRServer API
- * 
- * Functions:
- *  - generateQRCode(accessCode): Generate QR URL
- *  - validateQRCode(qrData): Parse QR code data
- *  - extractAccessCodeFromQR(qrData): Extract code from QR
- */
+/
+  QR Code Service
+  Handles QR code generation via QRServer API
+  
+  Functions:
+   - generateQRCode(accessCode): Generate QR URL
+   - validateQRCode(qrData): Parse QR code data
+   - extractAccessCodeFromQR(qrData): Extract code from QR
+ /
 
 const { QR_SERVER_URL, QR_CODE_SIZE } = require('../config/environment');
 
@@ -23,5 +23,5 @@ exports.validateQRCode = async (qrData) => {
 
 exports.extractAccessCodeFromQR = (qrData) => {
   // Implementation here
-  return 'ABC12345XY';
+  return 'ABCXY';
 };

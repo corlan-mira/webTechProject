@@ -1,46 +1,46 @@
 'use strict';
 
 const { Event, Attendance, User } = require('../models');
-const { Parser } = require('json2csv');
+const { Parser } = require('jsoncsv');
 
-/**
- * Attendance Controller
- * Handles check-in operations and attendance reporting
- * Supports both registered users and anonymous participants
- * 
- * Methods:
- *  - checkInByText(req, res): Text code-based check-in
- *  - checkInByQR(req, res): QR code-based check-in
- *  - list(req, res): Get attendees for event
- *  - exportCSV(req, res): Export attendance as CSV
- *  - exportXLSX(req, res): Export attendance as XLSX
- *  - getStats(req, res): Get attendance statistics
- */
+/
+  Attendance Controller
+  Handles check-in operations and attendance reporting
+  Supports both registered users and anonymous participants
+  
+  Methods:
+   - checkInByText(req, res): Text code-based check-in
+   - checkInByQR(req, res): QR code-based check-in
+   - list(req, res): Get attendees for event
+   - exportCSV(req, res): Export attendance as CSV
+   - exportXLSX(req, res): Export attendance as XLSX
+   - getStats(req, res): Get attendance statistics
+ /
 
-/**
- * Check-in by text access code
- * Public endpoint (no auth required)
- * 
- * Request body:
- *  - code: string (required, event access code)
- *  - name: string (optional, participant name for anonymous check-in)
- *  - email: string (optional, participant email)
- * 
- * Response:
- *  - 201: Check-in recorded
- *  - 400: Validation error
- *  - 404: Event not found or invalid code
- *  - 409: Already checked in
- *  - 500: Server error
- */
+/
+  Check-in by text access code
+  Public endpoint (no auth required)
+  
+  Request body:
+   - code: string (required, event access code)
+   - name: string (optional, participant name for anonymous check-in)
+   - email: string (optional, participant email)
+  
+  Response:
+   - : Check-in recorded
+   - : Validation error
+   - : Event not found or invalid code
+   - : Already checked in
+   - : Server error
+ /
 exports.checkInByText = async (req, res) => {
   try {
     const { code, name, email } = req.body;
     const userId = req.user?.id; // Optional, from auth middleware
 
     // Validation
-    if (!code || code.trim().length === 0) {
-      return res.status(400).json({
+    if (!code || code.trim().length === ) {
+      return res.status().json({
         status: 'error',
         message: 'Event code is required',
       });
@@ -52,7 +52,7 @@ exports.checkInByText = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Invalid event code',
       });
@@ -60,7 +60,7 @@ exports.checkInByText = async (req, res) => {
 
     // Check if event is open
     if (event.state === 'CLOSED') {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event is not accepting check-ins',
       });
@@ -72,7 +72,7 @@ exports.checkInByText = async (req, res) => {
         where: { event_id: event.id, participant_id: userId },
       });
       if (existing) {
-        return res.status(409).json({
+        return res.status().json({
           status: 'error',
           message: 'You have already checked in to this event',
         });
@@ -86,7 +86,7 @@ exports.checkInByText = async (req, res) => {
       timestamp: new Date(),
     });
 
-    res.status(201).json({
+    res.status().json({
       status: 'success',
       message: 'Check-in successful',
       data: {
@@ -98,7 +98,7 @@ exports.checkInByText = async (req, res) => {
     });
   } catch (error) {
     console.error('Check-in by text error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Check-in failed',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -106,29 +106,29 @@ exports.checkInByText = async (req, res) => {
   }
 };
 
-/**
- * Check-in by QR code
- * Public endpoint (no auth required)
- * QR code contains encoded event access code
- * 
- * Request body:
- *  - qr_data: string (required, QR code data/content)
- * 
- * Response:
- *  - 201: Check-in recorded
- *  - 400: Invalid QR data
- *  - 404: Event not found
- *  - 409: Already checked in
- *  - 500: Server error
- */
+/
+  Check-in by QR code
+  Public endpoint (no auth required)
+  QR code contains encoded event access code
+  
+  Request body:
+   - qr_data: string (required, QR code data/content)
+  
+  Response:
+   - : Check-in recorded
+   - : Invalid QR data
+   - : Event not found
+   - : Already checked in
+   - : Server error
+ /
 exports.checkInByQR = async (req, res) => {
   try {
     const { qr_data } = req.body;
     const userId = req.user?.id;
 
     // Validation
-    if (!qr_data || qr_data.trim().length === 0) {
-      return res.status(400).json({
+    if (!qr_data || qr_data.trim().length === ) {
+      return res.status().json({
         status: 'error',
         message: 'QR data is required',
       });
@@ -143,7 +143,7 @@ exports.checkInByQR = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Invalid QR code or event not found',
       });
@@ -151,7 +151,7 @@ exports.checkInByQR = async (req, res) => {
 
     // Check if event is open
     if (event.state === 'CLOSED') {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event is not accepting check-ins',
       });
@@ -163,7 +163,7 @@ exports.checkInByQR = async (req, res) => {
         where: { event_id: event.id, participant_id: userId },
       });
       if (existing) {
-        return res.status(409).json({
+        return res.status().json({
           status: 'error',
           message: 'You have already checked in to this event',
         });
@@ -177,7 +177,7 @@ exports.checkInByQR = async (req, res) => {
       timestamp: new Date(),
     });
 
-    res.status(201).json({
+    res.status().json({
       status: 'success',
       message: 'QR check-in successful',
       data: {
@@ -189,7 +189,7 @@ exports.checkInByQR = async (req, res) => {
     });
   } catch (error) {
     console.error('Check-in by QR error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Check-in failed',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -197,38 +197,38 @@ exports.checkInByQR = async (req, res) => {
   }
 };
 
-/**
- * List attendees for an event
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Query params:
- *  - page: number (optional, default 1)
- *  - limit: number (optional, default 20, max 100)
- *  - sort: string (optional, 'earliest' or 'latest', default 'latest')
- * 
- * Response:
- *  - 200: List of attendees
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  List attendees for an event
+  
+  URL params:
+   - eventId: UUID
+  
+  Query params:
+   - page: number (optional, default )
+   - limit: number (optional, default , max )
+   - sort: string (optional, 'earliest' or 'latest', default 'latest')
+  
+  Response:
+   - : List of attendees
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.list = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
-    const { page = 1, limit = 20, sort = 'latest' } = req.query;
+    const { page = , limit = , sort = 'latest' } = req.query;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -240,16 +240,16 @@ exports.list = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
     }
 
     // Validate pagination
-    const pageNum = Math.max(1, parseInt(page) || 1);
-    const limitNum = Math.min(100, Math.max(1, parseInt(limit) || 20));
-    const offset = (pageNum - 1) * limitNum;
+    const pageNum = Math.max(, parseInt(page) || );
+    const limitNum = Math.min(, Math.max(, parseInt(limit) || ));
+    const offset = (pageNum - )  limitNum;
 
     // Determine sort order
     const sortOrder = sort === 'earliest' ? 'ASC' : 'DESC';
@@ -268,7 +268,7 @@ exports.list = async (req, res) => {
       offset,
     });
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Attendees retrieved successfully',
       data: {
@@ -283,7 +283,7 @@ exports.list = async (req, res) => {
     });
   } catch (error) {
     console.error('List attendees error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to retrieve attendees',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -291,32 +291,32 @@ exports.list = async (req, res) => {
   }
 };
 
-/**
- * Export attendees as CSV
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Response:
- *  - 200: CSV file
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Export attendees as CSV
+  
+  URL params:
+   - eventId: UUID
+  
+  Response:
+   - : CSV file
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.exportCSV = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -328,7 +328,7 @@ exports.exportCSV = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -371,7 +371,7 @@ exports.exportCSV = async (req, res) => {
     res.send(csv);
   } catch (error) {
     console.error('Export CSV error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to export CSV',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -379,32 +379,32 @@ exports.exportCSV = async (req, res) => {
   }
 };
 
-/**
- * Export attendees as XLSX
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Response:
- *  - 200: XLSX file
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Export attendees as XLSX
+  
+  URL params:
+   - eventId: UUID
+  
+  Response:
+   - : XLSX file
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.exportXLSX = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -416,7 +416,7 @@ exports.exportXLSX = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -458,7 +458,7 @@ exports.exportXLSX = async (req, res) => {
     res.send(csv);
   } catch (error) {
     console.error('Export XLSX error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to export XLSX',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -466,32 +466,32 @@ exports.exportXLSX = async (req, res) => {
   }
 };
 
-/**
- * Get attendance statistics for an event
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Response:
- *  - 200: Attendance statistics
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Get attendance statistics for an event
+  
+  URL params:
+   - eventId: UUID
+  
+  Response:
+   - : Attendance statistics
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.getStats = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -503,7 +503,7 @@ exports.getStats = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -520,7 +520,7 @@ exports.getStats = async (req, res) => {
 
     const anonymousCheckIns = totalCheckIns - registeredCheckIns;
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Attendance statistics retrieved successfully',
       data: {
@@ -533,13 +533,13 @@ exports.getStats = async (req, res) => {
           total_check_ins: totalCheckIns,
           registered_check_ins: registeredCheckIns,
           anonymous_check_ins: anonymousCheckIns,
-          check_in_rate: totalCheckIns > 0 ? ((registeredCheckIns / totalCheckIns) * 100).toFixed(2) + '%' : '0%',
+          check_in_rate: totalCheckIns >  ? ((registeredCheckIns / totalCheckIns)  ).toFixed() + '%' : '%',
         },
       },
     });
   } catch (error) {
     console.error('Get stats error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to retrieve statistics',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,

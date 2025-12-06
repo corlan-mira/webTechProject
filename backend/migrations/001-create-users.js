@@ -1,45 +1,45 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create users table
-     * 
-     * Creates the base users table for event organizers and participants
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - name: User full name
-     * - email: Unique email for login
-     * - password_hash: Bcrypt hashed password
-     * - role: ENUM (EO=Event Organizer, PARTICIPANT=Regular user)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create users table
+      
+      Creates the base users table for event organizers and participants
+      
+      Columns:
+      - id: UUID primary key
+      - name: User full name
+      - email: Unique email for login
+      - password_hash: Bcrypt hashed password
+      - role: ENUM (EO=Event Organizer, PARTICIPANT=Regular user)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'users',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique user identifier (UUID v4)',
+          comment: 'Unique user identifier (UUID v)',
         },
         name: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'User full name',
         },
         email: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           unique: true,
           comment: 'Unique email address for login',
         },
         password_hash: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Bcrypt hashed password',
         },
@@ -62,8 +62,8 @@ module.exports = {
       },
       {
         comment: 'Stores user accounts for event organizers and participants',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -83,9 +83,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop users table
-     */
+    /
+      Rollback: Drop users table
+     /
     await queryInterface.dropTable('users');
   },
 };

@@ -1,10 +1,10 @@
-# Contributing Guidelines
+ Contributing Guidelines
 
 Thank you for contributing to the Event Attendance Monitoring System! This document outlines the process for contributing to this project.
 
 ---
 
-## Code of Conduct
+ Code of Conduct
 
 - Be respectful and inclusive
 - Focus on constructive feedback
@@ -13,28 +13,28 @@ Thank you for contributing to the Event Attendance Monitoring System! This docum
 
 ---
 
-## Getting Started
+ Getting Started
 
-### 1. Fork the Repository
+ . Fork the Repository
 ```bash
-# Click "Fork" on GitHub
+ Click "Fork" on GitHub
 git clone https://github.com/YOUR_USERNAME/event-attendance-system.git
 cd event-attendance-system
 ```
 
-### 2. Create Feature Branch
+ . Create Feature Branch
 ```bash
-# Follow naming convention: feature/TASK-ID-description
-git checkout -b feature/EV-001-event-creation
+ Follow naming convention: feature/TASK-ID-description
+git checkout -b feature/EV--event-creation
 ```
 
-### 3. Make Changes
+ . Make Changes
 - Follow code style guidelines
 - Write clear, descriptive commits
 - Add tests for new features
 - Update documentation
 
-### 4. Submit Pull Request
+ . Submit Pull Request
 - Push to your fork
 - Create PR with clear description
 - Link related issues
@@ -42,59 +42,59 @@ git checkout -b feature/EV-001-event-creation
 
 ---
 
-## Development Workflow
+ Development Workflow
 
-### Setting Up Development Environment
+ Setting Up Development Environment
 
 ```bash
-# Install dependencies
+ Install dependencies
 npm install
 
-# Copy .env.example
+ Copy .env.example
 cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 
-# Configure for development
-# Edit .env files with local settings
+ Configure for development
+ Edit .env files with local settings
 
-# Start development servers
+ Start development servers
 npm run dev
 ```
 
-### Code Style
+ Code Style
 
-#### JavaScript/Node.js
-- **Indentation:** 2 spaces (enforced by Prettier)
-- **Semicolons:** Yes (enforced by ESLint)
-- **Quotes:** Double quotes (enforced by Prettier)
-- **Variable naming:** camelCase
-- **Constants:** UPPERCASE_WITH_UNDERSCORES
-- **Files:** camelCase or kebab-case
+ JavaScript/Node.js
+- Indentation:  spaces (enforced by Prettier)
+- Semicolons: Yes (enforced by ESLint)
+- Quotes: Double quotes (enforced by Prettier)
+- Variable naming: camelCase
+- Constants: UPPERCASE_WITH_UNDERSCORES
+- Files: camelCase or kebab-case
 
-**Example:**
+Example:
 ```javascript
 // Good
 const calculateTotal = (items) => {
-  return items.reduce((sum, item) => sum + item.price, 0);
+  return items.reduce((sum, item) => sum + item.price, );
 };
 
 // Bad
 const CalculateTotal = (items) => {
-  let sum = 0;
-  for (let i = 0; i < items.length; i++) {
+  let sum = ;
+  for (let i = ; i < items.length; i++) {
     sum += items[i].price;
   }
   return sum;
 };
 ```
 
-#### React/JSX
-- **Component naming:** PascalCase (e.g., EventForm.jsx)
-- **Hooks:** Use custom hooks for reusable logic
-- **Props:** Destructure in function parameters
-- **State:** Use useState for simple state, Context for global
+ React/JSX
+- Component naming: PascalCase (e.g., EventForm.jsx)
+- Hooks: Use custom hooks for reusable logic
+- Props: Destructure in function parameters
+- State: Use useState for simple state, Context for global
 
-**Example:**
+Example:
 ```jsx
 // Good
 const EventForm = ({ onSubmit, initialValues }) => {
@@ -107,7 +107,7 @@ const EventForm = ({ onSubmit, initialValues }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* Form fields */}
+      {/ Form fields /}
     </form>
   );
 };
@@ -122,9 +122,9 @@ const eventform = (props) => {
 };
 ```
 
-### Commit Guidelines
+ Commit Guidelines
 
-#### Format
+ Format
 ```
 <type>(<scope>): <subject>
 
@@ -133,7 +133,7 @@ const eventform = (props) => {
 <footer>
 ```
 
-#### Types
+ Types
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation
@@ -142,7 +142,7 @@ const eventform = (props) => {
 - `test`: Tests
 - `chore`: Dependencies, tooling
 
-#### Examples
+ Examples
 ```bash
 git commit -m "feat(auth): implement JWT-based authentication"
 
@@ -150,99 +150,99 @@ git commit -m "fix(check-in): prevent duplicate check-ins
 
 - Add unique constraint check
 - Validate participant email per event
-- Return 409 Conflict on duplicate
+- Return  Conflict on duplicate
 
-Closes #42"
+Closes "
 
 git commit -m "docs(api): update endpoint documentation"
 
 git commit -m "style(prettier): reformat code with prettier config"
 ```
 
-### Testing
+ Testing
 
-#### Backend Tests
+ Backend Tests
 ```bash
 cd backend
 
-# Run all tests
+ Run all tests
 npm test
 
-# Run specific test file
+ Run specific test file
 npm test -- eventService.test.js
 
-# Run with coverage
+ Run with coverage
 npm run test:coverage
 
-# Watch mode
+ Watch mode
 npm test -- --watch
 ```
 
-#### Frontend Tests
+ Frontend Tests
 ```bash
 cd frontend
 
-# Run all tests
+ Run all tests
 npm test
 
-# Run with coverage
+ Run with coverage
 npm run test:coverage
 
-# Watch mode
+ Watch mode
 npm test -- --watch
 ```
 
-**Test Requirements:**
+Test Requirements:
 - New features must include unit tests
 - Bug fixes should include regression tests
-- Minimum 60% code coverage
+- Minimum % code coverage
 - All tests must pass before PR approval
 
-### Linting & Formatting
+ Linting & Formatting
 
 ```bash
-# Check code style
+ Check code style
 npm run lint
 
-# Fix formatting issues automatically
+ Fix formatting issues automatically
 npm run format
 
-# Fix ESLint issues
+ Fix ESLint issues
 npm run lint -- --fix
 ```
 
 ---
 
-## Pull Request Process
+ Pull Request Process
 
-### Before Creating PR
+ Before Creating PR
 
-1. **Update from main:**
+. Update from main:
    ```bash
    git fetch origin
    git rebase origin/main
    ```
 
-2. **Run tests locally:**
+. Run tests locally:
    ```bash
    npm test
    ```
 
-3. **Check formatting:**
+. Check formatting:
    ```bash
    npm run lint
    npm run format
    ```
 
-4. **Build frontend:**
+. Build frontend:
    ```bash
    cd frontend
    npm run build
    ```
 
-### Creating PR
+ Creating PR
 
-**Title Format:**
+Title Format:
 ```
 <type>(<scope>): <description>
 
@@ -250,31 +250,31 @@ Example:
 feat(event-creation): add multi-line event description field
 ```
 
-**Description Template:**
+Description Template:
 ```markdown
-## Description
+ Description
 Brief description of changes and motivation.
 
-## Changes
-- Bullet point 1
-- Bullet point 2
+ Changes
+- Bullet point 
+- Bullet point 
 
-## Related Issue
-Closes #42
+ Related Issue
+Closes 
 
-## Type of Change
+ Type of Change
 - [ ] Bug fix
 - [ ] New feature
 - [ ] Breaking change
 - [ ] Documentation
 
-## Testing
+ Testing
 Describe how this was tested.
 
-## Screenshots
+ Screenshots
 [If applicable: Add screenshots]
 
-## Checklist
+ Checklist
 - [ ] Code follows style guidelines
 - [ ] Tests added/updated
 - [ ] Documentation updated
@@ -282,75 +282,75 @@ Describe how this was tested.
 - [ ] Passes all checks
 ```
 
-### Review Process
+ Review Process
 
-1. **Automated Checks:**
+. Automated Checks:
    - ESLint passes
    - All tests pass
    - Build successful
    - Code coverage maintained
 
-2. **Manual Review:**
+. Manual Review:
    - Code quality assessment
    - Logic verification
    - Architecture review
    - Documentation review
 
-3. **Approval:**
-   - Minimum 2 approvals required
+. Approval:
+   - Minimum  approvals required
    - All discussions resolved
    - All checks passing
 
-4. **Merge:**
+. Merge:
    - Squash commits (optional)
    - Delete branch
    - Monitor for regressions
 
 ---
 
-## Documentation
+ Documentation
 
-### Code Documentation
+ Code Documentation
 
-#### JSDoc Format
+ JSDoc Format
 ```javascript
-/**
- * Generate a unique alphanumeric access code for an event.
- * @param {number} length - Code length (default: 11)
- * @returns {string} - Access code (e.g., "ABC-123-XYZ")
- * @throws {Error} If length is negative
- * @example
- * const code = generateAccessCode(11);
- * // Returns: "ABC-123-XYZ"
- */
-function generateAccessCode(length = 11) {
+/
+  Generate a unique alphanumeric access code for an event.
+  @param {number} length - Code length (default: )
+  @returns {string} - Access code (e.g., "ABC--XYZ")
+  @throws {Error} If length is negative
+  @example
+  const code = generateAccessCode();
+  // Returns: "ABC--XYZ"
+ /
+function generateAccessCode(length = ) {
   // Implementation
 }
 ```
 
-#### React Component Documentation
+ React Component Documentation
 ```jsx
-/**
- * Form component for creating and editing events.
- * @component
- * @param {Object} props - Component props
- * @param {Event} props.event - Event data (null for new event)
- * @param {Function} props.onSubmit - Callback on form submission
- * @param {boolean} props.isLoading - Loading state
- * @returns {JSX.Element} Event form component
- * @example
- * <EventForm
- *   event={null}
- *   onSubmit={handleCreateEvent}
- *   isLoading={false}
- * />
- */
+/
+  Form component for creating and editing events.
+  @component
+  @param {Object} props - Component props
+  @param {Event} props.event - Event data (null for new event)
+  @param {Function} props.onSubmit - Callback on form submission
+  @param {boolean} props.isLoading - Loading state
+  @returns {JSX.Element} Event form component
+  @example
+  <EventForm
+    event={null}
+    onSubmit={handleCreateEvent}
+    isLoading={false}
+  />
+ /
 const EventForm = ({ event, onSubmit, isLoading }) => {
   // Implementation
 };
 ```
 
-### File Documentation
+ File Documentation
 
 Update relevant docs when:
 - Adding new API endpoints → Update [docs/API.md](./docs/API.md)
@@ -360,129 +360,129 @@ Update relevant docs when:
 
 ---
 
-## Common Scenarios
+ Common Scenarios
 
-### Adding a New Feature
+ Adding a New Feature
 
-1. **Create feature branch:**
+. Create feature branch:
    ```bash
    git checkout -b feature/EV-XXX-feature-name
    ```
 
-2. **Backend implementation:**
+. Backend implementation:
    - Create model (if needed)
    - Create controller
    - Create routes
    - Add middleware/validation
    - Write tests
 
-3. **Frontend implementation:**
+. Frontend implementation:
    - Create components
    - Create API service
    - Create custom hooks
    - Write tests
 
-4. **Documentation:**
+. Documentation:
    - Update API.md with endpoints
    - Update ARCHITECTURE.md if needed
    - Add comments in code
 
-5. **Testing:**
+. Testing:
    - Manual testing in browser
    - API testing with Postman
    - Unit tests passing
    - No regressions
 
-### Fixing a Bug
+ Fixing a Bug
 
-1. **Create bug branch:**
+. Create bug branch:
    ```bash
    git checkout -b bugfix/BUG-XXX-bug-name
    ```
 
-2. **Write failing test:**
+. Write failing test:
    - Test reproduces the bug
    - Test fails before fix
 
-3. **Implement fix:**
+. Implement fix:
    - Minimal changes
    - No scope creep
 
-4. **Verify test passes:**
+. Verify test passes:
    - New test passes
    - Existing tests still pass
    - No new issues introduced
 
-### Updating Dependencies
+ Updating Dependencies
 
 ```bash
-# Check for updates
+ Check for updates
 npm outdated
 
-# Update specific package
+ Update specific package
 npm update express@latest
 
-# Update all packages (careful!)
+ Update all packages (careful!)
 npm update
 
-# Review changes
+ Review changes
 git diff package.json
 
-# Test thoroughly
+ Test thoroughly
 npm test
 npm run build
 ```
 
 ---
 
-## Project Structure
+ Project Structure
 
-### Backend Structure
+ Backend Structure
 ```
 backend/
-├── config/           # Database and env config
-├── controllers/      # Request handlers
-├── models/          # Sequelize models
-├── routes/          # API route definitions
-├── middleware/      # Custom middleware
-├── services/        # Business logic
-├── utils/           # Helper functions
-├── migrations/      # Database migrations
-├── tests/           # Test files
-└── server.js        # Entry point
+├── config/            Database and env config
+├── controllers/       Request handlers
+├── models/           Sequelize models
+├── routes/           API route definitions
+├── middleware/       Custom middleware
+├── services/         Business logic
+├── utils/            Helper functions
+├── migrations/       Database migrations
+├── tests/            Test files
+└── server.js         Entry point
 ```
 
-### Frontend Structure
+ Frontend Structure
 ```
 frontend/src/
-├── components/      # Reusable components
-├── pages/          # Page components
-├── services/       # API service layer
-├── hooks/          # Custom React hooks
-├── context/        # React Context
-├── utils/          # Utility functions
-└── App.jsx         # Main app
+├── components/       Reusable components
+├── pages/           Page components
+├── services/        API service layer
+├── hooks/           Custom React hooks
+├── context/         React Context
+├── utils/           Utility functions
+└── App.jsx          Main app
 ```
 
 ---
 
-## Release Process
+ Release Process
 
-### Version Bumping
+ Version Bumping
 ```bash
-# Follows semantic versioning: MAJOR.MINOR.PATCH
+ Follows semantic versioning: MAJOR.MINOR.PATCH
 
-# Patch release (bug fixes)
+ Patch release (bug fixes)
 npm version patch
 
-# Minor release (new features)
+ Minor release (new features)
 npm version minor
 
-# Major release (breaking changes)
+ Major release (breaking changes)
 npm version major
 ```
 
-### Release Checklist
+ Release Checklist
 - [ ] All tests passing
 - [ ] All issues closed
 - [ ] Documentation updated
@@ -493,21 +493,21 @@ npm version major
 
 ---
 
-## Resources
+ Resources
 
-### Documentation
-- [Phase 1 Specification](../PHASE_1_SPECIFICATION.md)
+ Documentation
+- [Phase  Specification](../PHASE__SPECIFICATION.md)
 - [Architecture Guide](./ARCHITECTURE.md)
 - [API Documentation](./API.md)
 - [Database Schema](./DATABASE_SCHEMA.md)
 
-### Tools
-- **Testing:** Jest
-- **Linting:** ESLint
-- **Formatting:** Prettier
-- **API Testing:** Postman, Thunder Client
+ Tools
+- Testing: Jest
+- Linting: ESLint
+- Formatting: Prettier
+- API Testing: Postman, Thunder Client
 
-### Learning Resources
+ Learning Resources
 - [JavaScript Best Practices](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
 - [React Documentation](https://react.dev/)
 - [Express.js Guide](https://expressjs.com/)
@@ -515,7 +515,7 @@ npm version major
 
 ---
 
-## Questions?
+ Questions?
 
 - Check existing issues
 - Review documentation
@@ -524,6 +524,6 @@ npm version major
 
 ---
 
-**Thank you for contributing!** 🎉
+Thank you for contributing! 
 
 Your contributions help make this project better for everyone.

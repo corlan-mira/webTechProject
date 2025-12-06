@@ -1,18 +1,18 @@
-# System Architecture & Design
+ System Architecture & Design
 
-## Overview
+ Overview
 
-The Event Attendance Monitoring System is built on a **three-tier web application architecture**:
+The Event Attendance Monitoring System is built on a three-tier web application architecture:
 
-1. **Frontend Layer** (React SPA)
-2. **API Layer** (Node.js/Express REST API)
-3. **Data Layer** (PostgreSQL/MySQL with Sequelize ORM)
+. Frontend Layer (React SPA)
+. API Layer (Node.js/Express REST API)
+. Data Layer (PostgreSQL/MySQL with Sequelize ORM)
 
 This document describes the architectural principles, design patterns, and component interactions.
 
 ---
 
-## Architecture Diagram
+ Architecture Diagram
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
@@ -67,35 +67,35 @@ This document describes the architectural principles, design patterns, and compo
 
 ---
 
-## Design Principles
+ Design Principles
 
-### 1. **Separation of Concerns**
-- **Controllers:** Handle HTTP requests/responses
-- **Services:** Contain business logic
-- **Models:** Define data structures
-- **Middleware:** Cross-cutting concerns (auth, validation)
+ . Separation of Concerns
+- Controllers: Handle HTTP requests/responses
+- Services: Contain business logic
+- Models: Define data structures
+- Middleware: Cross-cutting concerns (auth, validation)
 
-### 2. **REST API Design**
-- **Resource-Oriented:** URLs represent resources (not actions)
-- **Standard HTTP Methods:** GET (read), POST (create), PUT (update), DELETE (remove)
-- **Consistent Response Format:** All endpoints return structured JSON
+ . REST API Design
+- Resource-Oriented: URLs represent resources (not actions)
+- Standard HTTP Methods: GET (read), POST (create), PUT (update), DELETE (remove)
+- Consistent Response Format: All endpoints return structured JSON
 
-### 3. **Security First**
-- **Authentication:** JWT tokens for EO endpoints
-- **Authorization:** Role-based access control (EO vs. Participant)
-- **Input Validation:** All user input validated at boundaries
-- **Password Security:** Bcrypt hashing with salt
+ . Security First
+- Authentication: JWT tokens for EO endpoints
+- Authorization: Role-based access control (EO vs. Participant)
+- Input Validation: All user input validated at boundaries
+- Password Security: Bcrypt hashing with salt
 
-### 4. **Scalability & Performance**
-- **Stateless API:** No server-side session storage
-- **Database Optimization:** Proper indexing on frequently queried fields
-- **Error Handling:** Graceful degradation with meaningful error messages
+ . Scalability & Performance
+- Stateless API: No server-side session storage
+- Database Optimization: Proper indexing on frequently queried fields
+- Error Handling: Graceful degradation with meaningful error messages
 
 ---
 
-## Data Flow Diagrams
+ Data Flow Diagrams
 
-### Flow 1: Event Organizer - Create Event
+ Flow : Event Organizer - Create Event
 
 ```
 ┌─────────────┐
@@ -142,9 +142,9 @@ This document describes the architectural principles, design patterns, and compo
            ▼
 ┌──────────────────────────────┐
 │ Business Logic:              │
-│ 1. Generate access code      │
-│ 2. Create event record       │
-│ 3. Store in database         │
+│ . Generate access code      │
+│ . Create event record       │
+│ . Store in database         │
 └──────────┬──────────────────┘
            │
            ▼
@@ -161,7 +161,7 @@ This document describes the architectural principles, design patterns, and compo
 └──────────────────────────────┘
 ```
 
-### Flow 2: Participant - Text Check-In
+ Flow : Participant - Text Check-In
 
 ```
 ┌──────────────────────┐
@@ -191,17 +191,17 @@ This document describes the architectural principles, design patterns, and compo
            ▼
 ┌──────────────────────────────┐
 │ Business Logic:              │
-│ 1. Fetch event               │
-│ 2. Verify state = OPEN       │
-│ 3. Validate access code      │
-│ 4. Check for duplicates      │
-│ 5. Record check-in           │
-│ 6. Return timestamp          │
+│ . Fetch event               │
+│ . Verify state = OPEN       │
+│ . Validate access code      │
+│ . Check for duplicates      │
+│ . Record check-in           │
+│ . Return timestamp          │
 └──────────┬──────────────────┘
            │
            ▼
 ┌──────────────────────────────┐
-│ Response (201):              │
+│ Response ():              │
 │ - Confirmation message       │
 │ - Timestamp                  │
 └──────────┬──────────────────┘
@@ -212,7 +212,7 @@ This document describes the architectural principles, design patterns, and compo
 └──────────────────────────────┘
 ```
 
-### Flow 3: Event Organizer - Export Attendance
+ Flow : Event Organizer - Export Attendance
 
 ```
 ┌──────────────────────┐
@@ -240,10 +240,10 @@ This document describes the architectural principles, design patterns, and compo
            ▼
 ┌──────────────────────────────┐
 │ Business Logic:              │
-│ 1. Fetch check-in records    │
-│ 2. Format data               │
-│ 3. Generate CSV file         │
-│ 4. Return as download        │
+│ . Fetch check-in records    │
+│ . Format data               │
+│ . Generate CSV file         │
+│ . Return as download        │
 └──────────┬──────────────────┘
            │
            ▼
@@ -263,14 +263,14 @@ This document describes the architectural principles, design patterns, and compo
 
 ---
 
-## Component Architecture
+ Component Architecture
 
-### Backend Structure
+ Backend Structure
 
-#### Controllers
+ Controllers
 Handle HTTP request/response cycles.
 
-**Example: EventController.js**
+Example: EventController.js
 ```
 EventController
 ├── createEvent(req, res)
@@ -280,10 +280,10 @@ EventController
 └── listEvents(req, res)
 ```
 
-#### Services
+ Services
 Encapsulate business logic.
 
-**Example: EventService.js**
+Example: EventService.js
 ```
 EventService
 ├── createEvent(groupId, eventData)
@@ -294,10 +294,10 @@ EventService
 └── toggleEventState(eventId, newState)
 ```
 
-#### Models (Sequelize)
+ Models (Sequelize)
 Define data structures and relationships.
 
-**Example: Event.js**
+Example: Event.js
 ```
 Event
 ├── id (UUID)
@@ -311,22 +311,22 @@ Event
     └── hasMany(CheckIn)
 ```
 
-#### Middleware
+ Middleware
 Cross-cutting concerns.
 
-**Example: authMiddleware.js**
+Example: authMiddleware.js
 - Verify JWT token
 - Attach user to request
-- Return 401 if invalid
+- Return  if invalid
 
-**Example: validation.js**
+Example: validation.js
 - Validate request schema
-- Return 400 if invalid
+- Return  if invalid
 
-#### Routes
+ Routes
 Map HTTP methods to controllers.
 
-**Example: eventRoutes.js**
+Example: eventRoutes.js
 ```
 POST   /api/event-groups/:groupId/events     → createEvent
 GET    /api/event-groups/:groupId/events     → listEvents
@@ -335,125 +335,125 @@ PUT    /api/event-groups/:groupId/events/:id → updateEvent
 DELETE /api/event-groups/:groupId/events/:id → deleteEvent
 ```
 
-### Frontend Structure
+ Frontend Structure
 
-#### Pages
+ Pages
 Top-level route components.
 
-**Example: EventDetailsPage.jsx**
+Example: EventDetailsPage.jsx
 - Renders event details
 - Displays attendance list
 - Handles export actions
 
-#### Components
+ Components
 Reusable UI components.
 
-**Example: TextCheckInForm.jsx**
+Example: TextCheckInForm.jsx
 - Form for entering access code
 - Input validation
 - Submit handler
 
-**Example: EventForm.jsx**
+Example: EventForm.jsx
 - Reusable form for create/edit
 - Field validation
 - Submission logic
 
-#### Services (API Client)
+ Services (API Client)
 Communicate with backend.
 
-**Example: eventService.js**
+Example: eventService.js
 ```javascript
 const eventService = {
-  createEvent(groupId, data) { /* POST request */ },
-  getEvent(eventId) { /* GET request */ },
-  updateEvent(eventId, data) { /* PUT request */ },
-  deleteEvent(eventId) { /* DELETE request */ },
-  exportAttendance(eventId, format) { /* GET request */ }
+  createEvent(groupId, data) { / POST request / },
+  getEvent(eventId) { / GET request / },
+  updateEvent(eventId, data) { / PUT request / },
+  deleteEvent(eventId) { / DELETE request / },
+  exportAttendance(eventId, format) { / GET request / }
 };
 ```
 
-#### Custom Hooks
+ Custom Hooks
 Reusable stateful logic.
 
-**Example: useFetchEvents.js**
+Example: useFetchEvents.js
 - Fetch events from API
 - Handle loading/error states
 - Memoize results
 
-**Example: useAuth.js**
+Example: useAuth.js
 - Manage authentication state
 - Provide login/logout/register
 - Store JWT token
 
-#### Context
+ Context
 Global state management.
 
-**Example: AuthContext.js**
+Example: AuthContext.js
 - Provide auth state to app
 - User, token, isAuthenticated
 
 ---
 
-## Database Design
+ Database Design
 
-### Tables Overview
+ Tables Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │ USERS                                                       │
 ├─────────────────────────────────────────────────────────────┤
 │ id (PK)           │ UUID/INT                                │
-│ email (UNIQUE)    │ VARCHAR(255)                            │
-│ password_hash     │ VARCHAR(255)                            │
-│ name              │ VARCHAR(255)                            │
+│ email (UNIQUE)    │ VARCHAR()                            │
+│ password_hash     │ VARCHAR()                            │
+│ name              │ VARCHAR()                            │
 │ created_at        │ TIMESTAMP                               │
 └─────────────────────────────────────────────────────────────┘
             │
-            │ 1:N
+            │ :N
             ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ EVENT_GROUPS                                                │
 ├─────────────────────────────────────────────────────────────┤
 │ id (PK)           │ UUID/INT                                │
 │ user_id (FK)      │ References USERS.id (CASCADE DELETE)    │
-│ name              │ VARCHAR(255)                            │
+│ name              │ VARCHAR()                            │
 │ description       │ TEXT                                    │
 │ created_at        │ TIMESTAMP                               │
 └─────────────────────────────────────────────────────────────┘
             │
-            │ 1:N
+            │ :N
             ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ EVENTS                                                      │
 ├─────────────────────────────────────────────────────────────┤
 │ id (PK)           │ UUID/INT                                │
 │ group_id (FK)     │ References EVENT_GROUPS.id              │
-│ name              │ VARCHAR(255)                            │
-│ location          │ VARCHAR(255)                            │
+│ name              │ VARCHAR()                            │
+│ location          │ VARCHAR()                            │
 │ start_date        │ TIMESTAMP                               │
 │ end_date          │ TIMESTAMP                               │
 │ capacity          │ INT                                     │
 │ state             │ ENUM ('OPEN', 'CLOSED')                │
-│ access_code       │ VARCHAR(20) UNIQUE                      │
+│ access_code       │ VARCHAR() UNIQUE                      │
 │ created_at        │ TIMESTAMP                               │
 └─────────────────────────────────────────────────────────────┘
             │
-            │ 1:N
+            │ :N
             ▼
 ┌─────────────────────────────────────────────────────────────┐
 │ CHECK_INS                                                   │
 ├─────────────────────────────────────────────────────────────┤
 │ id (PK)           │ UUID/INT                                │
 │ event_id (FK)     │ References EVENTS.id (CASCADE DELETE)   │
-│ participant_email │ VARCHAR(255)                            │
-│ participant_name  │ VARCHAR(255)                            │
+│ participant_email │ VARCHAR()                            │
+│ participant_name  │ VARCHAR()                            │
 │ check_in_method   │ ENUM ('TEXT', 'QR')                    │
 │ checked_in_at     │ TIMESTAMP (DEFAULT NOW())               │
 │ created_at        │ TIMESTAMP                               │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Indices
+ Indices
 For optimal query performance:
 
 ```sql
@@ -476,67 +476,67 @@ CREATE INDEX idx_check_ins_checked_in_at ON check_ins(checked_in_at);
 
 ---
 
-## API Design Patterns
+ API Design Patterns
 
-### Request/Response Format
+ Request/Response Format
 
-**All requests:**
+All requests:
 ```json
 {
-  "data": { /* Request body */ }
+  "data": { / Request body / }
 }
 ```
 
-**All successful responses:**
+All successful responses:
 ```json
 {
   "success": true,
-  "data": { /* Response data */ },
+  "data": { / Response data / },
   "meta": {
-    "timestamp": "2025-11-16T10:00:00Z"
+    "timestamp": "--T::Z"
   }
 }
 ```
 
-**Error responses:**
+Error responses:
 ```json
 {
   "success": false,
   "error": {
     "code": "ERROR_CODE",
     "message": "Human-readable error",
-    "details": { /* Additional context */ }
+    "details": { / Additional context / }
   }
 }
 ```
 
-### Pagination
+ Pagination
 
 For list endpoints:
 
-**Request:**
+Request:
 ```
-GET /api/endpoint?page=1&limit=10
+GET /api/endpoint?page=&limit=
 ```
 
-**Response:**
+Response:
 ```json
 {
-  "data": [ /* array of items */ ],
+  "data": [ / array of items / ],
   "pagination": {
-    "page": 1,
-    "limit": 10,
-    "total": 42,
-    "totalPages": 5
+    "page": ,
+    "limit": ,
+    "total": ,
+    "totalPages": 
   }
 }
 ```
 
 ---
 
-## Security Architecture
+ Security Architecture
 
-### Authentication Flow
+ Authentication Flow
 
 ```
 ┌──────────────┐
@@ -550,16 +550,16 @@ GET /api/endpoint?page=1&limit=10
 │ Compare with stored hash │
 └──────┬───────────────────┘
        │
-       ├─ Invalid → 401 Unauthorized
+       ├─ Invalid →  Unauthorized
        │
        └─ Valid → Generate JWT
                   ├─ Payload: { userId, email }
                   ├─ Sign with JWT_SECRET
-                  ├─ Set expiry (24h)
+                  ├─ Set expiry (h)
                   └─ Return token to client
 ```
 
-### Authorization Flow
+ Authorization Flow
 
 ```
 ┌──────────────────────────┐
@@ -570,44 +570,44 @@ GET /api/endpoint?page=1&limit=10
        ▼
 ┌──────────────────────────┐
 │ authMiddleware:          │
-│ 1. Extract token         │
-│ 2. Verify signature      │
-│ 3. Check expiry          │
+│ . Extract token         │
+│ . Verify signature      │
+│ . Check expiry          │
 └──────┬───────────────────┘
        │
-       ├─ Invalid/Expired → 401 Unauthorized
+       ├─ Invalid/Expired →  Unauthorized
        │
        └─ Valid → Attach user to req
                   Continue to handler
 ```
 
-### Input Validation
+ Input Validation
 
 All user input is validated:
 
 ```javascript
 // Validation at API boundary
 POST /api/event-groups/:groupId/events
-1. Validate URL params (groupId is valid UUID)
-2. Validate request body (name, dates, etc.)
-3. Validate JWT token (authMiddleware)
-4. Sanitize inputs (prevent injection)
-5. Pass to business logic
+. Validate URL params (groupId is valid UUID)
+. Validate request body (name, dates, etc.)
+. Validate JWT token (authMiddleware)
+. Sanitize inputs (prevent injection)
+. Pass to business logic
 ```
 
 ---
 
-## Deployment Architecture
+ Deployment Architecture
 
-### Development Environment
+ Development Environment
 ```
 Developer Machine
-├── Frontend (React dev server on port 3000)
-├── Backend (Node.js dev server on port 5000)
+├── Frontend (React dev server on port )
+├── Backend (Node.js dev server on port )
 └── Database (PostgreSQL local instance)
 ```
 
-### Production Environment (Phase 2)
+ Production Environment (Phase )
 ```
 Cloud Platform (AWS/Heroku)
 ├── Frontend (React SPA on CDN)
@@ -618,14 +618,14 @@ Cloud Platform (AWS/Heroku)
 
 ---
 
-## Conclusion
+ Conclusion
 
 This architecture provides:
-- ✅ Clear separation of concerns
-- ✅ Scalability through stateless API
-- ✅ Security through JWT & input validation
-- ✅ Maintainability through design patterns
-- ✅ Performance through proper indexing
+-  Clear separation of concerns
+-  Scalability through stateless API
+-  Security through JWT & input validation
+-  Maintainability through design patterns
+-  Performance through proper indexing
 
 For detailed API endpoints, see [API.md](./API.md)  
 For database schema details, see [DATABASE_SCHEMA.md](./DATABASE_SCHEMA.md)

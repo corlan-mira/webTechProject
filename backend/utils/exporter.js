@@ -1,14 +1,14 @@
-/**
- * Export Utility
- * Handles CSV and XLSX export of attendance reports
- * 
- * Functions:
- *  - exportEventToCSV(eventId): Export event attendance as CSV
- *  - exportEventToXLSX(eventId): Export event attendance as XLSX
- *  - exportGroupToCSV(groupId): Export group attendance as CSV
- *  - exportGroupToXLSX(groupId): Export group attendance as XLSX
- *  - formatAttendanceData(attendances, type): Format data for export
- */
+/
+  Export Utility
+  Handles CSV and XLSX export of attendance reports
+  
+  Functions:
+   - exportEventToCSV(eventId): Export event attendance as CSV
+   - exportEventToXLSX(eventId): Export event attendance as XLSX
+   - exportGroupToCSV(groupId): Export group attendance as CSV
+   - exportGroupToXLSX(groupId): Export group attendance as XLSX
+   - formatAttendanceData(attendances, type): Format data for export
+ /
 
 const fs = require('fs');
 const path = require('path');
@@ -24,25 +24,25 @@ const EXPORT_DIR = path.join(__dirname, '../exports');
 const DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss';
 const FILE_DATE_FORMAT = 'yyyy-MM-dd_HH-mm-ss';
 
-/**
- * Ensure export directory exists
- */
+/
+  Ensure export directory exists
+ /
 function ensureExportDir() {
   if (!fs.existsSync(EXPORT_DIR)) {
     fs.mkdirSync(EXPORT_DIR, { recursive: true });
   }
 }
 
-/**
- * Export event attendance to CSV file
- * 
- * @param {string} eventId - UUID of the event
- * @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, error?: string}>}
- * 
- * @example
- * const result = await exportEventToCSV('event-uuid-123');
- * // { success: true, filepath: '/path/to/file.csv', filename: 'event_2024-12-06_150530.csv', recordCount: 45 }
- */
+/
+  Export event attendance to CSV file
+  
+  @param {string} eventId - UUID of the event
+  @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, error?: string}>}
+  
+  @example
+  const result = await exportEventToCSV('event-uuid-');
+  // { success: true, filepath: '/path/to/file.csv', filename: 'event_--_.csv', recordCount:  }
+ /
 exports.exportEventToCSV = async (eventId) => {
   try {
     ensureExportDir();
@@ -119,16 +119,16 @@ exports.exportEventToCSV = async (eventId) => {
   }
 };
 
-/**
- * Export event attendance to XLSX file
- * 
- * @param {string} eventId - UUID of the event
- * @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, error?: string}>}
- * 
- * @example
- * const result = await exportEventToXLSX('event-uuid-123');
- * // { success: true, filepath: '/path/to/file.xlsx', filename: 'event_2024-12-06_150530.xlsx', recordCount: 45 }
- */
+/
+  Export event attendance to XLSX file
+  
+  @param {string} eventId - UUID of the event
+  @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, error?: string}>}
+  
+  @example
+  const result = await exportEventToXLSX('event-uuid-');
+  // { success: true, filepath: '/path/to/file.xlsx', filename: 'event_--_.xlsx', recordCount:  }
+ /
 exports.exportEventToXLSX = async (eventId) => {
   try {
     ensureExportDir();
@@ -202,17 +202,17 @@ exports.exportEventToXLSX = async (eventId) => {
   }
 };
 
-/**
- * Export group attendance to CSV file
- * Combines attendance from all events in the group
- * 
- * @param {string} groupId - UUID of the event group
- * @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, eventCount?: number, error?: string}>}
- * 
- * @example
- * const result = await exportGroupToCSV('group-uuid-123');
- * // { success: true, filepath: '/path/to/file.csv', filename: 'group_2024-12-06_150530.csv', recordCount: 120, eventCount: 3 }
- */
+/
+  Export group attendance to CSV file
+  Combines attendance from all events in the group
+  
+  @param {string} groupId - UUID of the event group
+  @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, eventCount?: number, error?: string}>}
+  
+  @example
+  const result = await exportGroupToCSV('group-uuid-');
+  // { success: true, filepath: '/path/to/file.csv', filename: 'group_--_.csv', recordCount: , eventCount:  }
+ /
 exports.exportGroupToCSV = async (groupId) => {
   try {
     ensureExportDir();
@@ -259,7 +259,7 @@ exports.exportGroupToCSV = async (groupId) => {
 
     // Write CSV file
     const recordCount = await writeCSVFile(filepath, csvData);
-    const eventCount = group.events ? group.events.length : 0;
+    const eventCount = group.events ? group.events.length : ;
 
     console.log('[Exporter] Group CSV exported:', {
       groupId,
@@ -294,17 +294,17 @@ exports.exportGroupToCSV = async (groupId) => {
   }
 };
 
-/**
- * Export group attendance to XLSX file
- * Creates separate sheets for each event in the group
- * 
- * @param {string} groupId - UUID of the event group
- * @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, eventCount?: number, error?: string}>}
- * 
- * @example
- * const result = await exportGroupToXLSX('group-uuid-123');
- * // { success: true, filepath: '/path/to/file.xlsx', filename: 'group_2024-12-06_150530.xlsx', recordCount: 120, eventCount: 3 }
- */
+/
+  Export group attendance to XLSX file
+  Creates separate sheets for each event in the group
+  
+  @param {string} groupId - UUID of the event group
+  @returns {Promise<{success: boolean, filepath?: string, filename?: string, recordCount?: number, eventCount?: number, error?: string}>}
+  
+  @example
+  const result = await exportGroupToXLSX('group-uuid-');
+  // { success: true, filepath: '/path/to/file.xlsx', filename: 'group_--_.xlsx', recordCount: , eventCount:  }
+ /
 exports.exportGroupToXLSX = async (groupId) => {
   try {
     ensureExportDir();
@@ -382,12 +382,12 @@ exports.exportGroupToXLSX = async (groupId) => {
   }
 };
 
-/**
- * Format event attendance data for CSV export
- * 
- * @param {Object} event - Event with attendances
- * @returns {Array<Object>} Formatted data rows
- */
+/
+  Format event attendance data for CSV export
+  
+  @param {Object} event - Event with attendances
+  @returns {Array<Object>} Formatted data rows
+ /
 function formatEventAttendanceForExport(event) {
   const rows = [];
 
@@ -408,7 +408,7 @@ function formatEventAttendanceForExport(event) {
 
   // Add attendance header
   rows.push({
-    'Check-in #': '',
+    'Check-in ': '',
     'Participant Name': '',
     'Participant Email': '',
     'User Role': '',
@@ -421,11 +421,11 @@ function formatEventAttendanceForExport(event) {
   attendances.forEach((attendance, index) => {
     const participant = attendance.participant;
     const minutesFromStart = participant
-      ? Math.round((attendance.timestamp - event.start_time) / 60000)
-      : 0;
+      ? Math.round((attendance.timestamp - event.start_time) / )
+      : ;
 
     rows.push({
-      'Check-in #': index + 1,
+      'Check-in ': index + ,
       'Participant Name': participant?.name || 'Anonymous',
       'Participant Email': participant?.email || 'N/A',
       'User Role': participant?.role || 'Unknown',
@@ -437,12 +437,12 @@ function formatEventAttendanceForExport(event) {
   return rows;
 }
 
-/**
- * Format group attendance data for CSV export
- * 
- * @param {Object} group - Event group with events
- * @returns {Array<Object>} Formatted data rows
- */
+/
+  Format group attendance data for CSV export
+  
+  @param {Object} group - Event group with events
+  @returns {Array<Object>} Formatted data rows
+ /
 function formatGroupAttendanceForExport(group) {
   const rows = [];
 
@@ -451,7 +451,7 @@ function formatGroupAttendanceForExport(group) {
     'Event Group': group.name,
     'Description': group.description || 'N/A',
     'Total Events': (group.events || []).length,
-    'Total Attendees': group.events?.reduce((sum, e) => sum + (e.attendances?.length || 0), 0) || 0,
+    'Total Attendees': group.events?.reduce((sum, e) => sum + (e.attendances?.length || ), ) || ,
     'Export Date': formatDate(new Date(), DATE_FORMAT)
   });
 
@@ -459,7 +459,7 @@ function formatGroupAttendanceForExport(group) {
   const events = group.events || [];
   events.forEach((event, eventIndex) => {
     // Event separator
-    if (eventIndex > 0) {
+    if (eventIndex > ) {
       rows.push({});
     }
 
@@ -469,7 +469,7 @@ function formatGroupAttendanceForExport(group) {
       'Event Code': event.code_text,
       'Start Time': formatDate(event.start_time, DATE_FORMAT),
       'Duration (mins)': event.duration_minutes,
-      'Attendees': event.attendances?.length || 0,
+      'Attendees': event.attendances?.length || ,
       'State': event.state
     });
 
@@ -477,7 +477,7 @@ function formatGroupAttendanceForExport(group) {
 
     // Attendance records header
     rows.push({
-      'Check-in #': '',
+      'Check-in ': '',
       'Participant Name': '',
       'Participant Email': '',
       'User Role': '',
@@ -490,11 +490,11 @@ function formatGroupAttendanceForExport(group) {
     attendances.forEach((attendance, index) => {
       const participant = attendance.participant;
       const minutesFromStart = participant
-        ? Math.round((attendance.timestamp - event.start_time) / 60000)
-        : 0;
+        ? Math.round((attendance.timestamp - event.start_time) / )
+        : ;
 
       rows.push({
-        'Check-in #': index + 1,
+        'Check-in ': index + ,
         'Participant Name': participant?.name || 'Anonymous',
         'Participant Email': participant?.email || 'N/A',
         'User Role': participant?.role || 'Unknown',
@@ -507,13 +507,13 @@ function formatGroupAttendanceForExport(group) {
   return rows;
 }
 
-/**
- * Write CSV file using fast-csv
- * 
- * @param {string} filepath - Destination file path
- * @param {Array<Object>} data - Data to write
- * @returns {Promise<number>} Number of records written
- */
+/
+  Write CSV file using fast-csv
+  
+  @param {string} filepath - Destination file path
+  @param {Array<Object>} data - Data to write
+  @returns {Promise<number>} Number of records written
+ /
 function writeCSVFile(filepath, data) {
   return new Promise((resolve, reject) => {
     const output = createWriteStream(filepath);
@@ -522,7 +522,7 @@ function writeCSVFile(filepath, data) {
 
     createObjectCsvWriter({
       path: filepath,
-      header: data.length > 0 ? Object.keys(data[0]).map(key => ({ key, title: key })) : []
+      header: data.length >  ? Object.keys(data[]).map(key => ({ key, title: key })) : []
     })
       .writeRecords(data)
       .then(() => {
@@ -532,13 +532,13 @@ function writeCSVFile(filepath, data) {
   });
 }
 
-/**
- * Write event XLSX file using ExcelJS
- * 
- * @param {string} filepath - Destination file path
- * @param {Object} event - Event with attendances
- * @returns {Promise<number>} Number of records written
- */
+/
+  Write event XLSX file using ExcelJS
+  
+  @param {string} filepath - Destination file path
+  @param {Object} event - Event with attendances
+  @returns {Promise<number>} Number of records written
+ /
 async function writeEventXLSXFile(filepath, event) {
   const workbook = new ExcelJS.Workbook();
   
@@ -547,18 +547,18 @@ async function writeEventXLSXFile(filepath, event) {
 
   // Set column widths
   worksheet.columns = [
-    { header: 'Check-in #', key: 'checkinNumber', width: 12 },
-    { header: 'Participant Name', key: 'participantName', width: 25 },
-    { header: 'Participant Email', key: 'participantEmail', width: 30 },
-    { header: 'User Role', key: 'userRole', width: 15 },
-    { header: 'Check-in Time', key: 'checkinTime', width: 20 },
-    { header: 'Minutes from Start', key: 'minutesFromStart', width: 18 }
+    { header: 'Check-in ', key: 'checkinNumber', width:  },
+    { header: 'Participant Name', key: 'participantName', width:  },
+    { header: 'Participant Email', key: 'participantEmail', width:  },
+    { header: 'User Role', key: 'userRole', width:  },
+    { header: 'Check-in Time', key: 'checkinTime', width:  },
+    { header: 'Minutes from Start', key: 'minutesFromStart', width:  }
   ];
 
   // Style header row
-  const headerRow = worksheet.getRow(1);
+  const headerRow = worksheet.getRow();
   headerRow.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-  headerRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF366092' } };
+  headerRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' } };
   headerRow.alignment = { horizontal: 'center', vertical: 'center' };
 
   // Add attendance rows
@@ -566,11 +566,11 @@ async function writeEventXLSXFile(filepath, event) {
   attendances.forEach((attendance, index) => {
     const participant = attendance.participant;
     const minutesFromStart = participant
-      ? Math.round((attendance.timestamp - event.start_time) / 60000)
-      : 0;
+      ? Math.round((attendance.timestamp - event.start_time) / )
+      : ;
 
     worksheet.addRow({
-      checkinNumber: index + 1,
+      checkinNumber: index + ,
       participantName: participant?.name || 'Anonymous',
       participantEmail: participant?.email || 'N/A',
       userRole: participant?.role || 'Unknown',
@@ -582,13 +582,13 @@ async function writeEventXLSXFile(filepath, event) {
   // Add summary sheet
   const summarySheet = workbook.addWorksheet('Summary');
   summarySheet.columns = [
-    { header: 'Property', key: 'property', width: 25 },
-    { header: 'Value', key: 'value', width: 40 }
+    { header: 'Property', key: 'property', width:  },
+    { header: 'Value', key: 'value', width:  }
   ];
 
-  const summaryHeaderRow = summarySheet.getRow(1);
+  const summaryHeaderRow = summarySheet.getRow();
   summaryHeaderRow.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-  summaryHeaderRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF366092' } };
+  summaryHeaderRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' } };
 
   summarySheet.addRow({ property: 'Event Title', value: event.title });
   summarySheet.addRow({ property: 'Event Group', value: event.group?.name || 'N/A' });
@@ -605,32 +605,32 @@ async function writeEventXLSXFile(filepath, event) {
   return attendances.length;
 }
 
-/**
- * Write group XLSX file using ExcelJS
- * Creates one sheet per event plus summary
- * 
- * @param {string} filepath - Destination file path
- * @param {Object} group - Event group with events
- * @returns {Promise<{recordCount: number, eventCount: number}>}
- */
+/
+  Write group XLSX file using ExcelJS
+  Creates one sheet per event plus summary
+  
+  @param {string} filepath - Destination file path
+  @param {Object} group - Event group with events
+  @returns {Promise<{recordCount: number, eventCount: number}>}
+ /
 async function writeGroupXLSXFile(filepath, group) {
   const workbook = new ExcelJS.Workbook();
   
-  let totalRecords = 0;
+  let totalRecords = ;
   const events = group.events || [];
 
   // Add summary sheet first
-  const summarySheet = workbook.addWorksheet('Summary', { index: 0 });
+  const summarySheet = workbook.addWorksheet('Summary', { index:  });
   summarySheet.columns = [
-    { header: 'Property', key: 'property', width: 25 },
-    { header: 'Value', key: 'value', width: 40 }
+    { header: 'Property', key: 'property', width:  },
+    { header: 'Value', key: 'value', width:  }
   ];
 
-  const summaryHeaderRow = summarySheet.getRow(1);
+  const summaryHeaderRow = summarySheet.getRow();
   summaryHeaderRow.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-  summaryHeaderRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF366092' } };
+  summaryHeaderRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' } };
 
-  const totalAttendees = events.reduce((sum, e) => sum + (e.attendances?.length || 0), 0);
+  const totalAttendees = events.reduce((sum, e) => sum + (e.attendances?.length || ), );
   summarySheet.addRow({ property: 'Event Group', value: group.name });
   summarySheet.addRow({ property: 'Description', value: group.description || 'N/A' });
   summarySheet.addRow({ property: 'Total Events', value: events.length });
@@ -639,32 +639,32 @@ async function writeGroupXLSXFile(filepath, group) {
 
   // Add sheet for each event
   events.forEach((event) => {
-    const sheetName = event.title.substring(0, 31); // Excel sheet name limit
+    const sheetName = event.title.substring(, ); // Excel sheet name limit
     const worksheet = workbook.addWorksheet(sheetName);
 
     worksheet.columns = [
-      { header: 'Check-in #', key: 'checkinNumber', width: 12 },
-      { header: 'Participant Name', key: 'participantName', width: 25 },
-      { header: 'Participant Email', key: 'participantEmail', width: 30 },
-      { header: 'User Role', key: 'userRole', width: 15 },
-      { header: 'Check-in Time', key: 'checkinTime', width: 20 },
-      { header: 'Minutes from Start', key: 'minutesFromStart', width: 18 }
+      { header: 'Check-in ', key: 'checkinNumber', width:  },
+      { header: 'Participant Name', key: 'participantName', width:  },
+      { header: 'Participant Email', key: 'participantEmail', width:  },
+      { header: 'User Role', key: 'userRole', width:  },
+      { header: 'Check-in Time', key: 'checkinTime', width:  },
+      { header: 'Minutes from Start', key: 'minutesFromStart', width:  }
     ];
 
-    const headerRow = worksheet.getRow(1);
+    const headerRow = worksheet.getRow();
     headerRow.font = { bold: true, color: { argb: 'FFFFFFFF' } };
-    headerRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF366092' } };
+    headerRow.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF' } };
     headerRow.alignment = { horizontal: 'center', vertical: 'center' };
 
     const attendances = event.attendances || [];
     attendances.forEach((attendance, index) => {
       const participant = attendance.participant;
       const minutesFromStart = participant
-        ? Math.round((attendance.timestamp - event.start_time) / 60000)
-        : 0;
+        ? Math.round((attendance.timestamp - event.start_time) / )
+        : ;
 
       worksheet.addRow({
-        checkinNumber: index + 1,
+        checkinNumber: index + ,
         participantName: participant?.name || 'Anonymous',
         participantEmail: participant?.email || 'N/A',
         userRole: participant?.role || 'Unknown',
@@ -685,15 +685,15 @@ async function writeGroupXLSXFile(filepath, group) {
   };
 }
 
-/**
- * Get service information
- * 
- * @returns {Object} Service metadata
- */
+/
+  Get service information
+  
+  @returns {Object} Service metadata
+ /
 exports.getServiceInfo = () => {
   return {
     name: 'Export Utility',
-    version: '1.0.0',
+    version: '..',
     exportDir: EXPORT_DIR,
     supportedFormats: ['CSV', 'XLSX'],
     features: [

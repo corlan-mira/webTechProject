@@ -1,16 +1,16 @@
-/**
- * Express Application Entry Point
- * Main server setup and configuration
- * 
- * Initializes:
- * - Express app
- * - Database connection
- * - Middleware
- * - Routes
- * - Background jobs
- * - Error handling
- * - Server listening
- */
+/
+  Express Application Entry Point
+  Main server setup and configuration
+  
+  Initializes:
+  - Express app
+  - Database connection
+  - Middleware
+  - Routes
+  - Background jobs
+  - Error handling
+  - Server listening
+ /
 
 const express = require('express');
 const cors = require('cors');
@@ -25,11 +25,11 @@ const { eventStateJob } = require('./jobs');
 const app = express();
 
 // Trust proxy
-app.set('trust proxy', 1);
+app.set('trust proxy', );
 
 // Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: 'mb' }));
+app.use(express.urlencoded({ limit: 'mb', extended: true }));
 
 // CORS middleware
 app.use(cors(corsOptions));
@@ -39,15 +39,15 @@ app.use(requestLogger);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', env: NODE_ENV });
+  res.status().json({ status: 'ok', env: NODE_ENV });
 });
 
 // API routes
 app.use(`${API_PREFIX}`, apiRoutes);
 
-// 404 handler
+//  handler
 app.use((req, res) => {
-  res.status(404).json({ error: 'Not found' });
+  res.status().json({ error: 'Not found' });
 });
 
 // Error handling middleware (last)
@@ -87,13 +87,13 @@ const startServer = async () => {
       server.close(async () => {
         await sequelize.close();
         console.log('✓ Server closed');
-        process.exit(0);
+        process.exit();
       });
     });
 
   } catch (error) {
     console.error('✗ Failed to start server:', error);
-    process.exit(1);
+    process.exit();
   }
 };
 

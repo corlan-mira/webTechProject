@@ -1,15 +1,15 @@
-# Event State Logic - Code Structure
+ Event State Logic - Code Structure
 
-**Complete Implementation Overview**
+Complete Implementation Overview
 
 ---
 
-## 📂 File Organization
+  File Organization
 
 ```
 backend/
 ├── services/
-│   ├── eventStateService.js          ← NEW (350+ lines)
+│   ├── eventStateService.js          ← NEW (+ lines)
 │   │   ├── calculateEventState()
 │   │   ├── getEventsNeedingUpdate()
 │   │   ├── updateEventState()
@@ -22,7 +22,7 @@ backend/
 │       └── exports: eventStateService
 │
 ├── jobs/
-│   ├── eventStateJob.js              ← NEW (280+ lines)
+│   ├── eventStateJob.js              ← NEW (+ lines)
 │   │   ├── initEventStateJob()
 │   │   ├── stopEventStateJob()
 │   │   ├── isEventStateJobRunning()
@@ -48,7 +48,7 @@ backend/
 
 ---
 
-## 🔗 Service Architecture
+  Service Architecture
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -107,9 +107,9 @@ backend/
 
 ---
 
-## 📝 Complete Source Code Structure
+  Complete Source Code Structure
 
-### Service: `services/eventStateService.js`
+ Service: `services/eventStateService.js`
 
 ```
 calculateEventState(event)
@@ -153,12 +153,12 @@ healthCheck()
   └─ Return health status
 ```
 
-### Job: `jobs/eventStateJob.js`
+ Job: `jobs/eventStateJob.js`
 
 ```
 initEventStateJob()
   ├─ Check if already running
-  ├─ Schedule cron ('0 * * * * *')
+  ├─ Schedule cron ('     ')
   └─ Return status
 
 stopEventStateJob()
@@ -196,9 +196,9 @@ gracefulShutdown()
 
 ---
 
-## 🔄 Execution Sequence Diagram
+  Execution Sequence Diagram
 
-### Server Startup
+ Server Startup
 
 ```
 app.listen() called
@@ -208,7 +208,7 @@ app.listen() called
     │
     ├─ eventStateJob.initEventStateJob()
     │   ├─ Create cron scheduler
-    │   ├─ Schedule pattern: '0 * * * * *'
+    │   ├─ Schedule pattern: '     '
     │   └─ Return { status: 'initialized' }
     │
     ├─ Log job initialization
@@ -216,7 +216,7 @@ app.listen() called
     └─ Server running
 ```
 
-### Each Minute (at 0 seconds)
+ Each Minute (at  seconds)
 
 ```
 Cron scheduler triggers
@@ -245,10 +245,10 @@ Cron scheduler triggers
     │   │
     │   └─ Log results
     │
-    └─ Wait 60 seconds
+    └─ Wait  seconds
 ```
 
-### Server Shutdown
+ Server Shutdown
 
 ```
 SIGTERM signal received
@@ -262,16 +262,16 @@ SIGTERM signal received
     │
     ├─ Close database connection
     │
-    └─ Exit process (code 0)
+    └─ Exit process (code )
 ```
 
 ---
 
-## 🧩 Integration Points
+  Integration Points
 
-### 1. Server Initialization
+ . Server Initialization
 
-**File:** `server.js` (lines ~20, ~70)
+File: `server.js` (lines ~, ~)
 
 ```javascript
 // Import
@@ -282,9 +282,9 @@ const jobStatus = eventStateJob.initEventStateJob();
 console.log(`✓ Event state job: ${jobStatus.message}`);
 ```
 
-### 2. Graceful Shutdown
+ . Graceful Shutdown
 
-**File:** `server.js` (lines ~80+)
+File: `server.js` (lines ~+)
 
 ```javascript
 process.on('SIGTERM', () => {
@@ -296,14 +296,14 @@ process.on('SIGTERM', () => {
   // Then close server and database
   server.close(async () => {
     await sequelize.close();
-    process.exit(0);
+    process.exit();
   });
 });
 ```
 
-### 3. Service Exports
+ . Service Exports
 
-**File:** `services/index.js`
+File: `services/index.js`
 
 ```javascript
 module.exports = {
@@ -312,9 +312,9 @@ module.exports = {
 };
 ```
 
-### 4. Job Exports
+ . Job Exports
 
-**File:** `jobs/index.js`
+File: `jobs/index.js`
 
 ```javascript
 module.exports = {
@@ -325,99 +325,99 @@ module.exports = {
 
 ---
 
-## 📊 Data Flow Examples
+  Data Flow Examples
 
-### Example 1: Event Transitions from CLOSED to OPEN
+ Example : Event Transitions from CLOSED to OPEN
 
 ```javascript
 // Event data
 const event = {
-  id: 'event-123',
+  id: 'event-',
   title: 'Morning Keynote',
-  start_time: '2025-12-15T09:00:00Z',
-  duration_minutes: 60,
+  start_time: '--T::Z',
+  duration_minutes: ,
   state: 'CLOSED'  // Current stored state
 };
 
-// 08:59:00 - Before event
+// :: - Before event
 const state = eventStateService.calculateEventState(event);
 // → 'CLOSED' (now < start_time)
 // No update needed
 
-// 09:00:30 - Event started
+// :: - Event started
 const state = eventStateService.calculateEventState(event);
 // → 'OPEN' (start_time ≤ now < end_time)
 // Update event.state = 'OPEN' in database
 ```
 
-### Example 2: Batch Update Operation
+ Example : Batch Update Operation
 
 ```javascript
 // Events needing update
 const updates = [
-  { id: 'evt-1', state: 'OPEN' },   // CLOSED → OPEN
-  { id: 'evt-2', state: 'CLOSED' }, // OPEN → CLOSED
-  { id: 'evt-3', state: 'OPEN' }    // CLOSED → OPEN
+  { id: 'evt-', state: 'OPEN' },   // CLOSED → OPEN
+  { id: 'evt-', state: 'CLOSED' }, // OPEN → CLOSED
+  { id: 'evt-', state: 'OPEN' }    // CLOSED → OPEN
 ];
 
 // Batch operation
 await eventStateService.batchUpdateEventStates(updates);
 
 // Database execution
-/*
+/
 UPDATE events SET state = 'OPEN', updated_at = NOW()
-WHERE id = 'evt-1';
+WHERE id = 'evt-';
 
 UPDATE events SET state = 'CLOSED', updated_at = NOW()
-WHERE id = 'evt-2';
+WHERE id = 'evt-';
 
 UPDATE events SET state = 'OPEN', updated_at = NOW()
-WHERE id = 'evt-3';
-*/
+WHERE id = 'evt-';
+/
 ```
 
 ---
 
-## ⚙️ Configuration Points
+ ️ Configuration Points
 
-### Change Execution Frequency
+ Change Execution Frequency
 
-**File:** `jobs/eventStateJob.js` line ~40
+File: `jobs/eventStateJob.js` line ~
 
 ```javascript
 // Default: Every minute
-cronJob = cron.schedule('0 * * * * *', async () => {
+cronJob = cron.schedule('     ', async () => {
 ```
 
 Change pattern to:
-- `'*/30 * * * * *'` → Every 30 seconds
-- `'0 */5 * * * *'` → Every 5 minutes
-- `'0 0 * * * *'` → Every hour
+- `'/     '` → Every  seconds
+- `' /    '` → Every  minutes
+- `'     '` → Every hour
 
-### Change Fallback Interval
+ Change Fallback Interval
 
-**File:** `jobs/eventStateJob.js` line ~160
+File: `jobs/eventStateJob.js` line ~
 
 ```javascript
-// Default: 60000ms (1 minute)
-exports.initEventStateJobWithInterval = (intervalMs = 60000) => {
+// Default: ms ( minute)
+exports.initEventStateJobWithInterval = (intervalMs = ) => {
 ```
 
 ---
 
-## 🧪 Testing Integration
+  Testing Integration
 
-### Unit Test Example
+ Unit Test Example
 
 ```javascript
 const { eventStateService } = require('../services');
 
 describe('calculateEventState', () => {
   test('should return CLOSED before event start', () => {
-    const futureDate = new Date(Date.now() + 60000);
+    const futureDate = new Date(Date.now() + );
     const event = {
       start_time: futureDate,
-      duration_minutes: 60
+      duration_minutes: 
     };
     
     expect(eventStateService.calculateEventState(event))
@@ -427,8 +427,8 @@ describe('calculateEventState', () => {
   test('should return OPEN during event', () => {
     const now = new Date();
     const event = {
-      start_time: new Date(now - 30000),
-      duration_minutes: 60
+      start_time: new Date(now - ),
+      duration_minutes: 
     };
     
     expect(eventStateService.calculateEventState(event))
@@ -437,7 +437,7 @@ describe('calculateEventState', () => {
 });
 ```
 
-### Integration Test Example
+ Integration Test Example
 
 ```javascript
 const { eventStateJob } = require('../jobs');
@@ -456,42 +456,42 @@ describe('Event State Job', () => {
     const result = await eventStateJob.triggerEventStateSync();
     
     expect(result.success).toBe(true);
-    expect(result.eventsUpdated).toBeGreaterThanOrEqual(0);
+    expect(result.eventsUpdated).toBeGreaterThanOrEqual();
   });
 });
 ```
 
 ---
 
-## 📚 Dependencies
+  Dependencies
 
 All already installed in `package.json`:
 
 ```json
 {
-  "node-cron": "^3.0.3",      // For scheduling
-  "sequelize": "^6.35.2",     // For database
-  "pg": "^8.11.3",            // For PostgreSQL
-  "mysql2": "^3.x.x"          // For MySQL (optional)
+  "node-cron": "^..",      // For scheduling
+  "sequelize": "^..",     // For database
+  "pg": "^..",            // For PostgreSQL
+  "mysql": "^.x.x"          // For MySQL (optional)
 }
 ```
 
 ---
 
-## 🎯 Summary
+  Summary
 
-**What was implemented:**
+What was implemented:
 
-1. ✅ `services/eventStateService.js` - 7 core functions for state management
-2. ✅ `jobs/eventStateJob.js` - Cron scheduler with multiple control methods
-3. ✅ Server integration in `server.js`
-4. ✅ Proper exports in `services/index.js` and `jobs/index.js`
-5. ✅ Error handling throughout
-6. ✅ Graceful shutdown sequence
-7. ✅ Comprehensive logging
-8. ✅ Health monitoring
+.  `services/eventStateService.js` -  core functions for state management
+.  `jobs/eventStateJob.js` - Cron scheduler with multiple control methods
+.  Server integration in `server.js`
+.  Proper exports in `services/index.js` and `jobs/index.js`
+.  Error handling throughout
+.  Graceful shutdown sequence
+.  Comprehensive logging
+.  Health monitoring
 
-**Key Features:**
+Key Features:
 
 - Automatic event state transitions
 - Runs every minute via cron
@@ -504,5 +504,5 @@ All already installed in `package.json`:
 
 ---
 
-**Implementation Complete:** ✅ READY FOR PRODUCTION
+Implementation Complete:  READY FOR PRODUCTION
 

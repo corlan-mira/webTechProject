@@ -1,7 +1,7 @@
-/**
- * Services Index
- * Exports all service modules
- */
+/
+  Services Index
+  Exports all service modules
+ /
 
 module.exports = {
   authService: require('./authService'),

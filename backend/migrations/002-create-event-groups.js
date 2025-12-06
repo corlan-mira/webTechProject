@@ -1,34 +1,34 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create event_groups table
-     * 
-     * Creates groups/collections of related events
-     * Owned/created by event organizers (Users with EO role)
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - name: Group name
-     * - description: Optional detailed description
-     * - created_by: FK to User (organizer)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create event_groups table
+      
+      Creates groups/collections of related events
+      Owned/created by event organizers (Users with EO role)
+      
+      Columns:
+      - id: UUID primary key
+      - name: Group name
+      - description: Optional detailed description
+      - created_by: FK to User (organizer)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'event_groups',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique event group identifier (UUID v4)',
+          comment: 'Unique event group identifier (UUID v)',
         },
         name: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Event group name',
         },
@@ -61,8 +61,8 @@ module.exports = {
       },
       {
         comment: 'Groups of related events created by organizers',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -81,10 +81,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop event_groups table
-     * CASCADE delete will remove all related events
-     */
+    /
+      Rollback: Drop event_groups table
+      CASCADE delete will remove all related events
+     /
     await queryInterface.dropTable('event_groups');
   },
 };

@@ -1,14 +1,14 @@
-/**
- * Cleanup Job
- * Background task for database cleanup
- * 
- * Tasks:
- *  - Delete expired sessions
- *  - Archive old events
- *  - Clean temporary files
- * 
- * Runs: Daily at 2 AM
- */
+/
+  Cleanup Job
+  Background task for database cleanup
+  
+  Tasks:
+   - Delete expired sessions
+   - Archive old events
+   - Clean temporary files
+  
+  Runs: Daily at  AM
+ /
 
 exports.runCleanup = async () => {
   try {

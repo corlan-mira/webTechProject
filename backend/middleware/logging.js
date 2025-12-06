@@ -1,10 +1,10 @@
-/**
- * Logging Middleware
- * Log HTTP requests
- * 
- * Functions:
- *  - requestLogger(req, res, next): Log incoming requests
- */
+/
+  Logging Middleware
+  Log HTTP requests
+  
+  Functions:
+   - requestLogger(req, res, next): Log incoming requests
+ /
 
 const { LOG_LEVEL } = require('../config/environment');
 

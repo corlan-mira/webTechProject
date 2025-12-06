@@ -1,7 +1,7 @@
-/**
- * Jobs Index
- * Background jobs and scheduled tasks
- */
+/
+  Jobs Index
+  Background jobs and scheduled tasks
+ /
 
 module.exports = {
   cleanupJob: require('./cleanupJob'),

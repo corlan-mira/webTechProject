@@ -2,25 +2,25 @@
 
 const { DataTypes } = require('sequelize');
 
-/**
- * Attendance Model - Check-in records for event participants
- * 
- * Records each participant check-in:
- * - Links to Event and Participant (User)
- * - Tracks check-in method (text code or QR)
- * - Records exact timestamp of check-in
- * 
- * Supports both registered users and walk-ins
- */
+/
+  Attendance Model - Check-in records for event participants
+  
+  Records each participant check-in:
+  - Links to Event and Participant (User)
+  - Tracks check-in method (text code or QR)
+  - Records exact timestamp of check-in
+  
+  Supports both registered users and walk-ins
+ /
 module.exports = (sequelize) => {
   const Attendance = sequelize.define(
     'Attendance',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique attendance record identifier (UUID v4)',
+        comment: 'Unique attendance record identifier (UUID v)',
       },
       event_id: {
         type: DataTypes.UUID,
@@ -57,8 +57,8 @@ module.exports = (sequelize) => {
       tableName: 'attendance',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_attendance_event_id',
@@ -82,11 +82,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to Event (N:1)
-   * - Belongs to User (optional, for registered participants) (N:1)
-   */
+  /
+    Associations
+    - Belongs to Event (N:)
+    - Belongs to User (optional, for registered participants) (N:)
+   /
   Attendance.associate = (models) => {
     Attendance.belongsTo(models.Event, {
       foreignKey: 'event_id',

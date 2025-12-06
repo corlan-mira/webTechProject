@@ -1,54 +1,54 @@
 'use strict';
 
 const { Event, EventGroup, Attendance } = require('../models');
-const { v4: uuidv4 } = require('uuid');
+const { v: uuidv } = require('uuid');
 
-/**
- * Event Controller
- * Handles event CRUD operations and state management
- * Supports text-based access codes and QR code generation
- * 
- * Methods:
- *  - list(req, res): Get all events in a group
- *  - create(req, res): Create new event with access code
- *  - get(req, res): Get single event with details
- *  - update(req, res): Update event details
- *  - delete(req, res): Delete event
- *  - changeState(req, res): Toggle OPEN/CLOSED state for check-ins
- */
+/
+  Event Controller
+  Handles event CRUD operations and state management
+  Supports text-based access codes and QR code generation
+  
+  Methods:
+   - list(req, res): Get all events in a group
+   - create(req, res): Create new event with access code
+   - get(req, res): Get single event with details
+   - update(req, res): Update event details
+   - delete(req, res): Delete event
+   - changeState(req, res): Toggle OPEN/CLOSED state for check-ins
+ /
 
-/**
- * List events in a group
- * 
- * URL params:
- *  - groupId: UUID
- * 
- * Query params:
- *  - state: string (optional, 'OPEN' or 'CLOSED')
- *  - page: number (optional, default 1)
- *  - limit: number (optional, default 10, max 50)
- * 
- * Response:
- *  - 200: List of events
- *  - 401: Unauthorized
- *  - 404: Group not found
- *  - 500: Server error
- */
+/
+  List events in a group
+  
+  URL params:
+   - groupId: UUID
+  
+  Query params:
+   - state: string (optional, 'OPEN' or 'CLOSED')
+   - page: number (optional, default )
+   - limit: number (optional, default , max )
+  
+  Response:
+   - : List of events
+   - : Unauthorized
+   - : Group not found
+   - : Server error
+ /
 exports.list = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { groupId } = req.params;
-    const { state, page = 1, limit = 10 } = req.query;
+    const { state, page = , limit =  } = req.query;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!groupId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Group ID is required',
       });
@@ -60,16 +60,16 @@ exports.list = async (req, res) => {
     });
 
     if (!group) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event group not found',
       });
     }
 
     // Validate pagination
-    const pageNum = Math.max(1, parseInt(page) || 1);
-    const limitNum = Math.min(50, Math.max(1, parseInt(limit) || 10));
-    const offset = (pageNum - 1) * limitNum;
+    const pageNum = Math.max(, parseInt(page) || );
+    const limitNum = Math.min(, Math.max(, parseInt(limit) || ));
+    const offset = (pageNum - )  limitNum;
 
     // Build where clause
     const where = { group_id: groupId };
@@ -86,7 +86,7 @@ exports.list = async (req, res) => {
       offset,
     });
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Events retrieved successfully',
       data: {
@@ -101,7 +101,7 @@ exports.list = async (req, res) => {
     });
   } catch (error) {
     console.error('List events error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to retrieve events',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -109,25 +109,25 @@ exports.list = async (req, res) => {
   }
 };
 
-/**
- * Create new event
- * 
- * URL params:
- *  - groupId: UUID
- * 
- * Request body:
- *  - title: string (required, 1-255 chars)
- *  - start_time: ISO string (required)
- *  - duration_minutes: number (required, 1-1440)
- *  - code_text: string (optional, auto-generated if not provided)
- * 
- * Response:
- *  - 201: Event created with access code
- *  - 400: Validation error
- *  - 401: Unauthorized
- *  - 409: Duplicate access code
- *  - 500: Server error
- */
+/
+  Create new event
+  
+  URL params:
+   - groupId: UUID
+  
+  Request body:
+   - title: string (required, - chars)
+   - start_time: ISO string (required)
+   - duration_minutes: number (required, -)
+   - code_text: string (optional, auto-generated if not provided)
+  
+  Response:
+   - : Event created with access code
+   - : Validation error
+   - : Unauthorized
+   - : Duplicate access code
+   - : Server error
+ /
 exports.create = async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -135,14 +135,14 @@ exports.create = async (req, res) => {
     const { title, start_time, duration_minutes, code_text } = req.body;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!groupId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Group ID is required',
       });
@@ -154,29 +154,29 @@ exports.create = async (req, res) => {
     });
 
     if (!group) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event group not found',
       });
     }
 
     // Validation
-    if (!title || title.trim().length === 0) {
-      return res.status(400).json({
+    if (!title || title.trim().length === ) {
+      return res.status().json({
         status: 'error',
         message: 'Event title is required',
       });
     }
 
-    if (title.length > 255) {
-      return res.status(400).json({
+    if (title.length > ) {
+      return res.status().json({
         status: 'error',
-        message: 'Title must be 255 characters or less',
+        message: 'Title must be  characters or less',
       });
     }
 
     if (!start_time) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Start time is required',
       });
@@ -184,44 +184,44 @@ exports.create = async (req, res) => {
 
     const startDate = new Date(start_time);
     if (isNaN(startDate.getTime())) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Invalid start time format',
       });
     }
 
     if (startDate < new Date()) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Start time must be in the future',
       });
     }
 
-    if (!duration_minutes || duration_minutes < 1 || duration_minutes > 1440) {
-      return res.status(400).json({
+    if (!duration_minutes || duration_minutes <  || duration_minutes > ) {
+      return res.status().json({
         status: 'error',
-        message: 'Duration must be between 1 and 1440 minutes',
+        message: 'Duration must be between  and  minutes',
       });
     }
 
     // Generate or validate access code
     let accessCode = code_text;
     if (!accessCode) {
-      accessCode = Math.random().toString(36).substring(2, 8).toUpperCase();
+      accessCode = Math.random().toString().substring(, ).toUpperCase();
     }
 
     accessCode = accessCode.trim().toUpperCase();
-    if (accessCode.length < 4 || accessCode.length > 50) {
-      return res.status(400).json({
+    if (accessCode.length <  || accessCode.length > ) {
+      return res.status().json({
         status: 'error',
-        message: 'Access code must be 4-50 characters',
+        message: 'Access code must be - characters',
       });
     }
 
     // Check if code already exists
     const existingEvent = await Event.findOne({ where: { code_text: accessCode } });
     if (existingEvent) {
-      return res.status(409).json({
+      return res.status().json({
         status: 'error',
         message: 'Access code already in use',
       });
@@ -238,7 +238,7 @@ exports.create = async (req, res) => {
       created_by: userId,
     });
 
-    res.status(201).json({
+    res.status().json({
       status: 'success',
       message: 'Event created successfully',
       data: {
@@ -252,7 +252,7 @@ exports.create = async (req, res) => {
     });
   } catch (error) {
     console.error('Create event error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to create event',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -260,32 +260,32 @@ exports.create = async (req, res) => {
   }
 };
 
-/**
- * Get single event details
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Response:
- *  - 200: Event details with check-in count
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Get single event details
+  
+  URL params:
+   - eventId: UUID
+  
+  Response:
+   - : Event details with check-in count
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.get = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -303,7 +303,7 @@ exports.get = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -314,7 +314,7 @@ exports.get = async (req, res) => {
       where: { event_id: eventId },
     });
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Event retrieved successfully',
       data: {
@@ -324,7 +324,7 @@ exports.get = async (req, res) => {
     });
   } catch (error) {
     console.error('Get event error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to retrieve event',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -332,24 +332,24 @@ exports.get = async (req, res) => {
   }
 };
 
-/**
- * Update event details
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Request body:
- *  - title: string (optional)
- *  - start_time: ISO string (optional)
- *  - duration_minutes: number (optional)
- * 
- * Response:
- *  - 200: Event updated
- *  - 400: Validation error
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Update event details
+  
+  URL params:
+   - eventId: UUID
+  
+  Request body:
+   - title: string (optional)
+   - start_time: ISO string (optional)
+   - duration_minutes: number (optional)
+  
+  Response:
+   - : Event updated
+   - : Validation error
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.update = async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -357,21 +357,21 @@ exports.update = async (req, res) => {
     const { title, start_time, duration_minutes } = req.body;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
     }
 
     if (!title && !start_time && !duration_minutes) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'At least one field is required for update',
       });
@@ -383,7 +383,7 @@ exports.update = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -391,16 +391,16 @@ exports.update = async (req, res) => {
 
     // Validation and update
     if (title) {
-      if (title.trim().length === 0) {
-        return res.status(400).json({
+      if (title.trim().length === ) {
+        return res.status().json({
           status: 'error',
           message: 'Title cannot be empty',
         });
       }
-      if (title.length > 255) {
-        return res.status(400).json({
+      if (title.length > ) {
+        return res.status().json({
           status: 'error',
-          message: 'Title must be 255 characters or less',
+          message: 'Title must be  characters or less',
         });
       }
       event.title = title.trim();
@@ -409,7 +409,7 @@ exports.update = async (req, res) => {
     if (start_time) {
       const startDate = new Date(start_time);
       if (isNaN(startDate.getTime())) {
-        return res.status(400).json({
+        return res.status().json({
           status: 'error',
           message: 'Invalid start time format',
         });
@@ -418,10 +418,10 @@ exports.update = async (req, res) => {
     }
 
     if (duration_minutes) {
-      if (duration_minutes < 1 || duration_minutes > 1440) {
-        return res.status(400).json({
+      if (duration_minutes <  || duration_minutes > ) {
+        return res.status().json({
           status: 'error',
-          message: 'Duration must be between 1 and 1440 minutes',
+          message: 'Duration must be between  and  minutes',
         });
       }
       event.duration_minutes = duration_minutes;
@@ -429,7 +429,7 @@ exports.update = async (req, res) => {
 
     await event.save();
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Event updated successfully',
       data: {
@@ -442,7 +442,7 @@ exports.update = async (req, res) => {
     });
   } catch (error) {
     console.error('Update event error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to update event',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -450,33 +450,33 @@ exports.update = async (req, res) => {
   }
 };
 
-/**
- * Delete event
- * Warning: Deletes all attendance records
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Response:
- *  - 200: Event deleted
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Delete event
+  Warning: Deletes all attendance records
+  
+  URL params:
+   - eventId: UUID
+  
+  Response:
+   - : Event deleted
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.delete = async (req, res) => {
   try {
     const userId = req.user?.id;
     const { eventId } = req.params;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
@@ -488,7 +488,7 @@ exports.delete = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -496,14 +496,14 @@ exports.delete = async (req, res) => {
 
     await event.destroy();
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: 'Event deleted successfully',
       data: { id: eventId },
     });
   } catch (error) {
     console.error('Delete event error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to delete event',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,
@@ -511,22 +511,22 @@ exports.delete = async (req, res) => {
   }
 };
 
-/**
- * Change event state (OPEN ↔ CLOSED)
- * 
- * URL params:
- *  - eventId: UUID
- * 
- * Request body:
- *  - state: string ('OPEN' or 'CLOSED')
- * 
- * Response:
- *  - 200: State changed
- *  - 400: Validation error
- *  - 401: Unauthorized
- *  - 404: Event not found
- *  - 500: Server error
- */
+/
+  Change event state (OPEN  CLOSED)
+  
+  URL params:
+   - eventId: UUID
+  
+  Request body:
+   - state: string ('OPEN' or 'CLOSED')
+  
+  Response:
+   - : State changed
+   - : Validation error
+   - : Unauthorized
+   - : Event not found
+   - : Server error
+ /
 exports.changeState = async (req, res) => {
   try {
     const userId = req.user?.id;
@@ -534,21 +534,21 @@ exports.changeState = async (req, res) => {
     const { state } = req.body;
 
     if (!userId) {
-      return res.status(401).json({
+      return res.status().json({
         status: 'error',
         message: 'Unauthorized',
       });
     }
 
     if (!eventId) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'Event ID is required',
       });
     }
 
     if (!state || !['OPEN', 'CLOSED'].includes(state)) {
-      return res.status(400).json({
+      return res.status().json({
         status: 'error',
         message: 'State must be OPEN or CLOSED',
       });
@@ -560,7 +560,7 @@ exports.changeState = async (req, res) => {
     });
 
     if (!event) {
-      return res.status(404).json({
+      return res.status().json({
         status: 'error',
         message: 'Event not found',
       });
@@ -569,7 +569,7 @@ exports.changeState = async (req, res) => {
     event.state = state;
     await event.save();
 
-    res.status(200).json({
+    res.status().json({
       status: 'success',
       message: `Event state changed to ${state}`,
       data: {
@@ -579,7 +579,7 @@ exports.changeState = async (req, res) => {
     });
   } catch (error) {
     console.error('Change state error:', error);
-    res.status(500).json({
+    res.status().json({
       status: 'error',
       message: 'Failed to change event state',
       error: process.env.NODE_ENV === 'development' ? error.message : undefined,

@@ -1,81 +1,81 @@
-# Express Routes - Quick Reference
+ Express Routes - Quick Reference
 
-**Status:** ✅ COMPLETE  
-**Routes Files:** 4 core route files  
-**Total Endpoints:** 21 REST endpoints  
-**Authentication:** JWT Bearer Token (24h)
+Status:  COMPLETE  
+Routes Files:  core route files  
+Total Endpoints:  REST endpoints  
+Authentication: JWT Bearer Token (h)
 
 ---
 
-## 📂 Route Files Structure
+  Route Files Structure
 
 ```
 backend/routes/
-├── index.js              # Route aggregator
-├── auth.js               # 4 authentication endpoints
-├── eventGroups.js        # 5 event group endpoints
-├── events.js             # 11 event & attendance endpoints (mixed auth)
-└── attendance.js         # 6 attendance endpoints (mixed auth)
+├── index.js               Route aggregator
+├── auth.js                 authentication endpoints
+├── eventGroups.js          event group endpoints
+├── events.js               event & attendance endpoints (mixed auth)
+└── attendance.js           attendance endpoints (mixed auth)
 ```
 
 ---
 
-## 🚀 Quick Endpoint Reference
+  Quick Endpoint Reference
 
-### Authentication Routes (`/api/auth`)
-
-| Method | Endpoint | Auth | Purpose |
-|--------|----------|------|---------|
-| POST | `/register` | ❌ | Register new user |
-| POST | `/login` | ❌ | Authenticate user, get token |
-| POST | `/logout` | ❌ | Logout (client-side discard) |
-| POST | `/refresh` | ✅ | Refresh JWT token |
-
----
-
-### Event Groups Routes (`/api/event-groups`)
+ Authentication Routes (`/api/auth`)
 
 | Method | Endpoint | Auth | Purpose |
 |--------|----------|------|---------|
-| GET | `/` | ✅ | List groups (paginated) |
-| POST | `/` | ✅ | Create new group |
-| GET | `/:groupId` | ✅ | Get group with events |
-| PUT | `/:groupId` | ✅ | Update group details |
-| DELETE | `/:groupId` | ✅ | Delete group (cascade) |
+| POST | `/register` |  | Register new user |
+| POST | `/login` |  | Authenticate user, get token |
+| POST | `/logout` |  | Logout (client-side discard) |
+| POST | `/refresh` |  | Refresh JWT token |
 
 ---
 
-### Events Routes (`/api/events`)
+ Event Groups Routes (`/api/event-groups`)
 
 | Method | Endpoint | Auth | Purpose |
 |--------|----------|------|---------|
-| GET | `/` | ✅ | List events (paginated) |
-| POST | `/` | ✅ | Create new event |
-| GET | `/:eventId` | ✅ | Get event details |
-| PUT | `/:eventId` | ✅ | Update event info |
-| DELETE | `/:eventId` | ✅ | Delete event (draft only) |
-| PATCH | `/:eventId/state` | ✅ | Change state (OPEN/CLOSED) |
-| POST | `/:eventId/attendance` | ✅ | List attendees |
-| GET | `/:eventId/attendance/stats` | ✅ | Attendance statistics |
-| GET | `/:eventId/attendance/export/csv` | ✅ | Export CSV |
-| GET | `/:eventId/attendance/export/xlsx` | ✅ | Export XLSX |
+| GET | `/` |  | List groups (paginated) |
+| POST | `/` |  | Create new group |
+| GET | `/:groupId` |  | Get group with events |
+| PUT | `/:groupId` |  | Update group details |
+| DELETE | `/:groupId` |  | Delete group (cascade) |
 
 ---
 
-### Attendance Routes (`/api/attendance`)
+ Events Routes (`/api/events`)
 
 | Method | Endpoint | Auth | Purpose |
 |--------|----------|------|---------|
-| POST | `/check-in/text` | ❌ | Text code check-in |
-| POST | `/check-in/qr` | ❌ | QR code check-in |
-| GET | `/events/:eventId` | ✅ | List attendees |
-| GET | `/events/:eventId/stats` | ✅ | Get statistics |
-| GET | `/events/:eventId/export/csv` | ✅ | Export CSV |
-| GET | `/events/:eventId/export/xlsx` | ✅ | Export XLSX |
+| GET | `/` |  | List events (paginated) |
+| POST | `/` |  | Create new event |
+| GET | `/:eventId` |  | Get event details |
+| PUT | `/:eventId` |  | Update event info |
+| DELETE | `/:eventId` |  | Delete event (draft only) |
+| PATCH | `/:eventId/state` |  | Change state (OPEN/CLOSED) |
+| POST | `/:eventId/attendance` |  | List attendees |
+| GET | `/:eventId/attendance/stats` |  | Attendance statistics |
+| GET | `/:eventId/attendance/export/csv` |  | Export CSV |
+| GET | `/:eventId/attendance/export/xlsx` |  | Export XLSX |
 
 ---
 
-## 🔐 Middleware Chain
+ Attendance Routes (`/api/attendance`)
+
+| Method | Endpoint | Auth | Purpose |
+|--------|----------|------|---------|
+| POST | `/check-in/text` |  | Text code check-in |
+| POST | `/check-in/qr` |  | QR code check-in |
+| GET | `/events/:eventId` |  | List attendees |
+| GET | `/events/:eventId/stats` |  | Get statistics |
+| GET | `/events/:eventId/export/csv` |  | Export CSV |
+| GET | `/events/:eventId/export/xlsx` |  | Export XLSX |
+
+---
+
+  Middleware Chain
 
 All routes pass through this middleware chain:
 
@@ -89,28 +89,28 @@ app.use(requestLogger)            // Logging
 router.use(authMiddleware)        // JWT verification
 ```
 
-**Auth Middleware (`authMiddleware`):**
+Auth Middleware (`authMiddleware`):
 - Extracts JWT from `Authorization: Bearer <token>` header
 - Verifies token signature and expiration
 - Attaches user data to `req.user` object
-- Returns 401 if token invalid/missing
+- Returns  if token invalid/missing
 
 ---
 
-## 📋 Route Integration in Server
+  Route Integration in Server
 
 ```javascript
 // backend/server.js
 
-// 1. Middleware setup
+// . Middleware setup
 app.use(express.json())
 app.use(cors())
 app.use(requestLogger)
 
-// 2. Routes mounting
+// . Routes mounting
 app.use('/api', apiRoutes)
 
-// 3. Error handling (last middleware)
+// . Error handling (last middleware)
 app.use(errorHandler)
 
 // Where apiRoutes (routes/index.js) does:
@@ -123,21 +123,21 @@ router.use('/attendance', attendanceRoutes)
 
 ---
 
-## 🔄 Route Parameter Passing
+  Route Parameter Passing
 
-### Example: Event Group with Sub-routes
+ Example: Event Group with Sub-routes
 
 ```javascript
 // routes/eventGroups.js
 router.get('/:groupId', authMiddleware, controller.get)
 
 // Can be called as:
-// GET /api/event-groups/550e8400-e29b-41d4-a716-446655440000
+// GET /api/event-groups/e-eb-d-a-
 
-// req.params = { groupId: '550e8400-e29b-41d4-a716-446655440000' }
+// req.params = { groupId: 'e-eb-d-a-' }
 ```
 
-### Example: Nested Routes with mergeParams
+ Example: Nested Routes with mergeParams
 
 ```javascript
 // routes/events.js with mergeParams: true
@@ -151,33 +151,33 @@ router.get('/:eventId/attendance', authMiddleware, controller.list)
 
 ---
 
-## 📡 HTTP Methods Used
+  HTTP Methods Used
 
 | Method | Usage | Idempotent |
 |--------|-------|-----------|
-| GET | Retrieve data | ✅ Yes |
-| POST | Create resource | ❌ No |
-| PUT | Replace entire resource | ✅ Yes |
-| PATCH | Partial update | ✅ Yes* |
-| DELETE | Remove resource | ✅ Yes |
+| GET | Retrieve data |  Yes |
+| POST | Create resource |  No |
+| PUT | Replace entire resource |  Yes |
+| PATCH | Partial update |  Yes |
+| DELETE | Remove resource |  Yes |
 
-*PATCH is idempotent for state changes (idempotent) but not for all operations.
+PATCH is idempotent for state changes (idempotent) but not for all operations.
 
 ---
 
-## 🎯 Access Control Summary
+  Access Control Summary
 
-### Public Routes (No Auth Required)
+ Public Routes (No Auth Required)
 - `POST /api/auth/register` - Anyone can register
 - `POST /api/auth/login` - Anyone can login
 - `POST /api/auth/logout` - Anyone can logout
 - `POST /api/attendance/check-in/text` - Anyone can check-in
 - `POST /api/attendance/check-in/qr` - Anyone can check-in
 
-### Protected Routes (JWT Required)
+ Protected Routes (JWT Required)
 All other routes require valid JWT token in `Authorization: Bearer <token>` header
 
-### Ownership Verification
+ Ownership Verification
 Event Organizers can only:
 - Manage their own event groups
 - Manage their own events
@@ -190,26 +190,26 @@ Participants cannot:
 
 ---
 
-## 💾 Request/Response Format
+  Request/Response Format
 
-### Request Headers (Protected Routes)
+ Request Headers (Protected Routes)
 ```
-GET /api/event-groups HTTP/1.1
-Host: localhost:3000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+GET /api/event-groups HTTP/.
+Host: localhost:
+Authorization: Bearer eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ...
 Content-Type: application/json
 ```
 
-### Request Body Example
+ Request Body Example
 ```json
 {
   "name": "Event Group Name",
   "email": "user@example.com",
-  "code": "ABC123"
+  "code": "ABC"
 }
 ```
 
-### Response Format (All Endpoints)
+ Response Format (All Endpoints)
 ```json
 {
   "status": "success|error",
@@ -219,15 +219,15 @@ Content-Type: application/json
   },
   "pagination": {
     // Only for list endpoints
-    "total": 42,
-    "page": 1,
-    "limit": 10,
-    "pages": 5
+    "total": ,
+    "page": ,
+    "limit": ,
+    "pages": 
   }
 }
 ```
 
-### Error Response Example
+ Error Response Example
 ```json
 {
   "status": "error",
@@ -237,57 +237,57 @@ Content-Type: application/json
 
 ---
 
-## 🧪 Testing Routes
+  Testing Routes
 
-### Using cURL
+ Using cURL
 
 ```bash
-# Register user
-curl -X POST http://localhost:3000/api/auth/register \
+ Register user
+curl -X POST http://localhost:/api/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"name":"John","email":"john@ex.com","password":"12345678"}'
+  -d '{"name":"John","email":"john@ex.com","password":""}'
 
-# Login
-curl -X POST http://localhost:3000/api/auth/login \
+ Login
+curl -X POST http://localhost:/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"email":"john@ex.com","password":"12345678"}'
+  -d '{"email":"john@ex.com","password":""}'
 
-# Create event group (protected)
-curl -X POST http://localhost:3000/api/event-groups \
+ Create event group (protected)
+curl -X POST http://localhost:/api/event-groups \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
-  -d '{"name":"Conference 2025"}'
+  -d '{"name":"Conference "}'
 
-# Check-in (public)
-curl -X POST http://localhost:3000/api/attendance/check-in/text \
+ Check-in (public)
+curl -X POST http://localhost:/api/attendance/check-in/text \
   -H "Content-Type: application/json" \
-  -d '{"code":"ABC123"}'
+  -d '{"code":"ABC"}'
 ```
 
-### Using Postman
+ Using Postman
 
-1. Create collection: "Attendance System"
-2. Set base URL: `http://localhost:3000/api`
-3. Create requests for each endpoint
-4. Use "Manage Environments" to store JWT token:
+. Create collection: "Attendance System"
+. Set base URL: `http://localhost:/api`
+. Create requests for each endpoint
+. Use "Manage Environments" to store JWT token:
    - Variable: `token`
    - Value: JWT from register/login response
-5. Add Authorization header: `Bearer {{token}}`
+. Add Authorization header: `Bearer {{token}}`
 
-### Using Thunder Client (VS Code)
+ Using Thunder Client (VS Code)
 
-1. Install Thunder Client extension
-2. Create requests with same structure as Postman
-3. Can run tests in sequence
+. Install Thunder Client extension
+. Create requests with same structure as Postman
+. Can run tests in sequence
 
 ---
 
-## ⚙️ Configuration
+ ️ Configuration
 
-### Environment Variables
+ Environment Variables
 ```env
 NODE_ENV=development
-PORT=3000
+PORT=
 API_PREFIX=/api
 JWT_SECRET=your-secret-key-change-in-production
 DB_HOST=localhost
@@ -296,58 +296,58 @@ DB_PASSWORD=password
 DB_NAME=attendance_db
 ```
 
-### CORS Configuration
+ CORS Configuration
 Allows requests from configured origins (see `middleware/cors.js`)
 
-### Database
+ Database
 - Driver: Sequelize ORM
 - Database: PostgreSQL or MySQL
 - Connection: Configured in `config/sequelize.js`
 
 ---
 
-## 📝 Route Summary Statistics
+  Route Summary Statistics
 
 | Category | Count |
 |----------|-------|
-| Total Endpoints | 21 |
-| Public Endpoints | 5 |
-| Protected Endpoints | 16 |
-| GET Requests | 10 |
-| POST Requests | 7 |
-| PUT Requests | 2 |
-| PATCH Requests | 1 |
-| DELETE Requests | 1 |
+| Total Endpoints |  |
+| Public Endpoints |  |
+| Protected Endpoints |  |
+| GET Requests |  |
+| POST Requests |  |
+| PUT Requests |  |
+| PATCH Requests |  |
+| DELETE Requests |  |
 
 ---
 
-## 🔗 Related Documentation
+  Related Documentation
 
-- **[Full API Documentation](./API_ROUTES.md)** - Detailed endpoint specifications
-- **[Controllers Implementation](../CONTROLLERS_IMPLEMENTATION_COMPLETE.md)** - Controller functions
-- **[Architecture Guide](./ARCHITECTURE.md)** - System design
-- **[Database Schema](./DATABASE_SCHEMA.md)** - Data models
-- **[Setup Guide](./SETUP.md)** - Installation and configuration
-
----
-
-## ✅ Checklist: Routes Implementation Complete
-
-- ✅ Authentication routes with JWT
-- ✅ Event groups CRUD
-- ✅ Events CRUD with state management
-- ✅ Public check-in endpoints
-- ✅ Attendance management and export
-- ✅ Middleware integration
-- ✅ Error handling
-- ✅ Request validation
-- ✅ Response formatting
-- ✅ Authorization checks
-- ✅ Comprehensive documentation
+- [Full API Documentation](./API_ROUTES.md) - Detailed endpoint specifications
+- [Controllers Implementation](../CONTROLLERS_IMPLEMENTATION_COMPLETE.md) - Controller functions
+- [Architecture Guide](./ARCHITECTURE.md) - System design
+- [Database Schema](./DATABASE_SCHEMA.md) - Data models
+- [Setup Guide](./SETUP.md) - Installation and configuration
 
 ---
 
-**Routes Implementation:** ✅ COMPLETE
+  Checklist: Routes Implementation Complete
+
+-  Authentication routes with JWT
+-  Event groups CRUD
+-  Events CRUD with state management
+-  Public check-in endpoints
+-  Attendance management and export
+-  Middleware integration
+-  Error handling
+-  Request validation
+-  Response formatting
+-  Authorization checks
+-  Comprehensive documentation
+
+---
+
+Routes Implementation:  COMPLETE
 
 All Express routes are fully configured and ready for integration with controllers and frontend.
 

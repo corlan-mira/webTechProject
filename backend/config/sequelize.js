@@ -1,7 +1,7 @@
-/**
- * Sequelize Configuration
- * ORM initialization and connection setup
- */
+/
+  Sequelize Configuration
+  ORM initialization and connection setup
+ /
 
 const { Sequelize } = require('sequelize');
 const databaseConfig = require('./database');

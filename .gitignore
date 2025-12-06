@@ -1,53 +1,53 @@
-# General
+ General
 node_modules/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+.log
+npm-debug.log
+yarn-debug.log
+yarn-error.log
 .DS_Store
 Thumbs.db
-*.tmp
-*.temp
+.tmp
+.temp
 
-# Environment Variables
+ Environment Variables
 .env
 .env.local
-.env.*.local
+.env..local
 .env.production.local
 .env.test.local
 
-# IDEs & Editors
+ IDEs & Editors
 .vscode/
 .idea/
-*.swp
-*.swo
-*.sublime-project
-*.sublime-workspace
-*.iml
+.swp
+.swo
+.sublime-project
+.sublime-workspace
+.iml
 .project
 .classpath
-.c9/
-*.launch
+.c/
+.launch
 .settings/
-*.sublime-workspace
-*.sublime-project
+.sublime-workspace
+.sublime-project
 
-# OS
+ OS
 .DS_Store
 .DS_Store?
-._*
-.Spotlight-V100
+._
+.Spotlight-V
 .Trashes
 ehthumbs.db
 
-# Build outputs
+ Build outputs
 /build/
 /dist/
 /out/
-*.bundle.js
-*.bundle.css
+.bundle.js
+.bundle.css
 
-# Frontend specific
+ Frontend specific
 frontend/build/
 frontend/.env.local
 frontend/.cache/
@@ -55,91 +55,91 @@ frontend/.next/
 frontend/out/
 frontend/.docusaurus/
 
-# Backend specific
+ Backend specific
 backend/logs/
 backend/.env.local
 backend/uploads/
 backend/temp/
 
-# Database
-*.db
-*.sqlite
-*.sqlite3
-*.dump
+ Database
+.db
+.sqlite
+.sqlite
+.dump
 /backups/
 
-# Testing
+ Testing
 /coverage/
 .nyc_output/
-*.lcov
+.lcov
 .cache/
 .eslintcache
 
-# Dependency lock files (optional - uncomment if managing versions)
-# package-lock.json
-# yarn.lock
+ Dependency lock files (optional - uncomment if managing versions)
+ package-lock.json
+ yarn.lock
 
-# Misc files
+ Misc files
 .versionrc.json
 .commitlintrc.json
 
-# Debug files
+ Debug files
 debug.log
 
-# Security
+ Security
 private/
 secrets/
-*.key
-*.pem
-*.crt
-*.cert
+.key
+.pem
+.crt
+.cert
 
-# Cloud
+ Cloud
 .terraform/
-*.tfstate
-*.tfstate.*
+.tfstate
+.tfstate.
 
-# Docker
+ Docker
 docker-compose.override.yml
 .dockerignore
 
-# IDE configurations (local)
+ IDE configurations (local)
 .vscode/launch.json
 .vscode/tasks.json
 .vscode/extensions.json
 
-# Logs
+ Logs
 logs
-*.log
+.log
 
-# Optional npm cache directory
+ Optional npm cache directory
 .npm
 
-# Optional REPL history
+ Optional REPL history
 .node_repl_history
 
-# Output of 'npm pack'
-*.tgz
+ Output of 'npm pack'
+.tgz
 
-# dotenv environment variable files
-.env*
+ dotenv environment variable files
+.env
 
-# mac os
+ mac os
 .AppleDouble
 .AppleDB
 
-# IDEs
-*.code-workspace
+ IDEs
+.code-workspace
 
-# Certbot/SSL
-*.pem
-*.crt
-*.key
+ Certbot/SSL
+.pem
+.crt
+.key
 /etc/
 
-# Temporary files
-*.bak
-*.swp
-*~
-.#*
-#*#
+ Temporary files
+.bak
+.swp
+~
+.
+

@@ -1,13 +1,13 @@
-/**
- * Formatters Utility
- * Data formatting helper functions
- * 
- * Functions:
- *  - formatDate(date): Format date to ISO string
- *  - formatResponse(data, message): Format API response
- *  - formatError(error): Format error response
- *  - formatAttendanceRecord(record): Format attendance data
- */
+/
+  Formatters Utility
+  Data formatting helper functions
+  
+  Functions:
+   - formatDate(date): Format date to ISO string
+   - formatResponse(data, message): Format API response
+   - formatError(error): Format error response
+   - formatAttendanceRecord(record): Format attendance data
+ /
 
 exports.formatDate = (date) => {
   return new Date(date).toISOString();

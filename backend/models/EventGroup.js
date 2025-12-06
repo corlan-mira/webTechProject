@@ -2,24 +2,24 @@
 
 const { DataTypes } = require('sequelize');
 
-/**
- * EventGroup Model - Collections of related events
- * 
- * Created by event organizers to group related events together
- * Supports multiple events per group
- */
+/
+  EventGroup Model - Collections of related events
+  
+  Created by event organizers to group related events together
+  Supports multiple events per group
+ /
 module.exports = (sequelize) => {
   const EventGroup = sequelize.define(
     'EventGroup',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique event group identifier (UUID v4)',
+        comment: 'Unique event group identifier (UUID v)',
       },
       name: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Event group name',
       },
@@ -46,8 +46,8 @@ module.exports = (sequelize) => {
       tableName: 'event_groups',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_event_group_created_by',
@@ -58,11 +58,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to User (creator) (N:1)
-   * - Has many Events (1:N)
-   */
+  /
+    Associations
+    - Belongs to User (creator) (N:)
+    - Has many Events (:N)
+   /
   EventGroup.associate = (models) => {
     EventGroup.belongsTo(models.User, {
       foreignKey: 'created_by',

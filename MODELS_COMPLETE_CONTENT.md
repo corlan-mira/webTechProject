@@ -1,40 +1,40 @@
-# Complete Model Files - Full Content
+ Complete Model Files - Full Content
 
 This document contains the complete content of all model files for reference.
 
 ---
 
-## User.js
+ User.js
 
 ```javascript
 'use strict';
 
 const { DataTypes } = require('sequelize');
 
-/**
- * User Model - Represents Event Organizers and Participants
- * 
- * Roles:
- * - EO: Event Organizer (creates events and groups)
- * - PARTICIPANT: Regular participant (check-in to events)
- */
+/
+  User Model - Represents Event Organizers and Participants
+  
+  Roles:
+  - EO: Event Organizer (creates events and groups)
+  - PARTICIPANT: Regular participant (check-in to events)
+ /
 module.exports = (sequelize) => {
   const User = sequelize.define(
     'User',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique user identifier (UUID v4)',
+        comment: 'Unique user identifier (UUID v)',
       },
       name: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'User full name',
       },
       email: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         unique: {
           msg: 'Email already in use',
@@ -46,7 +46,7 @@ module.exports = (sequelize) => {
         comment: 'Unique email address for login',
       },
       password_hash: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Bcrypt hashed password',
       },
@@ -63,8 +63,8 @@ module.exports = (sequelize) => {
       tableName: 'users',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_user_email',
@@ -80,11 +80,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - One User creates many EventGroups (1:N)
-   * - One User has many Attendances (1:N)
-   */
+  /
+    Associations
+    - One User creates many EventGroups (:N)
+    - One User has many Attendances (:N)
+   /
   User.associate = (models) => {
     User.hasMany(models.EventGroup, {
       foreignKey: 'created_by',
@@ -107,31 +107,31 @@ module.exports = (sequelize) => {
 
 ---
 
-## EventGroup.js
+ EventGroup.js
 
 ```javascript
 'use strict';
 
 const { DataTypes } = require('sequelize');
 
-/**
- * EventGroup Model - Collections of related events
- * 
- * Created by event organizers to group related events together
- * Supports multiple events per group
- */
+/
+  EventGroup Model - Collections of related events
+  
+  Created by event organizers to group related events together
+  Supports multiple events per group
+ /
 module.exports = (sequelize) => {
   const EventGroup = sequelize.define(
     'EventGroup',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique event group identifier (UUID v4)',
+        comment: 'Unique event group identifier (UUID v)',
       },
       name: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Event group name',
       },
@@ -158,8 +158,8 @@ module.exports = (sequelize) => {
       tableName: 'event_groups',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_event_group_created_by',
@@ -170,11 +170,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to User (creator) (N:1)
-   * - Has many Events (1:N)
-   */
+  /
+    Associations
+    - Belongs to User (creator) (N:)
+    - Has many Events (:N)
+   /
   EventGroup.associate = (models) => {
     EventGroup.belongsTo(models.User, {
       foreignKey: 'created_by',
@@ -197,33 +197,33 @@ module.exports = (sequelize) => {
 
 ---
 
-## Event.js
+ Event.js
 
 ```javascript
 'use strict';
 
 const { DataTypes } = require('sequelize');
 
-/**
- * Event Model - Individual events where participants check in
- * 
- * Stores event details with multiple check-in methods:
- * - Text-based access code
- * - QR code
- * 
- * State management:
- * - OPEN: Accepting check-ins
- * - CLOSED: No longer accepting check-ins
- */
+/
+  Event Model - Individual events where participants check in
+  
+  Stores event details with multiple check-in methods:
+  - Text-based access code
+  - QR code
+  
+  State management:
+  - OPEN: Accepting check-ins
+  - CLOSED: No longer accepting check-ins
+ /
 module.exports = (sequelize) => {
   const Event = sequelize.define(
     'Event',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique event identifier (UUID v4)',
+        comment: 'Unique event identifier (UUID v)',
       },
       group_id: {
         type: DataTypes.UUID,
@@ -237,7 +237,7 @@ module.exports = (sequelize) => {
         comment: 'FK to EventGroup that contains this event',
       },
       title: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Event title/name',
       },
@@ -250,13 +250,13 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         validate: {
-          min: 1,
-          max: 1440, // Max 24 hours
+          min: ,
+          max: , // Max  hours
         },
-        comment: 'Event duration in minutes (1-1440)',
+        comment: 'Event duration in minutes (-)',
       },
       code_text: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(),
         allowNull: false,
         unique: {
           msg: 'Access code already in use',
@@ -293,8 +293,8 @@ module.exports = (sequelize) => {
       tableName: 'events',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_event_group_id',
@@ -322,12 +322,12 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to EventGroup (N:1)
-   * - Has many Attendances (1:N)
-   * - Belongs to User (creator) (N:1)
-   */
+  /
+    Associations
+    - Belongs to EventGroup (N:)
+    - Has many Attendances (:N)
+    - Belongs to User (creator) (N:)
+   /
   Event.associate = (models) => {
     Event.belongsTo(models.EventGroup, {
       foreignKey: 'group_id',
@@ -357,32 +357,32 @@ module.exports = (sequelize) => {
 
 ---
 
-## Attendance.js
+ Attendance.js
 
 ```javascript
 'use strict';
 
 const { DataTypes } = require('sequelize');
 
-/**
- * Attendance Model - Check-in records for event participants
- * 
- * Records each participant check-in:
- * - Links to Event and Participant (User)
- * - Tracks check-in method (text code or QR)
- * - Records exact timestamp of check-in
- * 
- * Supports both registered users and walk-ins
- */
+/
+  Attendance Model - Check-in records for event participants
+  
+  Records each participant check-in:
+  - Links to Event and Participant (User)
+  - Tracks check-in method (text code or QR)
+  - Records exact timestamp of check-in
+  
+  Supports both registered users and walk-ins
+ /
 module.exports = (sequelize) => {
   const Attendance = sequelize.define(
     'Attendance',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique attendance record identifier (UUID v4)',
+        comment: 'Unique attendance record identifier (UUID v)',
       },
       event_id: {
         type: DataTypes.UUID,
@@ -419,8 +419,8 @@ module.exports = (sequelize) => {
       tableName: 'attendance',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_attendance_event_id',
@@ -444,11 +444,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - Belongs to Event (N:1)
-   * - Belongs to User (optional, for registered participants) (N:1)
-   */
+  /
+    Associations
+    - Belongs to Event (N:)
+    - Belongs to User (optional, for registered participants) (N:)
+   /
   Attendance.associate = (models) => {
     Attendance.belongsTo(models.Event, {
       foreignKey: 'event_id',
@@ -471,7 +471,7 @@ module.exports = (sequelize) => {
 
 ---
 
-## models/index.js
+ models/index.js
 
 ```javascript
 'use strict';
@@ -482,10 +482,10 @@ const EventGroup = require('./EventGroup');
 const Event = require('./Event');
 const Attendance = require('./Attendance');
 
-/**
- * Models Index
- * Exports all Sequelize models and initializes associations
- */
+/
+  Models Index
+  Exports all Sequelize models and initializes associations
+ /
 
 // Initialize models
 const models = {
@@ -495,11 +495,11 @@ const models = {
   Attendance: Attendance(sequelize),
 };
 
-/**
- * Define associations
- * This must be done after all models are initialized
- * to avoid circular dependency issues
- */
+/
+  Define associations
+  This must be done after all models are initialized
+  to avoid circular dependency issues
+ /
 Object.values(models).forEach(model => {
   if (model.associate) {
     model.associate(models);
@@ -514,16 +514,16 @@ module.exports = {
 
 ---
 
-## Summary Table
+ Summary Table
 
 | Model | File | Table | Fields | Indexes |
 |-------|------|-------|--------|---------|
-| User | User.js | users | 6 | 2 |
-| EventGroup | EventGroup.js | event_groups | 5 | 3 |
-| Event | Event.js | events | 9 | 6 |
-| Attendance | Attendance.js | attendance | 5 | 5 |
+| User | User.js | users |  |  |
+| EventGroup | EventGroup.js | event_groups |  |  |
+| Event | Event.js | events |  |  |
+| Attendance | Attendance.js | attendance |  |  |
 
-**Total Models:** 4  
-**Total Fields:** 25  
-**Total Indexes:** 16  
-**Total Associations:** 8
+Total Models:   
+Total Fields:   
+Total Indexes:   
+Total Associations: 

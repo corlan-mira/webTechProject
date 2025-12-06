@@ -1,13 +1,13 @@
-/**
- * Auth Service
- * Business logic for authentication
- * 
- * Functions:
- *  - registerUser(email, password, name): Create new user
- *  - authenticateUser(email, password): Verify credentials
- *  - generateToken(userId): Generate JWT token
- *  - verifyToken(token): Validate JWT token
- */
+/
+  Auth Service
+  Business logic for authentication
+  
+  Functions:
+   - registerUser(email, password, name): Create new user
+   - authenticateUser(email, password): Verify credentials
+   - generateToken(userId): Generate JWT token
+   - verifyToken(token): Validate JWT token
+ /
 
 exports.registerUser = async (email, password, name) => {
   // Implementation here

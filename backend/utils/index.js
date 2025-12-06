@@ -1,7 +1,7 @@
-/**
- * Utilities Index
- * Exports all utility modules
- */
+/
+  Utilities Index
+  Exports all utility modules
+ /
 
 module.exports = {
   validators: require('./validators'),

@@ -1,56 +1,56 @@
-# Complete Migration Files - Full Content
+ Complete Migration Files - Full Content
 
 This document contains the complete content of all migration files for reference.
 
 ---
 
-## 001-create-users.js
+ -create-users.js
 
-**Location:** `backend/migrations/001-create-users.js`
+Location: `backend/migrations/-create-users.js`
 
 ```javascript
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create users table
-     * 
-     * Creates the base users table for event organizers and participants
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - name: User full name
-     * - email: Unique email for login
-     * - password_hash: Bcrypt hashed password
-     * - role: ENUM (EO=Event Organizer, PARTICIPANT=Regular user)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create users table
+      
+      Creates the base users table for event organizers and participants
+      
+      Columns:
+      - id: UUID primary key
+      - name: User full name
+      - email: Unique email for login
+      - password_hash: Bcrypt hashed password
+      - role: ENUM (EO=Event Organizer, PARTICIPANT=Regular user)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'users',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique user identifier (UUID v4)',
+          comment: 'Unique user identifier (UUID v)',
         },
         name: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'User full name',
         },
         email: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           unique: true,
           comment: 'Unique email address for login',
         },
         password_hash: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Bcrypt hashed password',
         },
@@ -73,8 +73,8 @@ module.exports = {
       },
       {
         comment: 'Stores user accounts for event organizers and participants',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -94,9 +94,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop users table
-     */
+    /
+      Rollback: Drop users table
+     /
     await queryInterface.dropTable('users');
   },
 };
@@ -104,42 +104,42 @@ module.exports = {
 
 ---
 
-## 002-create-event-groups.js
+ -create-event-groups.js
 
-**Location:** `backend/migrations/002-create-event-groups.js`
+Location: `backend/migrations/-create-event-groups.js`
 
 ```javascript
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create event_groups table
-     * 
-     * Creates groups/collections of related events
-     * Owned/created by event organizers (Users with EO role)
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - name: Group name
-     * - description: Optional detailed description
-     * - created_by: FK to User (organizer)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create event_groups table
+      
+      Creates groups/collections of related events
+      Owned/created by event organizers (Users with EO role)
+      
+      Columns:
+      - id: UUID primary key
+      - name: Group name
+      - description: Optional detailed description
+      - created_by: FK to User (organizer)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'event_groups',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique event group identifier (UUID v4)',
+          comment: 'Unique event group identifier (UUID v)',
         },
         name: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Event group name',
         },
@@ -172,8 +172,8 @@ module.exports = {
       },
       {
         comment: 'Groups of related events created by organizers',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -192,10 +192,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop event_groups table
-     * CASCADE delete will remove all related events
-     */
+    /
+      Rollback: Drop event_groups table
+      CASCADE delete will remove all related events
+     /
     await queryInterface.dropTable('event_groups');
   },
 };
@@ -203,44 +203,44 @@ module.exports = {
 
 ---
 
-## 003-create-events.js
+ -create-events.js
 
-**Location:** `backend/migrations/003-create-events.js`
+Location: `backend/migrations/-create-events.js`
 
 ```javascript
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create events table
-     * 
-     * Creates individual events with check-in capabilities
-     * Supports both text-based access codes and QR codes
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - group_id: FK to EventGroup
-     * - title: Event title/name
-     * - start_time: Event start timestamp
-     * - duration_minutes: Event duration in minutes (1-1440)
-     * - code_text: Unique text access code for check-in
-     * - code_qr: QR code data/URL (generated from code_text)
-     * - state: ENUM (OPEN, CLOSED) for check-in state
-     * - created_by: FK to User (organizer who created event)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create events table
+      
+      Creates individual events with check-in capabilities
+      Supports both text-based access codes and QR codes
+      
+      Columns:
+      - id: UUID primary key
+      - group_id: FK to EventGroup
+      - title: Event title/name
+      - start_time: Event start timestamp
+      - duration_minutes: Event duration in minutes (-)
+      - code_text: Unique text access code for check-in
+      - code_qr: QR code data/URL (generated from code_text)
+      - state: ENUM (OPEN, CLOSED) for check-in state
+      - created_by: FK to User (organizer who created event)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'events',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique event identifier (UUID v4)',
+          comment: 'Unique event identifier (UUID v)',
         },
         group_id: {
           type: Sequelize.UUID,
@@ -254,7 +254,7 @@ module.exports = {
           comment: 'FK to EventGroup that contains this event',
         },
         title: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Event title/name',
         },
@@ -267,13 +267,13 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
           validate: {
-            min: 1,
-            max: 1440,
+            min: ,
+            max: ,
           },
-          comment: 'Event duration in minutes (1-1440, max 24 hours)',
+          comment: 'Event duration in minutes (-, max  hours)',
         },
         code_text: {
-          type: Sequelize.STRING(50),
+          type: Sequelize.STRING(),
           allowNull: false,
           unique: true,
           comment: 'Text-based access code for check-in',
@@ -313,8 +313,8 @@ module.exports = {
       },
       {
         comment: 'Individual events with check-in capabilities',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -346,10 +346,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop events table
-     * CASCADE delete will remove all related attendance records
-     */
+    /
+      Rollback: Drop events table
+      CASCADE delete will remove all related attendance records
+     /
     await queryInterface.dropTable('events');
   },
 };
@@ -357,39 +357,39 @@ module.exports = {
 
 ---
 
-## 004-create-attendance.js
+ -create-attendance.js
 
-**Location:** `backend/migrations/004-create-attendance.js`
+Location: `backend/migrations/-create-attendance.js`
 
 ```javascript
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create attendance table
-     * 
-     * Records participant check-ins at events
-     * Supports both registered users and anonymous participants
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - event_id: FK to Event
-     * - participant_id: FK to User (optional, NULL for anonymous check-ins)
-     * - timestamp: Exact check-in timestamp
-     * - created_at: Record creation timestamp
-     * - updated_at: Record update timestamp
-     */
+    /
+      Migration: Create attendance table
+      
+      Records participant check-ins at events
+      Supports both registered users and anonymous participants
+      
+      Columns:
+      - id: UUID primary key
+      - event_id: FK to Event
+      - participant_id: FK to User (optional, NULL for anonymous check-ins)
+      - timestamp: Exact check-in timestamp
+      - created_at: Record creation timestamp
+      - updated_at: Record update timestamp
+     /
     await queryInterface.createTable(
       'attendance',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique attendance record identifier (UUID v4)',
+          comment: 'Unique attendance record identifier (UUID v)',
         },
         event_id: {
           type: Sequelize.UUID,
@@ -432,8 +432,8 @@ module.exports = {
       },
       {
         comment: 'Records of participant check-ins at events',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -460,9 +460,9 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop attendance table
-     */
+    /
+      Rollback: Drop attendance table
+     /
     await queryInterface.dropTable('attendance');
   },
 };
@@ -470,28 +470,28 @@ module.exports = {
 
 ---
 
-## Summary
+ Summary
 
 | Migration | File | Creates | Key Features |
 |-----------|------|---------|--------------|
-| 001 | `001-create-users.js` | users | UUID PK, ENUM role, UNIQUE email |
-| 002 | `002-create-event-groups.js` | event_groups | FK to users, CASCADE delete |
-| 003 | `003-create-events.js` | events | UNIQUE code_text, ENUM state, FK constraints |
-| 004 | `004-create-attendance.js` | attendance | FK with SET NULL, composite indexes |
+|  | `-create-users.js` | users | UUID PK, ENUM role, UNIQUE email |
+|  | `-create-event-groups.js` | event_groups | FK to users, CASCADE delete |
+|  | `-create-events.js` | events | UNIQUE code_text, ENUM state, FK constraints |
+|  | `-create-attendance.js` | attendance | FK with SET NULL, composite indexes |
 
-**Total Migrations:** 4  
-**Total Tables Created:** 4  
-**Total Indexes:** 16+  
-**Database Dialect:** PostgreSQL  
-**Data Type:** UUID v4 for all primary keys
+Total Migrations:   
+Total Tables Created:   
+Total Indexes: +  
+Database Dialect: PostgreSQL  
+Data Type: UUID v for all primary keys
 
-### Execution Order
+ Execution Order
 ```
-001-create-users
+-create-users
   ↓
-002-create-event-groups (depends on users)
+-create-event-groups (depends on users)
   ↓
-003-create-events (depends on event_groups and users)
+-create-events (depends on event_groups and users)
   ↓
-004-create-attendance (depends on events and users)
+-create-attendance (depends on events and users)
 ```

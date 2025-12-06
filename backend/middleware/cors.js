@@ -1,10 +1,10 @@
-/**
- * CORS Middleware
- * Configure Cross-Origin Resource Sharing
- * 
- * Functions:
- *  - corsOptions(req, callback): Dynamic CORS configuration
- */
+/
+  CORS Middleware
+  Configure Cross-Origin Resource Sharing
+  
+  Functions:
+   - corsOptions(req, callback): Dynamic CORS configuration
+ /
 
 const { CORS_ORIGIN } = require('../config/environment');
 
@@ -18,7 +18,7 @@ const corsOptions = {
     }
   },
   credentials: true,
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: ,
 };
 
 module.exports = corsOptions;

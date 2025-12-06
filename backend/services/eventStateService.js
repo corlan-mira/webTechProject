@@ -3,31 +3,31 @@
 const { Event } = require('../models');
 const { Op } = require('sequelize');
 
-/**
- * Event State Service
- * Manages automatic event state transitions based on time
- * 
- * State Logic:
- * - If now < start_time → CLOSED (not yet started)
- * - If start_time <= now < end_time → OPEN (in progress)
- * - If now >= end_time → CLOSED (finished)
- * 
- * Where end_time = start_time + (duration_minutes * 60 seconds)
- */
+/
+  Event State Service
+  Manages automatic event state transitions based on time
+  
+  State Logic:
+  - If now < start_time → CLOSED (not yet started)
+  - If start_time <= now < end_time → OPEN (in progress)
+  - If now >= end_time → CLOSED (finished)
+  
+  Where end_time = start_time + (duration_minutes   seconds)
+ /
 
-/**
- * Calculate the appropriate state for an event
- * 
- * @param {Object} event - Event object with start_time and duration_minutes
- * @returns {string} - State: 'OPEN' or 'CLOSED'
- * 
- * Example:
- *  const event = {
- *    start_time: new Date('2025-12-15T09:00:00Z'),
- *    duration_minutes: 60
- *  };
- *  const state = calculateEventState(event);
- */
+/
+  Calculate the appropriate state for an event
+  
+  @param {Object} event - Event object with start_time and duration_minutes
+  @returns {string} - State: 'OPEN' or 'CLOSED'
+  
+  Example:
+   const event = {
+     start_time: new Date('--T::Z'),
+     duration_minutes: 
+   };
+   const state = calculateEventState(event);
+ /
 exports.calculateEventState = (event) => {
   try {
     if (!event || !event.start_time || !event.duration_minutes) {
@@ -39,7 +39,7 @@ exports.calculateEventState = (event) => {
     const startTime = new Date(event.start_time);
     
     // Calculate end time (start_time + duration_minutes)
-    const endTime = new Date(startTime.getTime() + event.duration_minutes * 60 * 1000);
+    const endTime = new Date(startTime.getTime() + event.duration_minutes    );
 
     // State logic
     if (now < startTime) {
@@ -58,12 +58,12 @@ exports.calculateEventState = (event) => {
   }
 };
 
-/**
- * Get events that need state update
- * Fetches all events with current state different from calculated state
- * 
- * @returns {Promise<Array>} - Array of Event objects needing update
- */
+/
+  Get events that need state update
+  Fetches all events with current state different from calculated state
+  
+  @returns {Promise<Array>} - Array of Event objects needing update
+ /
 exports.getEventsNeedingUpdate = async () => {
   try {
     // Fetch all events that are not in DRAFT state
@@ -74,7 +74,7 @@ exports.getEventsNeedingUpdate = async () => {
       attributes: ['id', 'title', 'start_time', 'duration_minutes', 'state'],
     });
 
-    if (!events || events.length === 0) {
+    if (!events || events.length === ) {
       return [];
     }
 
@@ -91,16 +91,16 @@ exports.getEventsNeedingUpdate = async () => {
   }
 };
 
-/**
- * Update event state
- * Updates a single event's state to the calculated state
- * 
- * @param {string} eventId - Event UUID
- * @param {string} newState - New state ('OPEN' or 'CLOSED')
- * @returns {Promise<Object>} - Updated event object
- * 
- * @throws {Error} - If event not found or update fails
- */
+/
+  Update event state
+  Updates a single event's state to the calculated state
+  
+  @param {string} eventId - Event UUID
+  @param {string} newState - New state ('OPEN' or 'CLOSED')
+  @returns {Promise<Object>} - Updated event object
+  
+  @throws {Error} - If event not found or update fails
+ /
 exports.updateEventState = async (eventId, newState) => {
   try {
     if (!eventId || !newState) {
@@ -133,32 +133,32 @@ exports.updateEventState = async (eventId, newState) => {
   }
 };
 
-/**
- * Batch update events to their calculated states
- * Efficiently updates multiple events in a single operation
- * 
- * @param {Array<Object>} eventsToUpdate - Array of objects with { id, state }
- * @returns {Promise<Object>} - Update result with count
- * 
- * Example:
- *  const updates = [
- *    { id: 'uuid1', state: 'OPEN' },
- *    { id: 'uuid2', state: 'CLOSED' }
- *  ];
- *  await batchUpdateEventStates(updates);
- */
+/
+  Batch update events to their calculated states
+  Efficiently updates multiple events in a single operation
+  
+  @param {Array<Object>} eventsToUpdate - Array of objects with { id, state }
+  @returns {Promise<Object>} - Update result with count
+  
+  Example:
+   const updates = [
+     { id: 'uuid', state: 'OPEN' },
+     { id: 'uuid', state: 'CLOSED' }
+   ];
+   await batchUpdateEventStates(updates);
+ /
 exports.batchUpdateEventStates = async (eventsToUpdate) => {
   try {
-    if (!eventsToUpdate || eventsToUpdate.length === 0) {
+    if (!eventsToUpdate || eventsToUpdate.length === ) {
       return {
         success: true,
-        count: 0,
+        count: ,
         message: 'No events to update',
       };
     }
 
-    let successCount = 0;
-    let errorCount = 0;
+    let successCount = ;
+    let errorCount = ;
     const errors = [];
 
     // Update each event
@@ -176,7 +176,7 @@ exports.batchUpdateEventStates = async (eventsToUpdate) => {
           }
         );
 
-        if (result[0] > 0) {
+        if (result[] > ) {
           successCount++;
         }
       } catch (error) {
@@ -189,10 +189,10 @@ exports.batchUpdateEventStates = async (eventsToUpdate) => {
     }
 
     return {
-      success: errorCount === 0,
+      success: errorCount === ,
       successCount,
       errorCount,
-      errors: errors.length > 0 ? errors : undefined,
+      errors: errors.length >  ? errors : undefined,
     };
   } catch (error) {
     console.error('Error in batch update:', error);
@@ -200,15 +200,15 @@ exports.batchUpdateEventStates = async (eventsToUpdate) => {
   }
 };
 
-/**
- * Sync all event states
- * Comprehensive operation that:
- * 1. Finds all events needing state update
- * 2. Calculates correct states
- * 3. Updates events in batches
- * 
- * @returns {Promise<Object>} - Sync result with statistics
- */
+/
+  Sync all event states
+  Comprehensive operation that:
+  . Finds all events needing state update
+  . Calculates correct states
+  . Updates events in batches
+  
+  @returns {Promise<Object>} - Sync result with statistics
+ /
 exports.syncAllEventStates = async () => {
   try {
     const startTime = Date.now();
@@ -216,12 +216,12 @@ exports.syncAllEventStates = async () => {
     // Get events that need update
     const eventsNeedingUpdate = await exports.getEventsNeedingUpdate();
     
-    if (eventsNeedingUpdate.length === 0) {
+    if (eventsNeedingUpdate.length === ) {
       return {
         success: true,
         message: 'All events are in correct state',
-        eventsChecked: 0,
-        eventsUpdated: 0,
+        eventsChecked: ,
+        eventsUpdated: ,
         duration: `${Date.now() - startTime}ms`,
       };
     }
@@ -241,10 +241,10 @@ exports.syncAllEventStates = async () => {
 ╔════════════════════════════════════════════╗
 ║       Event State Synchronization          ║
 ╠════════════════════════════════════════════╣
-║ Total Checked:    ${eventsNeedingUpdate.length.toString().padEnd(26)} ║
-║ Successfully Updated: ${updateResult.successCount.toString().padEnd(19)} ║
-║ Failed:           ${updateResult.errorCount.toString().padEnd(26)} ║
-║ Duration:         ${(`${Date.now() - startTime}ms`).padEnd(26)} ║
+║ Total Checked:    ${eventsNeedingUpdate.length.toString().padEnd()} ║
+║ Successfully Updated: ${updateResult.successCount.toString().padEnd()} ║
+║ Failed:           ${updateResult.errorCount.toString().padEnd()} ║
+║ Duration:         ${(`${Date.now() - startTime}ms`).padEnd()} ║
 ╚════════════════════════════════════════════╝
     `);
 
@@ -267,13 +267,13 @@ exports.syncAllEventStates = async () => {
   }
 };
 
-/**
- * Get event state details
- * Returns detailed information about event state transitions
- * 
- * @param {string} eventId - Event UUID
- * @returns {Promise<Object>} - Detailed state information
- */
+/
+  Get event state details
+  Returns detailed information about event state transitions
+  
+  @param {string} eventId - Event UUID
+  @returns {Promise<Object>} - Detailed state information
+ /
 exports.getEventStateDetails = async (eventId) => {
   try {
     const event = await Event.findByPk(eventId, {
@@ -286,7 +286,7 @@ exports.getEventStateDetails = async (eventId) => {
 
     const now = new Date();
     const startTime = new Date(event.start_time);
-    const endTime = new Date(startTime.getTime() + event.duration_minutes * 60 * 1000);
+    const endTime = new Date(startTime.getTime() + event.duration_minutes    );
     const calculatedState = exports.calculateEventState(event);
 
     // Calculate time differences
@@ -294,15 +294,15 @@ exports.getEventStateDetails = async (eventId) => {
     const msUntilEnd = endTime - now;
 
     const formatTime = (ms) => {
-      if (ms < 0) return 'Finished';
-      const seconds = Math.floor(ms / 1000);
-      const minutes = Math.floor(seconds / 60);
-      const hours = Math.floor(minutes / 60);
-      const days = Math.floor(hours / 24);
+      if (ms < ) return 'Finished';
+      const seconds = Math.floor(ms / );
+      const minutes = Math.floor(seconds / );
+      const hours = Math.floor(minutes / );
+      const days = Math.floor(hours / );
 
-      if (days > 0) return `${days}d ${hours % 24}h`;
-      if (hours > 0) return `${hours}h ${minutes % 60}m`;
-      if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
+      if (days > ) return `${days}d ${hours % }h`;
+      if (hours > ) return `${hours}h ${minutes % }m`;
+      if (minutes > ) return `${minutes}m ${seconds % }s`;
       return `${seconds}s`;
     };
 
@@ -321,7 +321,7 @@ exports.getEventStateDetails = async (eventId) => {
         durationMinutes: event.duration_minutes,
         timeUntilStart: {
           ms: msUntilStart,
-          formatted: msUntilStart < 0 ? 'Already started' : formatTime(msUntilStart),
+          formatted: msUntilStart <  ? 'Already started' : formatTime(msUntilStart),
         },
         timeUntilEnd: {
           ms: msUntilEnd,
@@ -340,12 +340,12 @@ exports.getEventStateDetails = async (eventId) => {
   }
 };
 
-/**
- * Health check for state service
- * Verifies the service is working correctly
- * 
- * @returns {Promise<Object>} - Health check result
- */
+/
+  Health check for state service
+  Verifies the service is working correctly
+  
+  @returns {Promise<Object>} - Health check result
+ /
 exports.healthCheck = async () => {
   try {
     // Try to count events

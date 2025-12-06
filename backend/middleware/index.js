@@ -1,7 +1,7 @@
-/**
- * Middleware Index
- * Exports all middleware functions
- */
+/
+  Middleware Index
+  Exports all middleware functions
+ /
 
 module.exports = {
   authMiddleware: require('./authMiddleware'),

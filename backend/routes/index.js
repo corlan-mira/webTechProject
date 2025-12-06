@@ -1,7 +1,7 @@
-/**
- * Routes Index
- * Main route aggregator
- */
+/
+  Routes Index
+  Main route aggregator
+ /
 
 const express = require('express');
 const router = express.Router();

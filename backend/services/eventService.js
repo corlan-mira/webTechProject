@@ -1,16 +1,16 @@
-/**
- * Event Service
- * Business logic for events
- * 
- * Functions:
- *  - createEvent(groupId, eventData): Create event with access code & QR
- *  - getGroupEvents(groupId): Get all events in group
- *  - getEvent(eventId): Get single event
- *  - updateEvent(eventId, data): Update event
- *  - deleteEvent(eventId): Delete event
- *  - changeEventState(eventId, state): Toggle OPEN/CLOSED
- *  - generateAccessCode(): Generate unique 10-char code
- */
+/
+  Event Service
+  Business logic for events
+  
+  Functions:
+   - createEvent(groupId, eventData): Create event with access code & QR
+   - getGroupEvents(groupId): Get all events in group
+   - getEvent(eventId): Get single event
+   - updateEvent(eventId, data): Update event
+   - deleteEvent(eventId): Delete event
+   - changeEventState(eventId, state): Toggle OPEN/CLOSED
+   - generateAccessCode(): Generate unique -char code
+ /
 
 exports.createEvent = async (groupId, eventData) => {
   // Implementation here
@@ -44,5 +44,5 @@ exports.changeEventState = async (eventId, state) => {
 
 exports.generateAccessCode = () => {
   // Implementation here
-  return 'ABC12345XY';
+  return 'ABCXY';
 };

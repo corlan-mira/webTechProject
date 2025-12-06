@@ -2,30 +2,30 @@
 
 const { DataTypes } = require('sequelize');
 
-/**
- * User Model - Represents Event Organizers and Participants
- * 
- * Roles:
- * - EO: Event Organizer (creates events and groups)
- * - PARTICIPANT: Regular participant (check-in to events)
- */
+/
+  User Model - Represents Event Organizers and Participants
+  
+  Roles:
+  - EO: Event Organizer (creates events and groups)
+  - PARTICIPANT: Regular participant (check-in to events)
+ /
 module.exports = (sequelize) => {
   const User = sequelize.define(
     'User',
     {
       id: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV,
         primaryKey: true,
-        comment: 'Unique user identifier (UUID v4)',
+        comment: 'Unique user identifier (UUID v)',
       },
       name: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'User full name',
       },
       email: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         unique: {
           msg: 'Email already in use',
@@ -37,7 +37,7 @@ module.exports = (sequelize) => {
         comment: 'Unique email address for login',
       },
       password_hash: {
-        type: DataTypes.STRING(255),
+        type: DataTypes.STRING(),
         allowNull: false,
         comment: 'Bcrypt hashed password',
       },
@@ -54,8 +54,8 @@ module.exports = (sequelize) => {
       tableName: 'users',
       timestamps: true,
       underscored: true,
-      charset: 'utf8mb4',
-      collate: 'utf8mb4_unicode_ci',
+      charset: 'utfmb',
+      collate: 'utfmb_unicode_ci',
       indexes: [
         {
           name: 'idx_user_email',
@@ -71,11 +71,11 @@ module.exports = (sequelize) => {
     }
   );
 
-  /**
-   * Associations
-   * - One User creates many EventGroups (1:N)
-   * - One User has many Attendances (1:N)
-   */
+  /
+    Associations
+    - One User creates many EventGroups (:N)
+    - One User has many Attendances (:N)
+   /
   User.associate = (models) => {
     User.hasMany(models.EventGroup, {
       foreignKey: 'created_by',

@@ -3,55 +3,55 @@
 const cron = require('node-cron');
 const eventStateService = require('../services/eventStateService');
 
-/**
- * Event State Job
- * Automatic background job that updates event states based on scheduled time
- * 
- * Schedule: Every minute (at 0 seconds)
- * 
- * Tasks:
- * 1. Find events where calculated state differs from stored state
- * 2. Update events to correct state
- * 3. Log results and any errors
- * 
- * State Transitions:
- * - CLOSED → OPEN: When current time reaches start_time
- * - OPEN → CLOSED: When current time reaches end_time (start_time + duration)
- */
+/
+  Event State Job
+  Automatic background job that updates event states based on scheduled time
+  
+  Schedule: Every minute (at  seconds)
+  
+  Tasks:
+  . Find events where calculated state differs from stored state
+  . Update events to correct state
+  . Log results and any errors
+  
+  State Transitions:
+  - CLOSED → OPEN: When current time reaches start_time
+  - OPEN → CLOSED: When current time reaches end_time (start_time + duration)
+ /
 
 let cronJob = null;
 
-/**
- * Initialize the event state job
- * Starts the cron scheduler
- * 
- * @returns {Object} - Job info with schedule and status
- */
+/
+  Initialize the event state job
+  Starts the cron scheduler
+  
+  @returns {Object} - Job info with schedule and status
+ /
 exports.initEventStateJob = () => {
   try {
     if (cronJob) {
-      console.log('⚠ Event state job already initialized');
+      console.log(' Event state job already initialized');
       return {
         status: 'already_running',
         message: 'Job was already initialized',
       };
     }
 
-    /**
-     * Cron pattern: '0 * * * * *'
-     * 
-     * Field     | Allowed Values
-     * ------    | -------
-     * Seconds   | 0-59
-     * Minutes   | 0-59
-     * Hours     | 0-23
-     * Date      | 1-31
-     * Month     | 0-11
-     * Day       | 0-6
-     * 
-     * Pattern '0 * * * * *' = Every minute at 0 seconds
-     */
-    cronJob = cron.schedule('0 * * * * *', async () => {
+    /
+      Cron pattern: '     '
+      
+      Field     | Allowed Values
+      ------    | -------
+      Seconds   | -
+      Minutes   | -
+      Hours     | -
+      Date      | -
+      Month     | -
+      Day       | -
+      
+      Pattern '     ' = Every minute at  seconds
+     /
+    cronJob = cron.schedule('     ', async () => {
       await executeEventStateSync();
     });
 
@@ -60,8 +60,8 @@ exports.initEventStateJob = () => {
     return {
       status: 'initialized',
       message: 'Event state job started',
-      schedule: 'Every minute at 0 seconds',
-      nextRun: new Date(Date.now() + 60000).toISOString(),
+      schedule: 'Every minute at  seconds',
+      nextRun: new Date(Date.now() + ).toISOString(),
     };
   } catch (error) {
     console.error('✗ Failed to initialize event state job:', error);
@@ -73,16 +73,16 @@ exports.initEventStateJob = () => {
   }
 };
 
-/**
- * Stop the event state job
- * Gracefully stops the cron scheduler
- * 
- * @returns {Object} - Stop result
- */
+/
+  Stop the event state job
+  Gracefully stops the cron scheduler
+  
+  @returns {Object} - Stop result
+ /
 exports.stopEventStateJob = () => {
   try {
     if (!cronJob) {
-      console.log('⚠ Event state job is not running');
+      console.log(' Event state job is not running');
       return {
         status: 'not_running',
         message: 'Job was not initialized',
@@ -108,36 +108,36 @@ exports.stopEventStateJob = () => {
   }
 };
 
-/**
- * Check if job is running
- * 
- * @returns {boolean} - True if job is running
- */
+/
+  Check if job is running
+  
+  @returns {boolean} - True if job is running
+ /
 exports.isEventStateJobRunning = () => {
   return cronJob !== null;
 };
 
-/**
- * Get job status
- * 
- * @returns {Object} - Job status details
- */
+/
+  Get job status
+  
+  @returns {Object} - Job status details
+ /
 exports.getEventStateJobStatus = () => {
   return {
     running: cronJob !== null,
-    schedule: 'Every minute at 0 seconds',
-    pattern: '0 * * * * *',
-    nextExecution: cronJob ? new Date(Date.now() + 60000).toISOString() : null,
+    schedule: 'Every minute at  seconds',
+    pattern: '     ',
+    nextExecution: cronJob ? new Date(Date.now() + ).toISOString() : null,
   };
 };
 
-/**
- * Execute event state synchronization
- * Internal function called by cron schedule
- * 
- * @private
- * @returns {Promise<Object>} - Sync result
- */
+/
+  Execute event state synchronization
+  Internal function called by cron schedule
+  
+  @private
+  @returns {Promise<Object>} - Sync result
+ /
 async function executeEventStateSync() {
   const executionId = `exec-${Date.now()}`;
   const startTime = Date.now();
@@ -155,7 +155,7 @@ async function executeEventStateSync() {
       return;
     }
 
-    if (health.eventsNeedingUpdate === 0) {
+    if (health.eventsNeedingUpdate === ) {
       // Silently skip if no updates needed (too verbose for every minute)
       return;
     }
@@ -165,7 +165,7 @@ async function executeEventStateSync() {
 
     const duration = Date.now() - startTime;
 
-    if (syncResult.success && syncResult.eventsUpdated > 0) {
+    if (syncResult.success && syncResult.eventsUpdated > ) {
       console.log(
         `[${executionId}] ✓ Event state sync completed: ${syncResult.eventsUpdated} events updated (${duration}ms)`
       );
@@ -188,15 +188,15 @@ async function executeEventStateSync() {
   }
 }
 
-/**
- * Manual trigger for event state sync
- * Useful for testing or emergency syncs
- * 
- * @returns {Promise<Object>} - Sync result
- */
+/
+  Manual trigger for event state sync
+  Useful for testing or emergency syncs
+  
+  @returns {Promise<Object>} - Sync result
+ /
 exports.triggerEventStateSync = async () => {
   try {
-    console.log('⏱ Manually triggering event state synchronization...');
+    console.log(' Manually triggering event state synchronization...');
     const result = await eventStateService.syncAllEventStates();
     return result;
   } catch (error) {
@@ -209,19 +209,19 @@ exports.triggerEventStateSync = async () => {
   }
 };
 
-/**
- * Schedule alternative: Using setInterval instead of cron
- * This is a fallback if node-cron is not available
- * 
- * @param {number} intervalMs - Interval in milliseconds (default: 60000 = 1 minute)
- * @returns {Object} - Interval info
- * 
- * Note: Use initEventStateJob() for cron-based scheduling
- */
-exports.initEventStateJobWithInterval = (intervalMs = 60000) => {
+/
+  Schedule alternative: Using setInterval instead of cron
+  This is a fallback if node-cron is not available
+  
+  @param {number} intervalMs - Interval in milliseconds (default:  =  minute)
+  @returns {Object} - Interval info
+  
+  Note: Use initEventStateJob() for cron-based scheduling
+ /
+exports.initEventStateJobWithInterval = (intervalMs = ) => {
   try {
     if (cronJob) {
-      console.log('⚠ Event state job already running');
+      console.log(' Event state job already running');
       return {
         status: 'already_running',
       };
@@ -256,12 +256,12 @@ exports.initEventStateJobWithInterval = (intervalMs = 60000) => {
   }
 };
 
-/**
- * Graceful job management for process termination
- * Ensures the job is properly stopped when process exits
- * 
- * Should be called in server shutdown sequence
- */
+/
+  Graceful job management for process termination
+  Ensures the job is properly stopped when process exits
+  
+  Should be called in server shutdown sequence
+ /
 exports.gracefulShutdown = () => {
   if (cronJob) {
     console.log('Shutting down event state job...');

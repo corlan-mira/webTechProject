@@ -1,14 +1,14 @@
-/**
- * Sync Job
- * Background task for synchronization
- * 
- * Tasks:
- *  - Sync attendance statistics
- *  - Update event status
- *  - Generate reports
- * 
- * Runs: Every 6 hours
- */
+/
+  Sync Job
+  Background task for synchronization
+  
+  Tasks:
+   - Sync attendance statistics
+   - Update event status
+   - Generate reports
+  
+  Runs: Every  hours
+ /
 
 exports.runSync = async () => {
   try {

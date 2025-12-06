@@ -1,86 +1,86 @@
-# Backend Folder Structure & Architecture
+ Backend Folder Structure & Architecture
 
-## 📁 Complete Folder Tree
+  Complete Folder Tree
 
 ```
 backend/
 │
-├── 📄 server.js                  # Express app entry point
-├── 📄 package.json               # NPM dependencies and scripts
-├── 📄 .env.example               # Environment variables template
-├── 📄 README.md                  # Backend setup guide
+├──  server.js                   Express app entry point
+├──  package.json                NPM dependencies and scripts
+├──  .env.example                Environment variables template
+├──  README.md                   Backend setup guide
 │
-├── 📂 config/
-│   ├── 📄 index.js               # Configuration exports
-│   ├── 📄 database.js            # PostgreSQL connection settings
-│   ├── 📄 environment.js         # App environment variables
-│   └── 📄 sequelize.js           # Sequelize ORM initialization
+├──  config/
+│   ├──  index.js                Configuration exports
+│   ├──  database.js             PostgreSQL connection settings
+│   ├──  environment.js          App environment variables
+│   └──  sequelize.js            Sequelize ORM initialization
 │
-├── 📂 models/
-│   ├── 📄 index.js               # Model exports & associations
-│   ├── 📄 User.js                # Event Organizer model
-│   ├── 📄 EventGroup.js          # Event Group model
-│   ├── 📄 Event.js               # Event model
-│   └── 📄 Attendance.js          # Attendance/Check-in model
+├──  models/
+│   ├──  index.js                Model exports & associations
+│   ├──  User.js                 Event Organizer model
+│   ├──  EventGroup.js           Event Group model
+│   ├──  Event.js                Event model
+│   └──  Attendance.js           Attendance/Check-in model
 │
-├── 📂 controllers/
-│   ├── 📄 index.js               # Controller exports
-│   ├── 📄 authController.js      # Auth endpoints (register, login)
-│   ├── 📄 eventGroupController.js# Event group CRUD
-│   ├── 📄 eventController.js     # Event CRUD & state mgmt
-│   └── 📄 attendanceController.js# Check-in & attendance
+├──  controllers/
+│   ├──  index.js                Controller exports
+│   ├──  authController.js       Auth endpoints (register, login)
+│   ├──  eventGroupController.js Event group CRUD
+│   ├──  eventController.js      Event CRUD & state mgmt
+│   └──  attendanceController.js Check-in & attendance
 │
-├── 📂 routes/
-│   ├── 📄 index.js               # Route aggregator
-│   ├── 📄 auth.js                # /api/auth/*
-│   ├── 📄 eventGroups.js         # /api/event-groups/*
-│   ├── 📄 events.js              # /api/events/* & check-in
-│   └── 📄 attendance.js          # /api/attendance/*
+├──  routes/
+│   ├──  index.js                Route aggregator
+│   ├──  auth.js                 /api/auth/
+│   ├──  eventGroups.js          /api/event-groups/
+│   ├──  events.js               /api/events/ & check-in
+│   └──  attendance.js           /api/attendance/
 │
-├── 📂 services/
-│   ├── 📄 index.js               # Service exports
-│   ├── 📄 authService.js         # Authentication business logic
-│   ├── 📄 eventGroupService.js   # Event group operations
-│   ├── 📄 eventService.js        # Event operations
-│   ├── 📄 attendanceService.js   # Check-in operations
-│   ├── 📄 qrCodeService.js       # QR code generation (QRServer)
-│   └── 📄 exportService.js       # CSV/XLSX export
+├──  services/
+│   ├──  index.js                Service exports
+│   ├──  authService.js          Authentication business logic
+│   ├──  eventGroupService.js    Event group operations
+│   ├──  eventService.js         Event operations
+│   ├──  attendanceService.js    Check-in operations
+│   ├──  qrCodeService.js        QR code generation (QRServer)
+│   └──  exportService.js        CSV/XLSX export
 │
-├── 📂 middleware/
-│   ├── 📄 index.js               # Middleware exports
-│   ├── 📄 authMiddleware.js      # JWT verification
-│   ├── 📄 errorHandler.js        # Error handling
-│   ├── 📄 validation.js          # Request validation
-│   ├── 📄 cors.js                # CORS configuration
-│   └── 📄 logging.js             # HTTP request logging
+├──  middleware/
+│   ├──  index.js                Middleware exports
+│   ├──  authMiddleware.js       JWT verification
+│   ├──  errorHandler.js         Error handling
+│   ├──  validation.js           Request validation
+│   ├──  cors.js                 CORS configuration
+│   └──  logging.js              HTTP request logging
 │
-├── 📂 utils/
-│   ├── 📄 index.js               # Utility exports
-│   ├── 📄 validators.js          # Input validation functions
-│   ├── 📄 formatters.js          # Data formatting functions
-│   ├── 📄 generators.js          # Generate codes, hashes, UUIDs
-│   ├── 📄 errorHandler.js        # Custom error classes
-│   └── 📄 constants.js           # App constants (enums, limits)
+├──  utils/
+│   ├──  index.js                Utility exports
+│   ├──  validators.js           Input validation functions
+│   ├──  formatters.js           Data formatting functions
+│   ├──  generators.js           Generate codes, hashes, UUIDs
+│   ├──  errorHandler.js         Custom error classes
+│   └──  constants.js            App constants (enums, limits)
 │
-├── 📂 jobs/
-│   ├── 📄 index.js               # Background job exports
-│   ├── 📄 cleanupJob.js          # Database cleanup job
-│   └── 📄 syncJob.js             # Data sync job
+├──  jobs/
+│   ├──  index.js                Background job exports
+│   ├──  cleanupJob.js           Database cleanup job
+│   └──  syncJob.js              Data sync job
 │
-├── 📂 migrations/
-│   ├── 📄 README.md              # Migration instructions
-│   └── (Migration files)         # [timestamp]-action.js files
+├──  migrations/
+│   ├──  README.md               Migration instructions
+│   └── (Migration files)          [timestamp]-action.js files
 │
-└── 📂 seeders/
-    ├── 📄 README.md              # Seeder instructions
-    └── (Seeder files)            # [timestamp]-name.js files
+└──  seeders/
+    ├──  README.md               Seeder instructions
+    └── (Seeder files)             [timestamp]-name.js files
 ```
 
 ---
 
-## 📋 File Descriptions by Folder
+  File Descriptions by Folder
 
-### 🔧 config/ - Configuration
+  config/ - Configuration
 Centralized configuration management for the application.
 
 | File | Purpose |
@@ -90,14 +90,14 @@ Centralized configuration management for the application.
 | `environment.js` | Environment variables and defaults |
 | `sequelize.js` | Sequelize ORM instance initialization |
 
-**Usage:**
+Usage:
 ```javascript
 const { database, environment, sequelize } = require('./config');
 ```
 
 ---
 
-### 📊 models/ - Sequelize Models
+  models/ - Sequelize Models
 ORM models representing database entities.
 
 | File | Purpose |
@@ -108,16 +108,16 @@ ORM models representing database entities.
 | `Event.js` | Individual event (group_id, name, state, access_code, qr_code_url) |
 | `Attendance.js` | Check-in record (event_id, participant_name, check_in_method) |
 
-**Associations:**
+Associations:
 ```
-User 1:N EventGroup
-EventGroup 1:N Event
-Event 1:N Attendance
+User :N EventGroup
+EventGroup :N Event
+Event :N Attendance
 ```
 
 ---
 
-### 🎮 controllers/ - Request Handlers
+  controllers/ - Request Handlers
 Process HTTP requests and delegate to services.
 
 | File | Purpose | Methods |
@@ -128,35 +128,35 @@ Process HTTP requests and delegate to services.
 | `eventController.js` | Event management | list, create, get, update, delete, changeState |
 | `attendanceController.js` | Check-ins | checkInByText, checkInByQR, list, exportCSV, exportXLSX, getStats |
 
-**Pattern:**
+Pattern:
 ```javascript
 // Controller receives request, validates, calls service, returns response
 exports.create = async (req, res) => {
   try {
     const result = await service.create(req.body);
-    res.status(201).json(result);
+    res.status().json(result);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status().json({ error: error.message });
   }
 };
 ```
 
 ---
 
-### 🛣️ routes/ - API Routes
+ ️ routes/ - API Routes
 Define endpoints and map to controllers.
 
 | File | Endpoints | Methods |
 |------|-----------|---------|
 | `index.js` | Route aggregator | Mounts all sub-routes |
-| `auth.js` | /api/auth/* | POST register, login, logout, refresh-token |
-| `eventGroups.js` | /api/event-groups/* | GET, POST, PUT, DELETE |
-| `events.js` | /api/events/* | GET, POST, PUT, DELETE, PATCH, check-in, export |
-| `attendance.js` | /api/attendance/* | Check-in & export endpoints |
+| `auth.js` | /api/auth/ | POST register, login, logout, refresh-token |
+| `eventGroups.js` | /api/event-groups/ | GET, POST, PUT, DELETE |
+| `events.js` | /api/events/ | GET, POST, PUT, DELETE, PATCH, check-in, export |
+| `attendance.js` | /api/attendance/ | Check-in & export endpoints |
 
 ---
 
-### 🔐 services/ - Business Logic
+  services/ - Business Logic
 Encapsulate business logic and database operations.
 
 | File | Purpose | Functions |
@@ -169,14 +169,14 @@ Encapsulate business logic and database operations.
 | `qrCodeService.js` | QR generation | generateQRCode (via QRServer API), validate, extract |
 | `exportService.js` | Data export | exportToCSV, exportToXLSX, format |
 
-**Layer Pattern:**
+Layer Pattern:
 ```
 Controller → Service → Models → Database
 ```
 
 ---
 
-### 🛡️ middleware/ - Express Middleware
+ ️ middleware/ - Express Middleware
 Intercept and process requests/responses.
 
 | File | Purpose |
@@ -188,14 +188,14 @@ Intercept and process requests/responses.
 | `cors.js` | Cross-origin resource sharing |
 | `logging.js` | HTTP request logging |
 
-**Execution Order:**
+Execution Order:
 ```
 Request → Logging → CORS → Body Parser → Auth → Validation → Controller → Error Handler → Response
 ```
 
 ---
 
-### 🛠️ utils/ - Utility Functions
+ ️ utils/ - Utility Functions
 Helper functions and reusable code.
 
 | File | Purpose |
@@ -209,21 +209,21 @@ Helper functions and reusable code.
 
 ---
 
-### ⏰ jobs/ - Background Jobs
+  jobs/ - Background Jobs
 Scheduled tasks and background processing.
 
 | File | Purpose | Schedule |
 |------|---------|----------|
 | `index.js` | Job exports | - |
-| `cleanupJob.js` | Clean expired sessions, archive old events | Daily 2 AM |
-| `syncJob.js` | Sync statistics, update status | Every 6 hours |
+| `cleanupJob.js` | Clean expired sessions, archive old events | Daily  AM |
+| `syncJob.js` | Sync statistics, update status | Every  hours |
 
 ---
 
-### 🔄 migrations/ - Database Migrations
+  migrations/ - Database Migrations
 Version control for database schema changes.
 
-**Structure:**
+Structure:
 ```javascript
 // [timestamp]-action.js
 module.exports = {
@@ -236,14 +236,14 @@ module.exports = {
 };
 ```
 
-**First Migration:** Initialize 4 tables (users, event_groups, events, attendance)
+First Migration: Initialize  tables (users, event_groups, events, attendance)
 
 ---
 
-### 🌱 seeders/ - Database Seeders
+  seeders/ - Database Seeders
 Populate development/test database with sample data.
 
-**Structure:**
+Structure:
 ```javascript
 // [timestamp]-demo-data.js
 module.exports = {
@@ -256,14 +256,14 @@ module.exports = {
 };
 ```
 
-**Sample Data:** Demo users, groups, events, attendance records
+Sample Data: Demo users, groups, events, attendance records
 
 ---
 
-## 🚀 Initialization Flow
+  Initialization Flow
 
 ```
-1. server.js
+. server.js
    ├─ Load environment (config/environment.js)
    ├─ Initialize Sequelize (config/sequelize.js)
    ├─ Create Express app
@@ -278,7 +278,7 @@ module.exports = {
 
 ---
 
-## 📝 Typical Request Flow
+  Typical Request Flow
 
 ```
 HTTP Request
@@ -304,9 +304,9 @@ HTTP Request
 
 ---
 
-## 🔌 Dependencies
+  Dependencies
 
-**Production:**
+Production:
 - `express` - Web framework
 - `sequelize` - ORM
 - `pg` & `pg-hstore` - PostgreSQL driver
@@ -315,7 +315,7 @@ HTTP Request
 - `cors` - CORS handling
 - `dotenv` - Environment variables
 
-**Development:**
+Development:
 - `nodemon` - Auto-reload
 - `eslint` - Code linting
 - `prettier` - Code formatting
@@ -324,7 +324,7 @@ HTTP Request
 
 ---
 
-## 📚 Module Exports
+  Module Exports
 
 Each folder has an `index.js` that exports its modules:
 
@@ -342,63 +342,63 @@ const { database, environment, sequelize } = require('./config');
 
 ---
 
-## ✅ File Checklist
+  File Checklist
 
-- [x] config/ - 4 files (database, environment, sequelize, index)
-- [x] models/ - 5 files (User, EventGroup, Event, Attendance, index)
-- [x] controllers/ - 5 files (auth, eventGroup, event, attendance, index)
-- [x] routes/ - 5 files (auth, eventGroups, events, attendance, index)
-- [x] services/ - 7 files (auth, eventGroup, event, attendance, qrCode, export, index)
-- [x] middleware/ - 6 files (auth, errorHandler, validation, cors, logging, index)
-- [x] utils/ - 6 files (validators, formatters, generators, errorHandler, constants, index)
-- [x] jobs/ - 3 files (cleanupJob, syncJob, index)
+- [x] config/ -  files (database, environment, sequelize, index)
+- [x] models/ -  files (User, EventGroup, Event, Attendance, index)
+- [x] controllers/ -  files (auth, eventGroup, event, attendance, index)
+- [x] routes/ -  files (auth, eventGroups, events, attendance, index)
+- [x] services/ -  files (auth, eventGroup, event, attendance, qrCode, export, index)
+- [x] middleware/ -  files (auth, errorHandler, validation, cors, logging, index)
+- [x] utils/ -  files (validators, formatters, generators, errorHandler, constants, index)
+- [x] jobs/ -  files (cleanupJob, syncJob, index)
 - [x] migrations/ - README + migration template
 - [x] seeders/ - README + seeder template
 - [x] Root files - server.js, package.json, README.md, .env.example
 
-**Total: 47 files + directories**
+Total:  files + directories
 
 ---
 
-## 🎯 Next Steps
+  Next Steps
 
-1. **Install dependencies:**
+. Install dependencies:
    ```bash
    npm install
    ```
 
-2. **Configure environment:**
+. Configure environment:
    ```bash
    cp .env.example .env
-   # Edit .env with PostgreSQL credentials
+    Edit .env with PostgreSQL credentials
    ```
 
-3. **Run migrations:**
+. Run migrations:
    ```bash
    npm run migrate
    ```
 
-4. **Seed demo data (optional):**
+. Seed demo data (optional):
    ```bash
    npm run seed:all
    ```
 
-5. **Start development server:**
+. Start development server:
    ```bash
    npm run dev
    ```
 
 ---
 
-## 📖 Documentation
+  Documentation
 
-- **API:** See [../docs/API.md](../docs/API.md)
-- **Database:** See [../docs/DATABASE_SCHEMA.md](../docs/DATABASE_SCHEMA.md)
-- **Architecture:** See [../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)
-- **Setup:** See [../docs/SETUP.md](../docs/SETUP.md)
+- API: See [../docs/API.md](../docs/API.md)
+- Database: See [../docs/DATABASE_SCHEMA.md](../docs/DATABASE_SCHEMA.md)
+- Architecture: See [../docs/ARCHITECTURE.md](../docs/ARCHITECTURE.md)
+- Setup: See [../docs/SETUP.md](../docs/SETUP.md)
 
 ---
 
-**Status:** ✅ Phase 1 Complete  
-**Last Updated:** December 6, 2025  
-**Backend Structure:** PostgreSQL + Sequelize + Express
+Status:  Phase  Complete  
+Last Updated: December ,   
+Backend Structure: PostgreSQL + Sequelize + Express

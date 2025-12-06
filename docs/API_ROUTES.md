@@ -1,134 +1,134 @@
-# API Routes Documentation
+ API Routes Documentation
 
-**Status:** ✅ COMPLETE  
-**Date:** December 2025  
-**API Prefix:** `/api`  
-**Authentication:** JWT Bearer Token (24h expiration)
+Status:  COMPLETE  
+Date: December   
+API Prefix: `/api`  
+Authentication: JWT Bearer Token (h expiration)
 
 ---
 
-## 📋 Routes Overview
+  Routes Overview
 
-### Route Groups
+ Route Groups
 
 | Route Group | Base Path | Auth Required | Purpose |
 |------------|-----------|--------------|---------|
-| Authentication | `/api/auth` | Partial* | User registration, login, token refresh |
-| Event Groups | `/api/event-groups` | ✅ Yes | Manage event groups (EO only) |
-| Events | `/api/events` | ✅ Yes** | Manage individual events |
-| Attendance | `/api/attendance` | Partial* | Check-ins (public), management (protected) |
+| Authentication | `/api/auth` | Partial | User registration, login, token refresh |
+| Event Groups | `/api/event-groups` |  Yes | Manage event groups (EO only) |
+| Events | `/api/events` |  Yes | Manage individual events |
+| Attendance | `/api/attendance` | Partial | Check-ins (public), management (protected) |
 
-*Partial = Some routes public, some protected  
-**Yes with public check-in routes within the events path
+Partial = Some routes public, some protected  
+Yes with public check-in routes within the events path
 
 ---
 
-## 🔐 Authentication Routes
+  Authentication Routes
 
-### Base URL: `/api/auth`
+ Base URL: `/api/auth`
 
 All authentication endpoints return a JWT token on success.
 
-#### 1. Register User
+ . Register User
 ```
 POST /api/auth/register
 ```
 
-**Authentication:** ❌ Not required (public)
+Authentication:  Not required (public)
 
-**Request Body:**
+Request Body:
 ```json
 {
   "name": "John Doe",
   "email": "john@example.com",
-  "password": "securePassword123",
+  "password": "securePassword",
   "role": "EO"
 }
 ```
 
-**Request Parameters:**
+Request Parameters:
 | Parameter | Type | Required | Constraints | Description |
 |-----------|------|----------|-------------|-------------|
-| name | string | ✅ Yes | 1-255 chars | User full name |
-| email | string | ✅ Yes | Valid email, unique | Login email |
-| password | string | ✅ Yes | Min 8 chars | User password |
-| role | string | ❌ No | 'EO' or 'PARTICIPANT' | Default: 'PARTICIPANT' |
+| name | string |  Yes | - chars | User full name |
+| email | string |  Yes | Valid email, unique | Login email |
+| password | string |  Yes | Min  chars | User password |
+| role | string |  No | 'EO' or 'PARTICIPANT' | Default: 'PARTICIPANT' |
 
-**Response (201 Created):**
+Response ( Created):
 ```json
 {
   "status": "success",
   "message": "User registered successfully",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "id": "e-eb-d-a-",
     "name": "John Doe",
     "email": "john@example.com",
     "role": "EO",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "token": "eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ..."
   }
 }
 ```
 
-**Error Responses:**
-- 400: Validation error (missing fields, invalid email, weak password)
-- 409: Email already registered
-- 500: Server error
+Error Responses:
+- : Validation error (missing fields, invalid email, weak password)
+- : Email already registered
+- : Server error
 
 ---
 
-#### 2. Login User
+ . Login User
 ```
 POST /api/auth/login
 ```
 
-**Authentication:** ❌ Not required (public)
+Authentication:  Not required (public)
 
-**Request Body:**
+Request Body:
 ```json
 {
   "email": "john@example.com",
-  "password": "securePassword123"
+  "password": "securePassword"
 }
 ```
 
-**Request Parameters:**
+Request Parameters:
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| email | string | ✅ Yes | Login email |
-| password | string | ✅ Yes | User password |
+| email | string |  Yes | Login email |
+| password | string |  Yes | User password |
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
   "message": "Login successful",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
+    "id": "e-eb-d-a-",
     "name": "John Doe",
     "email": "john@example.com",
     "role": "EO",
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "token": "eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ..."
   }
 }
 ```
 
-**Error Responses:**
-- 400: Missing credentials
-- 401: Invalid email or password
-- 500: Server error
+Error Responses:
+- : Missing credentials
+- : Invalid email or password
+- : Server error
 
 ---
 
-#### 3. Logout User
+ . Logout User
 ```
 POST /api/auth/logout
 ```
 
-**Authentication:** ❌ Not required (public)
+Authentication:  Not required (public)
 
-**Request Body:** None
+Request Body: None
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -136,68 +136,68 @@ POST /api/auth/logout
 }
 ```
 
-**Note:** In JWT-based auth, logout is primarily handled client-side by discarding the token. This endpoint is available for server-side token blacklisting in production.
+Note: In JWT-based auth, logout is primarily handled client-side by discarding the token. This endpoint is available for server-side token blacklisting in production.
 
 ---
 
-#### 4. Refresh Token
+ . Refresh Token
 ```
 POST /api/auth/refresh
 ```
 
-**Authentication:** ✅ Required
+Authentication:  Required
 
-**Headers:**
+Headers:
 ```
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+Authorization: Bearer eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ...
 ```
 
-**Request Body:** None
+Request Body: None
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
   "message": "Token refreshed",
   "data": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+    "token": "eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ..."
   }
 }
 ```
 
-**Error Responses:**
-- 401: Invalid or expired token
-- 500: Server error
+Error Responses:
+- : Invalid or expired token
+- : Server error
 
 ---
 
-## 📁 Event Groups Routes
+  Event Groups Routes
 
-### Base URL: `/api/event-groups`
+ Base URL: `/api/event-groups`
 
 All event group endpoints require JWT authentication.
 
-#### 1. List Event Groups
+ . List Event Groups
 ```
 GET /api/event-groups
 ```
 
-**Authentication:** ✅ Required
+Authentication:  Required
 
-**Query Parameters:**
+Query Parameters:
 | Parameter | Type | Default | Max | Description |
 |-----------|------|---------|-----|-------------|
-| page | number | 1 | - | Page number for pagination |
-| limit | number | 10 | 100 | Items per page |
+| page | number |  | - | Page number for pagination |
+| limit | number |  |  | Items per page |
 | search | string | - | - | Search by group name |
 
-**Example:**
+Example:
 ```
-GET /api/event-groups?page=1&limit=10&search=conference
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+GET /api/event-groups?page=&limit=&search=conference
+Authorization: Bearer eyJhbGciOiJIUzINiIs...
 ```
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -205,12 +205,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
   "data": {
     "groups": [
       {
-        "id": "550e8400-e29b-41d4-a716-446655440000",
-        "name": "Tech Conference 2025",
+        "id": "e-eb-d-a-",
+        "name": "Tech Conference ",
         "description": "Annual technology conference",
         "created_by": "user-uuid",
-        "created_at": "2025-01-15T10:30:00Z",
-        "updated_at": "2025-01-15T10:30:00Z",
+        "created_at": "--T::Z",
+        "updated_at": "--T::Z",
         "events": [
           {
             "id": "event-uuid",
@@ -221,10 +221,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
       }
     ],
     "pagination": {
-      "total": 5,
-      "page": 1,
-      "limit": 10,
-      "pages": 1
+      "total": ,
+      "page": ,
+      "limit": ,
+      "pages": 
     }
   }
 }
@@ -232,76 +232,76 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 ---
 
-#### 2. Create Event Group
+ . Create Event Group
 ```
 POST /api/event-groups
 ```
 
-**Authentication:** ✅ Required (EO recommended)
+Authentication:  Required (EO recommended)
 
-**Request Body:**
+Request Body:
 ```json
 {
-  "name": "Tech Conference 2025",
+  "name": "Tech Conference ",
   "description": "Annual technology conference for industry professionals"
 }
 ```
 
-**Request Parameters:**
+Request Parameters:
 | Parameter | Type | Required | Constraints |
 |-----------|------|----------|-------------|
-| name | string | ✅ Yes | 1-255 chars |
-| description | string | ❌ No | Max 5000 chars |
+| name | string |  Yes | - chars |
+| description | string |  No | Max  chars |
 
-**Response (201 Created):**
+Response ( Created):
 ```json
 {
   "status": "success",
   "message": "Event group created successfully",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "Tech Conference 2025",
+    "id": "e-eb-d-a-",
+    "name": "Tech Conference ",
     "description": "Annual technology conference for industry professionals",
-    "created_at": "2025-01-15T10:30:00Z"
+    "created_at": "--T::Z"
   }
 }
 ```
 
 ---
 
-#### 3. Get Event Group
+ . Get Event Group
 ```
 GET /api/event-groups/:groupId
 ```
 
-**Authentication:** ✅ Required
+Authentication:  Required
 
-**URL Parameters:**
+URL Parameters:
 | Parameter | Type | Description |
 |-----------|------|-------------|
 | groupId | UUID | Event group ID |
 
-**Example:**
+Example:
 ```
-GET /api/event-groups/550e8400-e29b-41d4-a716-446655440000
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+GET /api/event-groups/e-eb-d-a-
+Authorization: Bearer eyJhbGciOiJIUzINiIs...
 ```
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
   "message": "Event group retrieved successfully",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "Tech Conference 2025",
+    "id": "e-eb-d-a-",
+    "name": "Tech Conference ",
     "description": "Annual technology conference",
     "created_by": "user-uuid",
     "events": [
       {
-        "id": "event-uuid-1",
+        "id": "event-uuid-",
         "title": "Opening Keynote",
-        "start_time": "2025-12-15T09:00:00Z",
+        "start_time": "--T::Z",
         "state": "OPEN"
       }
     ]
@@ -311,93 +311,93 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 ---
 
-#### 4. Update Event Group
+ . Update Event Group
 ```
 PUT /api/event-groups/:groupId
 ```
 
-**Authentication:** ✅ Required (Creator only)
+Authentication:  Required (Creator only)
 
-**Request Body:**
+Request Body:
 ```json
 {
-  "name": "Tech Conference 2025 - Updated",
+  "name": "Tech Conference  - Updated",
   "description": "Updated description"
 }
 ```
 
-**Request Parameters:**
+Request Parameters:
 | Parameter | Type | Required | Constraints |
 |-----------|------|----------|-------------|
-| name | string | ❌ No | 1-255 chars |
-| description | string | ❌ No | Max 5000 chars |
+| name | string |  No | - chars |
+| description | string |  No | Max  chars |
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
   "message": "Event group updated successfully",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000",
-    "name": "Tech Conference 2025 - Updated",
+    "id": "e-eb-d-a-",
+    "name": "Tech Conference  - Updated",
     "description": "Updated description",
-    "updated_at": "2025-01-15T11:00:00Z"
+    "updated_at": "--T::Z"
   }
 }
 ```
 
 ---
 
-#### 5. Delete Event Group
+ . Delete Event Group
 ```
 DELETE /api/event-groups/:groupId
 ```
 
-**Authentication:** ✅ Required (Creator only)
+Authentication:  Required (Creator only)
 
-**⚠️ WARNING:** Cascade delete - removes all events and attendance records.
+️ WARNING: Cascade delete - removes all events and attendance records.
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
   "message": "Event group deleted successfully",
   "data": {
-    "id": "550e8400-e29b-41d4-a716-446655440000"
+    "id": "e-eb-d-a-"
   }
 }
 ```
 
 ---
 
-## 📅 Events Routes
+  Events Routes
 
-### Base URL: `/api/events` or `/api/event-groups/:groupId/events`
+ Base URL: `/api/events` or `/api/event-groups/:groupId/events`
 
 Mixed authentication - CRUD requires JWT, check-ins are public.
 
-#### 1. List Events
+ . List Events
 ```
 GET /api/events
 ```
 
-**Authentication:** ✅ Required
+Authentication:  Required
 
-**Query Parameters:**
+Query Parameters:
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
-| page | number | 1 | Page number |
-| limit | number | 10 | Items per page (max 50) |
+| page | number |  | Page number |
+| limit | number |  | Items per page (max ) |
 | state | string | - | Filter: DRAFT, OPEN, CLOSED |
 | sort | string | newest | newest or oldest |
 
-**Example:**
+Example:
 ```
-GET /api/events?page=1&limit=20&state=OPEN
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+GET /api/events?page=&limit=&state=OPEN
+Authorization: Bearer eyJhbGciOiJIUzINiIs...
 ```
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -407,21 +407,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
       {
         "id": "event-uuid",
         "title": "Opening Keynote",
-        "start_time": "2025-12-15T09:00:00Z",
-        "duration_minutes": 60,
+        "start_time": "--T::Z",
+        "duration_minutes": ,
         "state": "OPEN",
-        "code_text": "ABC123",
+        "code_text": "ABC",
         "group": {
           "id": "group-uuid",
-          "name": "Tech Conference 2025"
+          "name": "Tech Conference "
         }
       }
     ],
     "pagination": {
-      "total": 12,
-      "page": 1,
-      "limit": 20,
-      "pages": 1
+      "total": ,
+      "page": ,
+      "limit": ,
+      "pages": 
     }
   }
 }
@@ -429,34 +429,34 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 ---
 
-#### 2. Create Event
+ . Create Event
 ```
 POST /api/events
 OR
 POST /api/event-groups/:groupId/events
 ```
 
-**Authentication:** ✅ Required (EO only)
+Authentication:  Required (EO only)
 
-**Request Body:**
+Request Body:
 ```json
 {
   "title": "Opening Keynote Session",
-  "start_time": "2025-12-15T09:00:00Z",
-  "duration_minutes": 60,
-  "code_text": "ABC123"
+  "start_time": "--T::Z",
+  "duration_minutes": ,
+  "code_text": "ABC"
 }
 ```
 
-**Request Parameters:**
+Request Parameters:
 | Parameter | Type | Required | Constraints |
 |-----------|------|----------|-------------|
-| title | string | ✅ Yes | 1-255 chars |
-| start_time | ISO 8601 | ✅ Yes | Future date |
-| duration_minutes | number | ✅ Yes | 1-1440 minutes |
-| code_text | string | ❌ No | 4-50 chars, auto-generated if missing |
+| title | string |  Yes | - chars |
+| start_time | ISO  |  Yes | Future date |
+| duration_minutes | number |  Yes | - minutes |
+| code_text | string |  No | - chars, auto-generated if missing |
 
-**Response (201 Created):**
+Response ( Created):
 ```json
 {
   "status": "success",
@@ -464,30 +464,30 @@ POST /api/event-groups/:groupId/events
   "data": {
     "id": "event-uuid",
     "title": "Opening Keynote Session",
-    "start_time": "2025-12-15T09:00:00Z",
-    "duration_minutes": 60,
-    "code_text": "ABC123",
-    "code_qr": "550e8400-e29b-41d4-a716-446655440000",
+    "start_time": "--T::Z",
+    "duration_minutes": ,
+    "code_text": "ABC",
+    "code_qr": "e-eb-d-a-",
     "state": "OPEN"
   }
 }
 ```
 
-**Error Responses:**
-- 400: Validation error
-- 404: Group not found
-- 409: Access code already in use
+Error Responses:
+- : Validation error
+- : Group not found
+- : Access code already in use
 
 ---
 
-#### 3. Get Event
+ . Get Event
 ```
 GET /api/events/:eventId
 ```
 
-**Authentication:** ✅ Required
+Authentication:  Required
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -495,44 +495,44 @@ GET /api/events/:eventId
   "data": {
     "id": "event-uuid",
     "title": "Opening Keynote Session",
-    "start_time": "2025-12-15T09:00:00Z",
-    "duration_minutes": 60,
-    "code_text": "ABC123",
-    "code_qr": "550e8400-e29b-41d4-a716-446655440000",
+    "start_time": "--T::Z",
+    "duration_minutes": ,
+    "code_text": "ABC",
+    "code_qr": "e-eb-d-a-",
     "state": "OPEN",
-    "check_in_count": 42,
-    "created_at": "2025-01-15T10:00:00Z"
+    "check_in_count": ,
+    "created_at": "--T::Z"
   }
 }
 ```
 
 ---
 
-#### 4. Update Event
+ . Update Event
 ```
 PUT /api/events/:eventId
 ```
 
-**Authentication:** ✅ Required (Creator only)
+Authentication:  Required (Creator only)
 
-**Request Body:**
+Request Body:
 ```json
 {
   "title": "Opening Keynote - Updated",
-  "duration_minutes": 90
+  "duration_minutes": 
 }
 ```
 
-**Updatable Fields:**
+Updatable Fields:
 | Parameter | Type | Constraints |
 |-----------|------|-------------|
-| title | string | 1-255 chars |
-| start_time | ISO 8601 | Future date |
-| duration_minutes | number | 1-1440 minutes |
+| title | string | - chars |
+| start_time | ISO  | Future date |
+| duration_minutes | number | - minutes |
 
-**Note:** Cannot update state or access codes through this endpoint.
+Note: Cannot update state or access codes through this endpoint.
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -540,7 +540,7 @@ PUT /api/events/:eventId
   "data": {
     "id": "event-uuid",
     "title": "Opening Keynote - Updated",
-    "duration_minutes": 90,
+    "duration_minutes": ,
     "state": "OPEN"
   }
 }
@@ -548,16 +548,16 @@ PUT /api/events/:eventId
 
 ---
 
-#### 5. Delete Event
+ . Delete Event
 ```
 DELETE /api/events/:eventId
 ```
 
-**Authentication:** ✅ Required (Creator only)
+Authentication:  Required (Creator only)
 
-**⚠️ Restriction:** Only DRAFT events can be deleted.
+️ Restriction: Only DRAFT events can be deleted.
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -568,30 +568,30 @@ DELETE /api/events/:eventId
 }
 ```
 
-**Error Response:**
-- 409: Cannot delete non-draft event
+Error Response:
+- : Cannot delete non-draft event
 
 ---
 
-#### 6. Change Event State
+ . Change Event State
 ```
 PATCH /api/events/:eventId/state
 ```
 
-**Authentication:** ✅ Required (Creator only)
+Authentication:  Required (Creator only)
 
-**Request Body:**
+Request Body:
 ```json
 {
   "state": "OPEN"
 }
 ```
 
-**Valid States:**
+Valid States:
 - OPEN: Accepting check-ins
 - CLOSED: Not accepting check-ins
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -605,21 +605,21 @@ PATCH /api/events/:eventId/state
 
 ---
 
-#### 7. Text Code Check-in
+ . Text Code Check-in
 ```
 POST /api/attendance/check-in/text
 ```
 
-**Authentication:** ❌ Not required (public)
+Authentication:  Not required (public)
 
-**Request Body:**
+Request Body:
 ```json
 {
-  "code": "ABC123"
+  "code": "ABC"
 }
 ```
 
-**Response (201 Created):**
+Response ( Created):
 ```json
 {
   "status": "success",
@@ -628,33 +628,33 @@ POST /api/attendance/check-in/text
     "id": "attendance-uuid",
     "event_id": "event-uuid",
     "event_title": "Opening Keynote Session",
-    "timestamp": "2025-12-15T09:15:00Z"
+    "timestamp": "--T::Z"
   }
 }
 ```
 
-**Error Responses:**
-- 400: Invalid code
-- 404: Event not found
-- 409: Already checked in
+Error Responses:
+- : Invalid code
+- : Event not found
+- : Already checked in
 
 ---
 
-#### 8. QR Code Check-in
+ . QR Code Check-in
 ```
 POST /api/attendance/check-in/qr
 ```
 
-**Authentication:** ❌ Not required (public)
+Authentication:  Not required (public)
 
-**Request Body:**
+Request Body:
 ```json
 {
-  "qr_data": "ABC123"
+  "qr_data": "ABC"
 }
 ```
 
-**Response (201 Created):**
+Response ( Created):
 ```json
 {
   "status": "success",
@@ -663,40 +663,40 @@ POST /api/attendance/check-in/qr
     "id": "attendance-uuid",
     "event_id": "event-uuid",
     "event_title": "Opening Keynote Session",
-    "timestamp": "2025-12-15T09:15:00Z"
+    "timestamp": "--T::Z"
   }
 }
 ```
 
 ---
 
-## 👥 Attendance Routes
+  Attendance Routes
 
-### Base URL: `/api/attendance`
+ Base URL: `/api/attendance`
 
 Mixed authentication - check-ins are public, management routes require JWT.
 
-#### 1. List Attendees
+ . List Attendees
 ```
 GET /api/attendance/events/:eventId
 ```
 
-**Authentication:** ✅ Required (Event creator only)
+Authentication:  Required (Event creator only)
 
-**Query Parameters:**
+Query Parameters:
 | Parameter | Type | Default | Max | Description |
 |-----------|------|---------|-----|-------------|
-| page | number | 1 | - | Page number |
-| limit | number | 20 | 100 | Items per page |
+| page | number |  | - | Page number |
+| limit | number |  |  | Items per page |
 | sort | string | latest | - | earliest or latest |
 
-**Example:**
+Example:
 ```
-GET /api/attendance/events/event-uuid?page=1&limit=20&sort=latest
-Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
+GET /api/attendance/events/event-uuid?page=&limit=&sort=latest
+Authorization: Bearer eyJhbGciOiJIUzINiIs...
 ```
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -707,7 +707,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
         "id": "attendance-uuid",
         "event_id": "event-uuid",
         "participant_id": "user-uuid",
-        "timestamp": "2025-12-15T09:15:00Z",
+        "timestamp": "--T::Z",
         "participant": {
           "id": "user-uuid",
           "name": "John Doe",
@@ -716,10 +716,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
       }
     ],
     "pagination": {
-      "total": 42,
-      "page": 1,
-      "limit": 20,
-      "pages": 3
+      "total": ,
+      "page": ,
+      "limit": ,
+      "pages": 
     }
   }
 }
@@ -727,14 +727,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 
 ---
 
-#### 2. Attendance Statistics
+ . Attendance Statistics
 ```
 GET /api/attendance/events/:eventId/stats
 ```
 
-**Authentication:** ✅ Required (Event creator only)
+Authentication:  Required (Event creator only)
 
-**Response (200 OK):**
+Response ( OK):
 ```json
 {
   "status": "success",
@@ -746,10 +746,10 @@ GET /api/attendance/events/:eventId/stats
       "state": "CLOSED"
     },
     "statistics": {
-      "total_check_ins": 42,
-      "registered_check_ins": 35,
-      "anonymous_check_ins": 7,
-      "check_in_rate": "83.33%"
+      "total_check_ins": ,
+      "registered_check_ins": ,
+      "anonymous_check_ins": ,
+      "check_in_rate": ".%"
     }
   }
 }
@@ -757,23 +757,23 @@ GET /api/attendance/events/:eventId/stats
 
 ---
 
-#### 3. Export as CSV
+ . Export as CSV
 ```
 GET /api/attendance/events/:eventId/export/csv
 ```
 
-**Authentication:** ✅ Required (Event creator only)
+Authentication:  Required (Event creator only)
 
-**Response:** CSV file
+Response: CSV file
 
-**Columns:**
+Columns:
 - Check-in ID
 - Participant Name
 - Participant Email
 - Check-in Time
 - Check-in Timestamp
 
-**Headers:**
+Headers:
 ```
 Content-Type: text/csv
 Content-Disposition: attachment; filename="attendance-[eventId]-[timestamp].csv"
@@ -781,117 +781,117 @@ Content-Disposition: attachment; filename="attendance-[eventId]-[timestamp].csv"
 
 ---
 
-#### 4. Export as XLSX
+ . Export as XLSX
 ```
 GET /api/attendance/events/:eventId/export/xlsx
 ```
 
-**Authentication:** ✅ Required (Event creator only)
+Authentication:  Required (Event creator only)
 
-**Response:** XLSX file (or CSV fallback)
+Response: XLSX file (or CSV fallback)
 
-**Note:** Currently returns CSV format. XLSX implementation pending.
+Note: Currently returns CSV format. XLSX implementation pending.
 
 ---
 
-## 🔒 Authentication & Authorization
+  Authentication & Authorization
 
-### JWT Token Format
+ JWT Token Format
 
 All protected endpoints require the JWT token in the Authorization header:
 
 ```
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwLWUyOWItNDFkNC1hNzE2LTQ0NjY1NTQ0MDAwMCIsImVtYWlsIjoiam9obkBleGFtcGxlLmNvbSIsInJvbGUiOiJFTyIsImlhdCI6MTczMzMwODYwMCwiZXhwIjoxNzMzMzk1MDAwfQ.abc123...
+Authorization: Bearer eyJhbGciOiJIUzINiIsInRcCIIkpXVCJ.eyJpZCIIjUMGUNDAwLWUyOWItNDFkNChNzELTQNjYNTQMDAwMCIsImVtYWlsIjoiamobkBleGFtcGxlLmNvbSIsInJvbGUiOiJFTyIsImlhdCIMTczMzMwODYwMCwiZXhwIjoxNzMzMzkMDAwfQ.abc...
 ```
 
-### Token Expiration
+ Token Expiration
 
-- **Duration:** 24 hours from issue
-- **Refresh:** Use `/api/auth/refresh` endpoint
-- **Revocation:** Discard on client-side (client-managed logout)
+- Duration:  hours from issue
+- Refresh: Use `/api/auth/refresh` endpoint
+- Revocation: Discard on client-side (client-managed logout)
 
-### Role-Based Access
+ Role-Based Access
 
 | Operation | PARTICIPANT | EO |
 |-----------|-------------|-----|
-| Register/Login | ✅ | ✅ |
-| Create Event Group | ❌ | ✅ |
-| Manage Event Group | ❌ | ✅ (own only) |
-| Create Event | ❌ | ✅ |
-| Manage Event | ❌ | ✅ (own only) |
-| View Attendees | ❌ | ✅ (own events only) |
-| Export Attendance | ❌ | ✅ (own events only) |
-| Check-in to Event | ✅ | ✅ |
+| Register/Login |  |  |
+| Create Event Group |  |  |
+| Manage Event Group |  |  (own only) |
+| Create Event |  |  |
+| Manage Event |  |  (own only) |
+| View Attendees |  |  (own events only) |
+| Export Attendance |  |  (own events only) |
+| Check-in to Event |  |  |
 
 ---
 
-## 📊 Common HTTP Status Codes
+  Common HTTP Status Codes
 
 | Code | Meaning | Example |
 |------|---------|---------|
-| 200 | OK | Successful GET request |
-| 201 | Created | Resource created |
-| 400 | Bad Request | Validation error |
-| 401 | Unauthorized | Missing/invalid JWT token |
-| 404 | Not Found | Resource doesn't exist |
-| 409 | Conflict | Duplicate email, access code, etc. |
-| 500 | Server Error | Unexpected error |
+|  | OK | Successful GET request |
+|  | Created | Resource created |
+|  | Bad Request | Validation error |
+|  | Unauthorized | Missing/invalid JWT token |
+|  | Not Found | Resource doesn't exist |
+|  | Conflict | Duplicate email, access code, etc. |
+|  | Server Error | Unexpected error |
 
 ---
 
-## 🔄 Complete API Flow Examples
+  Complete API Flow Examples
 
-### User Registration and Event Creation Flow
+ User Registration and Event Creation Flow
 
 ```
-1. Register User
+. Register User
    POST /api/auth/register
    { "name": "John", "email": "john@ex.com", "password": "...", "role": "EO" }
    ← Returns JWT token
 
-2. Create Event Group
+. Create Event Group
    POST /api/event-groups
    Headers: { Authorization: Bearer TOKEN }
-   { "name": "Conference 2025" }
+   { "name": "Conference " }
    ← Returns group UUID
 
-3. Create Event
+. Create Event
    POST /api/event-groups/{groupId}/events
    Headers: { Authorization: Bearer TOKEN }
-   { "title": "Keynote", "start_time": "2025-12-15T09:00:00Z", "duration_minutes": 60 }
+   { "title": "Keynote", "start_time": "--T::Z", "duration_minutes":  }
    ← Returns event with access codes
 
-4. Open Event
+. Open Event
    PATCH /api/events/{eventId}/state
    Headers: { Authorization: Bearer TOKEN }
    { "state": "OPEN" }
    ← Event ready for check-ins
 
-5. Share Access Code or QR
+. Share Access Code or QR
    Share code_text or code_qr with participants
 ```
 
-### Participant Check-in Flow
+ Participant Check-in Flow
 
 ```
-1. Receive Access Code or QR
+. Receive Access Code or QR
    From event organizer (email, SMS, printed, etc.)
 
-2. Check-in by Code
+. Check-in by Code
    POST /api/attendance/check-in/text
-   { "code": "ABC123" }
+   { "code": "ABC" }
    ← Check-in recorded
 
-3. Confirmation
+. Confirmation
    Returns event details and check-in timestamp
 ```
 
 ---
 
-## 📝 Notes
+  Notes
 
-- All timestamps are in ISO 8601 format (UTC)
-- UUIDs are in standard format (8-4-4-4-12)
+- All timestamps are in ISO  format (UTC)
+- UUIDs are in standard format (----)
 - All responses include `status` and `message` fields
 - List endpoints include pagination metadata
 - Error responses include `status: "error"` and explanatory `message`
@@ -900,33 +900,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU1MGU4NDAwL
 
 ---
 
-## 📞 Troubleshooting
+  Troubleshooting
 
-### Common Issues
+ Common Issues
 
-**401 Unauthorized:**
+ Unauthorized:
 - Check JWT token is included in Authorization header
-- Verify token hasn't expired (24h validity)
+- Verify token hasn't expired (h validity)
 - Use `/api/auth/refresh` to get new token
 
-**404 Not Found:**
+ Not Found:
 - Verify resource ID is correct
 - Ensure user owns the resource
 - Check parent resources exist (group before event, etc.)
 
-**409 Conflict:**
+ Conflict:
 - Email already registered → use different email
 - Access code in use → use unique code
 - Already checked in → can't check-in twice
 - Delete event → must be in DRAFT state first
 
-**400 Bad Request:**
+ Bad Request:
 - Review request body for missing/invalid fields
 - Check field length constraints
-- Verify date format (ISO 8601)
+- Verify date format (ISO )
 - Ensure numeric fields are valid numbers
 
 ---
 
-**API Documentation Complete** ✅
+API Documentation Complete 
 

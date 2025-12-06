@@ -1,7 +1,7 @@
-/**
- * Controllers Index
- * Exports all controller modules
- */
+/
+  Controllers Index
+  Exports all controller modules
+ /
 
 module.exports = {
   authController: require('./authController'),

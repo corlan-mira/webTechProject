@@ -1,41 +1,41 @@
-# Event Attendance Backend
+ Event Attendance Backend
 
 Backend API for the Event Attendance Monitoring System
 
-## Quick Start
+ Quick Start
 
 ```bash
-# Install dependencies
+ Install dependencies
 npm install
 
-# Copy environment file
+ Copy environment file
 cp .env.example .env
 
-# Run migrations
+ Run migrations
 npm run migrate
 
-# Start development server
+ Start development server
 npm run dev
 ```
 
-## Folder Structure
+ Folder Structure
 
 ```
 backend/
-├── config/           # Configuration files
-├── models/          # Sequelize models (User, Event, etc.)
-├── controllers/     # Request handlers
-├── routes/          # API route definitions
-├── services/        # Business logic
-├── middleware/      # Express middleware
-├── utils/           # Utility functions
-├── jobs/            # Background jobs
-├── migrations/      # Database migrations
-├── seeders/         # Database seeders
-└── server.js        # Application entry point
+├── config/            Configuration files
+├── models/           Sequelize models (User, Event, etc.)
+├── controllers/      Request handlers
+├── routes/           API route definitions
+├── services/         Business logic
+├── middleware/       Express middleware
+├── utils/            Utility functions
+├── jobs/             Background jobs
+├── migrations/       Database migrations
+├── seeders/          Database seeders
+└── server.js         Application entry point
 ```
 
-## Available Scripts
+ Available Scripts
 
 - `npm start` - Start production server
 - `npm run dev` - Start development server with auto-reload
@@ -44,17 +44,17 @@ backend/
 - `npm run lint` - Check code quality
 - `npm run format` - Format code with Prettier
 
-## API Documentation
+ API Documentation
 
 See [../docs/API.md](../docs/API.md) for complete API documentation.
 
-## Database
+ Database
 
-- **Type:** PostgreSQL 12+
-- **ORM:** Sequelize 6+
-- **Connection:** Configured in `config/database.js`
+- Type: PostgreSQL +
+- ORM: Sequelize +
+- Connection: Configured in `config/database.js`
 
-## Environment Variables
+ Environment Variables
 
 See `.env.example` for all required environment variables.
 
@@ -63,6 +63,6 @@ Key variables:
 - `JWT_SECRET`, `JWT_EXPIRY`
 - `PORT`, `NODE_ENV`, `CORS_ORIGIN`
 
-## Contributing
+ Contributing
 
 Follow guidelines in [../CONTRIBUTING.md](../CONTRIBUTING.md)

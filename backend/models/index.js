@@ -1,7 +1,7 @@
-/**
- * Models Index
- * Exports all Sequelize models
- */
+/
+  Models Index
+  Exports all Sequelize models
+ /
 
 const sequelize = require('../config/sequelize');
 const User = require('./User');

@@ -1,36 +1,36 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
+/ @type {import('sequelize-cli').Migration} /
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Migration: Create events table
-     * 
-     * Creates individual events with check-in capabilities
-     * Supports both text-based access codes and QR codes
-     * 
-     * Columns:
-     * - id: UUID primary key
-     * - group_id: FK to EventGroup
-     * - title: Event title/name
-     * - start_time: Event start timestamp
-     * - duration_minutes: Event duration in minutes (1-1440)
-     * - code_text: Unique text access code for check-in
-     * - code_qr: QR code data/URL (generated from code_text)
-     * - state: ENUM (OPEN, CLOSED) for check-in state
-     * - created_by: FK to User (organizer who created event)
-     * - created_at: Timestamp
-     * - updated_at: Timestamp
-     */
+    /
+      Migration: Create events table
+      
+      Creates individual events with check-in capabilities
+      Supports both text-based access codes and QR codes
+      
+      Columns:
+      - id: UUID primary key
+      - group_id: FK to EventGroup
+      - title: Event title/name
+      - start_time: Event start timestamp
+      - duration_minutes: Event duration in minutes (-)
+      - code_text: Unique text access code for check-in
+      - code_qr: QR code data/URL (generated from code_text)
+      - state: ENUM (OPEN, CLOSED) for check-in state
+      - created_by: FK to User (organizer who created event)
+      - created_at: Timestamp
+      - updated_at: Timestamp
+     /
     await queryInterface.createTable(
       'events',
       {
         id: {
           type: Sequelize.UUID,
-          defaultValue: Sequelize.UUIDV4,
+          defaultValue: Sequelize.UUIDV,
           primaryKey: true,
           allowNull: false,
-          comment: 'Unique event identifier (UUID v4)',
+          comment: 'Unique event identifier (UUID v)',
         },
         group_id: {
           type: Sequelize.UUID,
@@ -44,7 +44,7 @@ module.exports = {
           comment: 'FK to EventGroup that contains this event',
         },
         title: {
-          type: Sequelize.STRING(255),
+          type: Sequelize.STRING(),
           allowNull: false,
           comment: 'Event title/name',
         },
@@ -57,13 +57,13 @@ module.exports = {
           type: Sequelize.INTEGER,
           allowNull: false,
           validate: {
-            min: 1,
-            max: 1440,
+            min: ,
+            max: ,
           },
-          comment: 'Event duration in minutes (1-1440, max 24 hours)',
+          comment: 'Event duration in minutes (-, max  hours)',
         },
         code_text: {
-          type: Sequelize.STRING(50),
+          type: Sequelize.STRING(),
           allowNull: false,
           unique: true,
           comment: 'Text-based access code for check-in',
@@ -103,8 +103,8 @@ module.exports = {
       },
       {
         comment: 'Individual events with check-in capabilities',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci',
+        charset: 'utfmb',
+        collate: 'utfmb_unicode_ci',
       }
     );
 
@@ -136,10 +136,10 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Rollback: Drop events table
-     * CASCADE delete will remove all related attendance records
-     */
+    /
+      Rollback: Drop events table
+      CASCADE delete will remove all related attendance records
+     /
     await queryInterface.dropTable('events');
   },
 };
