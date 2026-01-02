@@ -693,7 +693,7 @@ This project is part of a university assignment. All code and documentation are 
 
 Course: Web Technology Project  
 Semester: Fall   
-Team: [Your names here]  
+Team: Echipa 1 EN  
 Last Updated: December ,   
 Status: Phase   COMPLETE | Phase   IN PROGRESS
 
