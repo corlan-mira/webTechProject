@@ -1,4 +1,4 @@
-/
+/*
   Express Application Entry Point
   Main server setup and configuration
 
@@ -10,7 +10,7 @@ Initializes:
     - Background jobs
       - Error handling
         - Server listening
-          /
+*/
 
 const express = require('express');
 const cors = require('cors');
@@ -28,8 +28,8 @@ const app = express();
 app.set('trust proxy', 1);
 
 // Body parsing middleware
-app.use(express.json({ limit: 'mb' }));
-app.use(express.urlencoded({ limit: 'mb', extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // CORS middleware
 app.use(cors(corsOptions));
