@@ -1,16 +1,16 @@
 /
   Express Application Entry Point
   Main server setup and configuration
-  
-  Initializes:
-  - Express app
+
+Initializes:
+- Express app
   - Database connection
-  - Middleware
-  - Routes
-  - Background jobs
-  - Error handling
-  - Server listening
- /
+    - Middleware
+    - Routes
+    - Background jobs
+      - Error handling
+        - Server listening
+          /
 
 const express = require('express');
 const cors = require('cors');
@@ -25,7 +25,7 @@ const { eventStateJob } = require('./jobs');
 const app = express();
 
 // Trust proxy
-app.set('trust proxy', );
+app.set('trust proxy', 1);
 
 // Body parsing middleware
 app.use(express.json({ limit: 'mb' }));
@@ -80,10 +80,10 @@ const startServer = async () => {
     // Graceful shutdown
     process.on('SIGTERM', () => {
       console.log('SIGTERM received, shutting down gracefully...');
-      
+
       // Stop background jobs
       eventStateJob.gracefulShutdown();
-      
+
       server.close(async () => {
         await sequelize.close();
         console.log('✓ Server closed');
