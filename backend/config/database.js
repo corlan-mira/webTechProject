@@ -1,61 +1,56 @@
-/
+/**
   Database Configuration
   PostgreSQL connection settings based on environment
- /
+ */
 
 const env = process.env.NODE_ENV || 'development';
 
 const config = {
   development: {
-    username: process.env.DB_USER || 'postgres',
+    username: process.env.DB_USERNAME || process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'attendance_dev',
     host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || ,
-    dialect: 'postgres',
+    port: process.env.DB_PORT || 5432,
+    dialect: process.env.DB_DIALECT || 'postgres',
     logging: console.log,
     pool: {
-      max: ,
-      min: ,
-      acquire: ,
-      idle: ,
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
     },
   },
   test: {
-    username: process.env.DB_USER || 'postgres',
+    username: process.env.DB_USERNAME || process.env.DB_USER || 'postgres',
     password: process.env.DB_PASSWORD || 'postgres',
     database: process.env.DB_NAME || 'attendance_test',
     host: process.env.DB_HOST || 'localhost',
-    port: process.env.DB_PORT || ,
-    dialect: 'postgres',
+    port: process.env.DB_PORT || 5432,
+    dialect: process.env.DB_DIALECT || 'postgres',
     logging: false,
     pool: {
-      max: ,
-      min: ,
-      acquire: ,
-      idle: ,
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
     },
   },
   production: {
-    username: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT || ,
+    use_env_variable: 'DATABASE_URL',
     dialect: 'postgres',
-    logging: false,
-    ssl: process.env.DB_SSL === 'true',
-    dialectOptions: process.env.DB_SSL === 'true' ? {
+    dialectOptions: {
       ssl: {
         require: true,
         rejectUnauthorized: false,
       },
-    } : {},
+    },
+    logging: false,
     pool: {
-      max: ,
-      min: ,
-      acquire: ,
-      idle: ,
+      max: 10,
+      min: 2,
+      acquire: 30000,
+      idle: 10000,
     },
   },
 };
